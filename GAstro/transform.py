@@ -366,13 +366,15 @@ def oberved_to_physical_6D_werr(ra, dec, l, b, parallax, eparallax, mura, emura,
 			for i,name in enumerate(var_names):
 				if i<10: head+='  %i:  %s \n'%(i,name)
 				else: head+='  %i: %s \n'%(i,name)
-			np.savetxt(outfile+'.txt', results, header=head, fmt='%.3e')
+
+			np.savetxt(outfile+'.txt', results, header=head, fmt='%i'+' %.3e '*40)
 
 		#Fitsfile
 		if fitsfile:
 			dicf={}
 			for i, name in enumerate(var_names):
-				dicf[name] = (results[:, i:i + 1], 'D')
+				if i==0: dicf[name] = (results[:, i:i + 1], 'K')
+				else: dicf[name] = (results[:, i:i + 1], 'D')
 			ut.make_fits(dicf, outname=outfile+'.fits', header_key={'Nobjects':Nobjects,'Nrandom':Nrandom,'Rsun':Rsun,'zsun':Zsun, 'Vlsr':Vlsr, 'Vsunx':Vsun[0],'Vsuny':Vsun[1], 'Vsunz':Vsun[2]})
 
 
