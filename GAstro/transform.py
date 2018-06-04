@@ -193,27 +193,27 @@ def _observed_to_physical_werr_core(par):
 	jj=1
 	res[jj:jj+2]   = mad(Rs, axis=0)
 	jj+=2
-	res[jj:jj + 2] = np.percentile(Rs, q=(16,64), axis=0)
+	res[jj:jj + 2] = np.nanpercentile(Rs, q=(16,64), axis=0)
 	jj += 2
 	res[jj:jj + 2] = mad(R, axis=0)
 	jj += 2
-	res[jj:jj + 2] = np.percentile(R, q=(16,64), axis=0)
+	res[jj:jj + 2] = np.nanpercentile(R, q=(16,64), axis=0)
 	jj += 2
 	res[jj:jj + 2] = mad(Z, axis=0)
 	jj += 2
-	res[jj:jj + 2] = np.percentile(Z, q=(16,64), axis=0)
+	res[jj:jj + 2] = np.nanpercentile(Z, q=(16,64), axis=0)
 	jj += 2
 	res[jj:jj + 2] = mad(vx, axis=0)
 	jj += 2
-	res[jj:jj + 2] = np.percentile(vx, q=(16,64), axis=0)
+	res[jj:jj + 2] = np.nanpercentile(vx, q=(16,64), axis=0)
 	jj += 2
 	res[jj:jj + 2] = mad(vy, axis=0)
 	jj += 2
-	res[jj:jj + 2] = np.percentile(vy, q=(16,64), axis=0)
+	res[jj:jj + 2] = np.nanpercentile(vy, q=(16,64), axis=0)
 	jj += 2
 	res[jj:jj + 2] = mad(vR, axis=0)
 	jj += 2
-	res[jj:jj + 2] = np.percentile(vR, q=(16,64), axis=0)
+	res[jj:jj + 2] = np.nanpercentile(vR, q=(16,64), axis=0)
 	jj += 2
 	res[jj:jj + 2] = mad(vZ, axis=0)
 	jj += 2
@@ -221,15 +221,15 @@ def _observed_to_physical_werr_core(par):
 	jj += 2
 	res[jj:jj + 2] = mad(vr, axis=0)
 	jj += 2
-	res[jj:jj + 2] = np.percentile(vr, q=(16,64), axis=0)
+	res[jj:jj + 2] = np.nanpercentile(vr, q=(16,64), axis=0)
 	jj += 2
 	res[jj:jj + 2] = mad(vt, axis=0)
 	jj += 2
-	res[jj:jj + 2] = np.percentile(vt, q=(16,64), axis=0)
+	res[jj:jj + 2] = np.nanpercentile(vt, q=(16,64), axis=0)
 	jj += 2
 	res[jj:jj + 2] = mad(vPhi, axis=0)
 	jj += 2
-	res[jj:jj + 2] = np.percentile(vPhi, q=(16,64), axis=0)
+	res[jj:jj + 2] = np.nanpercentile(vPhi, q=(16,64), axis=0)
 
 
 	return res
