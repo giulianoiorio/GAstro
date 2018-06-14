@@ -146,8 +146,8 @@ def _observed_to_physical_werr_core(par):
 	Estimate the physical phase space information from the observations
 	:param par: a tuple with (id, ra, dec, l, b, parallax, eparallax, mura, emura, mudec, emudec, vra, evrad, Nrandom, Vsunx, Vsuny, Vsunz Rsun)
 	:return:
-	 		A numpy array with dimension (41)
-	 		It contains 11 variables with 4 entries excpet the first (id) with only one entry.
+	 		A numpy array with dimension (49)
+	 		It contains 13 variables with 4 entries excpet the first (id) with only one entry.
 	 		For a given variable Var the entries are:
 	 			a- Var (median of the Nrandom sampling)
 	 			b- Var_error (error on Var, estimated as mad)
@@ -165,6 +165,8 @@ def _observed_to_physical_werr_core(par):
 	 			28- Vr: Velocity along the Galactic radius  [km/s]
 	 			32- Vt: Velocity along the Galactic zenithal angle theta  [km/s]
 	 			36- Vphi: Velocity along the Galactic azimuthal angle Phi [km/s]
+	 			37- Dist: Distane from the Sun [kpc]
+	 			38- DistG: Distance from the Galactic centre [km/s]
 	see the functions (observed_to_physical for further information)
 	"""
 
@@ -173,7 +175,7 @@ def _observed_to_physical_werr_core(par):
 	Vsun    = (Vsunx, Vsuny, Vsunz)
 	onest   = np.ones(Nrandom)
 
-	res = np.zeros(shape=(41), dtype=np.float)
+	res = np.zeros(shape=(49), dtype=np.float)
 
 	mean 			          =   (parallax, mura, mudec, vrad)
 	std  			          =   (eparallax, emura, emudec, evrad)
@@ -182,12 +184,14 @@ def _observed_to_physical_werr_core(par):
 	#random_values            =   np.random.multivariate_normal(mean,cov*cov,Nrandom)
 	mul, mub 		          =   co.pmrapmdec_to_pmllpmbb(random_values[:,1], random_values[:,2], onest*ra, onest*dec, degree=True).T
 	dist 			          =   ut.parallax_to_distance(random_values[:,0])
+	dist					  =	  np.where(dist>=0,dist,np.nan)
 	xs, ys, zs, vxs, vys, vzs =   co.sphergal_to_rectgal(onest*l, onest* b, dist, random_values[:,3], mul, mub, degree=True).T
 	Rs 				          =   np.sqrt(xs * xs + ys * ys)
 	R, phi, Z		          =   co.XYZ_to_galcencyl(xs, ys, zs, Zsun=0, Xsun=Rsun).T
 	vR, vPhi, vZ 	          =   co.vxvyvz_to_galcencyl(vxs, vys, vzs, R, phi, Z, vsun=Vsun, Xsun=Rsun, Zsun=0, galcen=True).T
 	theta			          =   np.arctan2(R,Z) #because in spherical coordiante theta is the angle bwen Z and r
 	vr,vt,vp, vx, vy          =   cylindrical_to_spherical(vR, vPhi, vZ, phi, theta)
+	distG					  =   np.sqrt(R*R+Z*Z)
 
 	res[0]=id
 	jj=1
@@ -230,10 +234,16 @@ def _observed_to_physical_werr_core(par):
 	res[jj:jj + 2] = mad(vPhi, axis=0)
 	jj += 2
 	res[jj:jj + 2] = np.nanpercentile(vPhi, q=(16,64), axis=0)
-
+	jj += 2
+	res[jj:jj + 2] = mad(dist, axis=0)
+	jj += 2
+	res[jj:jj + 2] = np.nanpercentile(dist, q=(16,64), axis=0)
+	jj += 2
+	res[jj:jj + 2] = mad(distG, axis=0)
+	jj += 2
+	res[jj:jj + 2] = np.nanpercentile(distG, q=(16,64), axis=0)
 
 	return res
-
 
 def _observed_to_physical_werr_multi(par):
 	"""
@@ -241,8 +251,8 @@ def _observed_to_physical_werr_multi(par):
 	It is a wrapper to cycle the core function _observed_to_physical_werr_core with a serial for
 	:param par: a list of  tuple with (id, ra, dec, l, b, parallax, eparallax, mura, emura, mudec, emudec, vra, evrad, Nrandom, Vsunx, Vsuny, Vsunz, Rsun)
 	:return:
-	 		A numpy array with dimension (Nobjects,41)
-	 		It contains 11 variables with 4 entries excpet the first (id) with only one entry.
+	 		A numpy array with dimension (Nobjects,49)
+	 		It contains 13 variables with 4 entries excpet the first (id) with only one entry.
 	 		For a given variable Var the entries are:
 	 			a- Var (median of the Nrandom sampling)
 	 			b- Var_error (error on Var, estimated as mad)
@@ -260,6 +270,8 @@ def _observed_to_physical_werr_multi(par):
 	 			28- Vr: Velocity along the Galactic radius  [km/s]
 	 			32- Vt: Velocity along the Galactic zenithal angle theta  [km/s]
 	 			36- Vphi: Velocity along the Galactic azimuthal angle Phi [km/s]
+	 			37- Dist: Distane from the Sun [kpc]
+	 			38- DistG: Distance from the Galactic centre [km/s]
 	see the functions (observed_to_physical for further information)
 	"""
 
@@ -296,8 +308,8 @@ def oberved_to_physical_6D_werr(ra, dec, l, b, parallax, eparallax, mura, emura,
 	:param Vsun: 3D tuple with the velocity of the Sun in (-U,V,W) [ (-11, 12.24, 7.25) km/s]
 	:param nproc:  Number of threads [2]
 	:return:
-	 		A numpy array with dimension (Nobjects, 41)
-	 		It contains 11 variables with 4 entries excpet the first (id) with only one entry.
+	 		A numpy array with dimension (Nobjects, 49)
+	 		It contains 13 variables with 4 entries excpet the first (id) with only one entry.
 	 		For a given variable Var the entries are:
 	 			a- Var (median of the Nrandom sampling)
 	 			b- Var_error (error on Var, estimated as mad)
@@ -315,6 +327,8 @@ def oberved_to_physical_6D_werr(ra, dec, l, b, parallax, eparallax, mura, emura,
 	 			28- Vr: Velocity along the Galactic radius  [km/s]
 	 			32- Vt: Velocity along the Galactic zenithal angle theta  [km/s]
 	 			36- Vphi: Velocity along the Galactic azimuthal angle Phi [km/s]
+	 			37- Dist: Distane from the Sun [kpc]
+	 			38- DistG: Distance from the Galactic centre [km/s]
 	"""
 
 	if Zsun!=0:
@@ -344,7 +358,7 @@ def oberved_to_physical_6D_werr(ra, dec, l, b, parallax, eparallax, mura, emura,
 
 	if outfile is not None and ( numpyfile or asciifile or fitsfile):
 
-		col_names = ('Rs', 'R', 'z', 'Vx', 'Vy', 'VR', 'Vz', 'Vrad', 'Vt', 'Vphi')
+		col_names = ('Rs', 'R', 'z', 'Vx', 'Vy', 'VR', 'Vz', 'Vrad', 'Vt', 'Vphi', 'Dist', 'DistG')
 		subcol_names = ('', '_error', '_low', '_up')
 		var_names = ['id',]
 		for col_name in col_names:
@@ -375,7 +389,7 @@ def oberved_to_physical_6D_werr(ra, dec, l, b, parallax, eparallax, mura, emura,
 			for i, name in enumerate(var_names):
 				if i==0: dicf[name] = (results[:, i:i + 1], 'K')
 				else: dicf[name] = (results[:, i:i + 1], 'D')
-			ut.make_fits(dicf, outname=outfile+'.fits', header_key={'Nobjects':Nobjects,'Nrandom':Nrandom,'Rsun':Rsun,'zsun':Zsun, 'Vlsr':Vlsr, 'Vsunx':Vsun[0],'Vsuny':Vsun[1], 'Vsunz':Vsun[2]})
+			ut.make_fits(dicf, outname=outfile+'.fits', header_key={'Nobjects':Nobjects,'Nrandom':Nrandom,'Rsun':Rsun,'zsun':Zsun, 'Vlsr':Vlsr, 'Vsunx':Vsun[0],'Vsuny':Vsun[1], 'Vsunz':Vsun[2], 'Dist': Dist, 'DistG': DistG})
 
 
 
@@ -406,3 +420,4 @@ def XYZ_to_lbd(R,phi,z, xsun=8):
 	b=np.arcsin(z_s/rad_s)*cost
 
 	return l,b,rad_s
+
