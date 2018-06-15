@@ -29,6 +29,9 @@ prop_cycle = mpl.rcParams['axes.prop_cycle']
 colors = prop_cycle.by_key()['color']
 
 
+
+
+
 def cylindrical_to_spherical(AR,Ap,Az,phi,theta):
 
 	st=np.sin(theta)
@@ -51,7 +54,6 @@ def cylindrical_to_spherical(AR,Ap,Az,phi,theta):
 
 
 	return Ar, At, Ap, Ax, Ay
-
 
 #TODO: use Montecarlo to estimate the errors
 def vxvyvz(ra, dec, l, b, mura, mudec, vrad, dist, parallax=False, vlsr=220, vsun=(-11.1, 12.24, 7.25), zsun=0, rsun=8,
@@ -139,8 +141,6 @@ def vxvyvz(ra, dec, l, b, mura, mudec, vrad, dist, parallax=False, vlsr=220, vsu
 
 	return Rs, R, Z, vZ, vR, vT
 
-
-
 def _observed_to_physical_werr_core(par):
 	"""
 	Estimate the physical phase space information from the observations
@@ -197,51 +197,51 @@ def _observed_to_physical_werr_core(par):
 	jj=1
 	res[jj:jj+2]   = mad(Rs, axis=0)
 	jj+=2
-	res[jj:jj + 2] = np.nanpercentile(Rs, q=(16,64), axis=0)
+	res[jj:jj + 2] = np.nanpercentile(Rs, q=(16,84), axis=0)
 	jj += 2
 	res[jj:jj + 2] = mad(R, axis=0)
 	jj += 2
-	res[jj:jj + 2] = np.nanpercentile(R, q=(16,64), axis=0)
+	res[jj:jj + 2] = np.nanpercentile(R, q=(16,84), axis=0)
 	jj += 2
 	res[jj:jj + 2] = mad(Z, axis=0)
 	jj += 2
-	res[jj:jj + 2] = np.nanpercentile(Z, q=(16,64), axis=0)
+	res[jj:jj + 2] = np.nanpercentile(Z, q=(16,84), axis=0)
 	jj += 2
 	res[jj:jj + 2] = mad(vx, axis=0)
 	jj += 2
-	res[jj:jj + 2] = np.nanpercentile(vx, q=(16,64), axis=0)
+	res[jj:jj + 2] = np.nanpercentile(vx, q=(16,84), axis=0)
 	jj += 2
 	res[jj:jj + 2] = mad(vy, axis=0)
 	jj += 2
-	res[jj:jj + 2] = np.nanpercentile(vy, q=(16,64), axis=0)
+	res[jj:jj + 2] = np.nanpercentile(vy, q=(16,84), axis=0)
 	jj += 2
 	res[jj:jj + 2] = mad(vR, axis=0)
 	jj += 2
-	res[jj:jj + 2] = np.nanpercentile(vR, q=(16,64), axis=0)
+	res[jj:jj + 2] = np.nanpercentile(vR, q=(16,84), axis=0)
 	jj += 2
 	res[jj:jj + 2] = mad(vZ, axis=0)
 	jj += 2
-	res[jj:jj + 2] = np.percentile(vZ, q=(16,64), axis=0)
+	res[jj:jj + 2] = np.percentile(vZ, q=(16,84), axis=0)
 	jj += 2
 	res[jj:jj + 2] = mad(vr, axis=0)
 	jj += 2
-	res[jj:jj + 2] = np.nanpercentile(vr, q=(16,64), axis=0)
+	res[jj:jj + 2] = np.nanpercentile(vr, q=(16,84), axis=0)
 	jj += 2
 	res[jj:jj + 2] = mad(vt, axis=0)
 	jj += 2
-	res[jj:jj + 2] = np.nanpercentile(vt, q=(16,64), axis=0)
+	res[jj:jj + 2] = np.nanpercentile(vt, q=(16,84), axis=0)
 	jj += 2
 	res[jj:jj + 2] = mad(vPhi, axis=0)
 	jj += 2
-	res[jj:jj + 2] = np.nanpercentile(vPhi, q=(16,64), axis=0)
+	res[jj:jj + 2] = np.nanpercentile(vPhi, q=(16,84), axis=0)
 	jj += 2
 	res[jj:jj + 2] = mad(dist, axis=0)
 	jj += 2
-	res[jj:jj + 2] = np.nanpercentile(dist, q=(16,64), axis=0)
+	res[jj:jj + 2] = np.nanpercentile(dist, q=(16,84), axis=0)
 	jj += 2
 	res[jj:jj + 2] = mad(distG, axis=0)
 	jj += 2
-	res[jj:jj + 2] = np.nanpercentile(distG, q=(16,64), axis=0)
+	res[jj:jj + 2] = np.nanpercentile(distG, q=(16,84), axis=0)
 
 	return res
 
@@ -381,7 +381,7 @@ def oberved_to_physical_6D_werr(ra, dec, l, b, parallax, eparallax, mura, emura,
 				if i<10: head+='  %i:  %s \n'%(i,name)
 				else: head+='  %i: %s \n'%(i,name)
 
-			np.savetxt(outfile+'.txt', results, header=head, fmt='%i'+' %.3e '*40)
+			np.savetxt(outfile+'.txt', results, header=head, fmt='%i'+' %.3e '*48)
 
 		#Fitsfile
 		if fitsfile:
