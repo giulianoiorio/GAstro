@@ -186,7 +186,6 @@ def _observed_to_physical_werr_core(par):
 	dist 			          =   ut.parallax_to_distance(random_values[:,0])
 	dist					  =	  np.where(dist>=0,dist,np.nan)
 	xs, ys, zs, vxs, vys, vzs =   co.sphergal_to_rectgal(onest*l, onest* b, dist, random_values[:,3], mul, mub, degree=True).T
-	Rs 				          =   np.sqrt(xs * xs + ys * ys)
 	R, phi, Z		          =   co.XYZ_to_galcencyl(xs, ys, zs, Zsun=0, Xsun=Rsun).T
 	vR, vPhi, vZ 	          =   co.vxvyvz_to_galcencyl(vxs, vys, vzs, R, phi, Z, vsun=Vsun, Xsun=Rsun, Zsun=0, galcen=True).T
 	theta			          =   np.arctan2(R,Z) #because in spherical coordiante theta is the angle bwen Z and r
@@ -389,7 +388,7 @@ def oberved_to_physical_6D_werr(ra, dec, l, b, parallax, eparallax, mura, emura,
 			for i, name in enumerate(var_names):
 				if i==0: dicf[name] = (results[:, i:i + 1], 'K')
 				else: dicf[name] = (results[:, i:i + 1], 'D')
-			ut.make_fits(dicf, outname=outfile+'.fits', header_key={'Nobjects':Nobjects,'Nrandom':Nrandom,'Rsun':Rsun,'zsun':Zsun, 'Vlsr':Vlsr, 'Vsunx':Vsun[0],'Vsuny':Vsun[1], 'Vsunz':Vsun[2], 'Dist': Dist, 'DistG': DistG})
+			ut.make_fits(dicf, outname=outfile+'.fits', header_key={'Nobjects':Nobjects,'Nrandom':Nrandom,'Rsun':Rsun,'zsun':Zsun, 'Vlsr':Vlsr, 'Vsunx':Vsun[0],'Vsuny':Vsun[1], 'Vsunz':Vsun[2]})
 
 
 

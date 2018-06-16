@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6786ee18-aa09-44af-8430-3dec9f667fc5" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GAstro/stat.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAstro/stat.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GAstro/transform.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAstro/transform.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,8 +16,8 @@
       <file leaf-file-name="transform.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/GAstro/transform.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="183">
-              <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
+            <state relative-caret-position="348">
+              <caret line="390" column="192" selection-start-line="390" selection-start-column="192" selection-end-line="390" selection-end-column="192" />
               <folding>
                 <element signature="e#143#167#0" expanded="true" />
               </folding>
@@ -625,8 +623,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/GAstro/transform.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
+        <state relative-caret-position="348">
+          <caret line="390" column="192" selection-start-line="390" selection-start-column="192" selection-end-line="390" selection-end-column="192" />
           <folding>
             <element signature="e#143#167#0" expanded="true" />
           </folding>
