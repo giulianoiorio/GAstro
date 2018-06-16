@@ -186,6 +186,7 @@ def _observed_to_physical_werr_core(par):
 	dist 			          =   ut.parallax_to_distance(random_values[:,0])
 	dist					  =	  np.where(dist>=0,dist,np.nan)
 	xs, ys, zs, vxs, vys, vzs =   co.sphergal_to_rectgal(onest*l, onest* b, dist, random_values[:,3], mul, mub, degree=True).T
+	Rs						  =   np.sqrt(xs*xs+ys*ys)
 	R, phi, Z		          =   co.XYZ_to_galcencyl(xs, ys, zs, Zsun=0, Xsun=Rsun).T
 	vR, vPhi, vZ 	          =   co.vxvyvz_to_galcencyl(vxs, vys, vzs, R, phi, Z, vsun=Vsun, Xsun=Rsun, Zsun=0, galcen=True).T
 	theta			          =   np.arctan2(R,Z) #because in spherical coordiante theta is the angle bwen Z and r
