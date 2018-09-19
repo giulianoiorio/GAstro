@@ -65,12 +65,10 @@ def spherical_to_cartesian(Ar, At, Af, theta, phi):
 	phi: zenital angle wrt to z, i.e. phi=np.arcos(z/r)
 	'''
 
-	tet=np.arctan2(yg,xg)
-	phip=np.arccos(zg/r)
-	cost=np.cos(tet)
-	sint=np.sin(tet)
-	cosf=np.cos(phip)
-	sinf=np.sin(phip)
+	cost=np.cos(theta)
+	sint=np.sin(theta)
+	cosf=np.cos(phi)
+	sinf=np.sin(phi)
 
 	
 	Ax = Ar*cost*sinf - At*sint + Af*cost*cosf
