@@ -457,4 +457,30 @@ def XYZ_to_lbd(R,phi,z, xsun=8):
 	b=np.arcsin(z_s/rad_s)*cost
 
 	return l,b,rad_s
+	
+	
+def lbd_to_XYZ(l,b,d,xsun=8):
+	"""
+	Pass from l,b and d (heliocentric distance) to the Rectulangar (left-handed) Galactic frame of 
+	:param l: Galactic longitude [degree]
+	:param b: Galactic latitude [degree]
+	:param d: heliocentric distance [kpc]
+	:param xsun: position of the sun in kpc
+	:return:
+		x: Galactic x (positive toward the Sun).
+		y: Galactic y (positive toward the Galactic rotational motion). 
+		z: Galactic z positive toward the North Cap.
+	"""
+	l=np.radians(l)
+	b=np.radians(b)
+	z_s=D*np.sin(b)
+	R_s=D*np.cos(b)
+	x_s=R_s*np.cos(l)
+	y_s=R_s*np.sin(l)
+	
+	z_g=z_s
+	y_g=y_s
+	x_g=xsun-x_s
+
+	return x_g, y_g, z_g
 
