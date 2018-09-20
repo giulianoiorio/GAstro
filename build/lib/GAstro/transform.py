@@ -473,8 +473,8 @@ def lbd_to_XYZ(l,b,d,xsun=8):
 	"""
 	l=np.radians(l)
 	b=np.radians(b)
-	z_s=D*np.sin(b)
-	R_s=D*np.cos(b)
+	z_s=d*np.sin(b)
+	R_s=d*np.cos(b)
 	x_s=R_s*np.cos(l)
 	y_s=R_s*np.sin(l)
 	
