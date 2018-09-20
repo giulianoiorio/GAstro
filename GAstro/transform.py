@@ -29,7 +29,21 @@ prop_cycle = mpl.rcParams['axes.prop_cycle']
 colors = prop_cycle.by_key()['color']
 
 
-
+def m_to_dist(m,M):
+	"""
+	Pass from observed magnitude m to heliocentric distance D given the absolute magnitude 
+	M.
+	:param m: observed magnitude
+	:param dec:  absolute magnitude
+	:return: Heliocentric distance
+	"""
+	
+	distance_modulus = (m-M)
+	power_argument   = distance_modulus/5 -2
+	Dsun             = 10**power_argument
+	
+	return Dsun
+	
 
 
 def cylindrical_to_spherical(AR,Ap,Az,phi,theta):
