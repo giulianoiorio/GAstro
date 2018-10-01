@@ -176,15 +176,15 @@ def vxvyvz(ra, dec, l, b, mura, mudec, vrad, dist, parallax=False, vlsr=220, vsu
 
 
 
-	return Rs, R, Z, vZ, vR, vT
+	return Rs, R, Z,  vZ, vR, vT
 
 def _observed_to_physical_werr_core(par):
 	"""
 	Estimate the physical phase space information from the observations
 	:param par: a tuple with (id, ra, dec, l, b, parallax, eparallax, mura, emura, mudec, emudec, vra, evrad, Nrandom, Vsunx, Vsuny, Vsunz Rsun)
 	:return:
-	 		A numpy array with dimension (49)
-	 		It contains 13 variables with 4 entries excpet the first (id) with only one entry.
+	 		A numpy array with dimension (53)
+	 		It contains 14 variables with 4 entries excpet the first (id) with only one entry.
 	 		For a given variable Var the entries are:
 	 			a- Var (median of the Nrandom sampling)
 	 			b- Var_error (error on Var, estimated as mad)
@@ -193,18 +193,19 @@ def _observed_to_physical_werr_core(par):
 	 		The variables (and the column number of the respective Var) are:
 	 			0- Id: unique Id
 	 			1-  Rs: Circular radius wrt to the Sun [kpc]
-	 			4-  R: Galactic cylindrical radius [kpc]
-	 			8-  Z: Galactic height above the plane [kpc]
-	 			12- Vx: Velocity along the Galactic x-axis (pointing toward the Sun) [km/s]
-	 			16- Vy: Velocity along the Galactic y-axis (pointing toward the Sun) [km/s]
-	 			20- VR: Velocity along the Galactic cylindrical Radius  [km/s]
-	 			24- Vz: Velocity along the Galactic z-axis  [km/s]
-	 			28- Vr: Velocity along the Galactic radius  [km/s]
-	 			32- Vt: Velocity along the Galactic zenithal angle theta  [km/s]
-	 			36- Vphi: Velocity along the Galactic azimuthal angle Phi [km/s]
-	 			37- Dist: Distane from the Sun [kpc]
-	 			38- DistG: Distance from the Galactic centre [km/s]
-	see the functions (observed_to_physical for further information)
+	 			5-  R: Galactic cylindrical radius [kpc]
+	 			9-  Z: Galactic height above the plane [kpc]
+	 			13- Vx: Velocity along the Galactic x-axis (pointing toward the Sun) [km/s]
+	 			17- Vy: Velocity along the Galactic y-axis (pointing toward the Sun) [km/s]
+	 			21- VR: Velocity along the Galactic cylindrical Radius  [km/s]
+	 			25- Vz: Velocity along the Galactic z-axis  [km/s]
+	 			29- Vr: Velocity along the Galactic radius  [km/s]
+	 			33- Vt: Velocity along the Galactic zenithal angle theta  [km/s]
+	 			37- Vphi: Velocity along the Galactic azimuthal angle Phi [km/s]
+	 			41- Dist: Distane from the Sun [kpc]
+	 			45- DistG: Distance from the Galactic centre [km/s]
+				49- Phi: Azimuthal angle [deg]			
+				see the functions (observed_to_physical for further information)
 	"""
 
 	id, ra, dec, l, b, parallax, eparallax, mura, emura, mudec, emudec, vrad, evrad, Nrandom, Vsunx, Vsuny, Vsunz, Rsun = par
@@ -212,7 +213,7 @@ def _observed_to_physical_werr_core(par):
 	Vsun    = (Vsunx, Vsuny, Vsunz)
 	onest   = np.ones(Nrandom)
 
-	res = np.zeros(shape=(49), dtype=np.float)
+	res = np.zeros(shape=(53), dtype=np.float)
 
 	mean 			          =   (parallax, mura, mudec, vrad)
 	std  			          =   (eparallax, emura, emudec, evrad)
@@ -229,7 +230,8 @@ def _observed_to_physical_werr_core(par):
 	theta			          =   np.arctan2(R,Z) #because in spherical coordiante theta is the angle bwen Z and r
 	vr,vt,vp, vx, vy          =   cylindrical_to_spherical(vR, vPhi, vZ, phi, theta)
 	distG					  =   np.sqrt(R*R+Z*Z)
-
+	
+	
 	res[0]=id
 	jj=1
 	res[jj:jj+2]   = mad(Rs, axis=0)
@@ -279,6 +281,11 @@ def _observed_to_physical_werr_core(par):
 	res[jj:jj + 2] = mad(distG, axis=0)
 	jj += 2
 	res[jj:jj + 2] = np.nanpercentile(distG, q=(16,84), axis=0)
+	jj += 2
+	phid=phi*180./np.pi #Phi in deg
+	res[jj:jj + 2] = mad(phid, axis=0)
+	jj += 2
+	res[jj:jj + 2] = np.nanpercentile(phid, q=(16,84), axis=0)
 
 	return res
 
@@ -288,8 +295,8 @@ def _observed_to_physical_werr_multi(par):
 	It is a wrapper to cycle the core function _observed_to_physical_werr_core with a serial for
 	:param par: a list of  tuple with (id, ra, dec, l, b, parallax, eparallax, mura, emura, mudec, emudec, vra, evrad, Nrandom, Vsunx, Vsuny, Vsunz, Rsun)
 	:return:
-	 		A numpy array with dimension (Nobjects,49)
-	 		It contains 13 variables with 4 entries excpet the first (id) with only one entry.
+	 		A numpy array with dimension (53)
+	 		It contains 14 variables with 4 entries excpet the first (id) with only one entry.
 	 		For a given variable Var the entries are:
 	 			a- Var (median of the Nrandom sampling)
 	 			b- Var_error (error on Var, estimated as mad)
@@ -298,17 +305,18 @@ def _observed_to_physical_werr_multi(par):
 	 		The variables (and the column number of the respective Var) are:
 	 			0- Id: unique Id
 	 			1-  Rs: Circular radius wrt to the Sun [kpc]
-	 			4-  R: Galactic cylindrical radius [kpc]
-	 			8-  Z: Galactic height above the plane [kpc]
-	 			12- Vx: Velocity along the Galactic x-axis (pointing toward the Sun) [km/s]
-	 			16- Vy: Velocity along the Galactic y-axis (pointing toward the Sun) [km/s]
-	 			20- VR: Velocity along the Galactic cylindrical Radius  [km/s]
-	 			24- Vz: Velocity along the Galactic z-axis  [km/s]
-	 			28- Vr: Velocity along the Galactic radius  [km/s]
-	 			32- Vt: Velocity along the Galactic zenithal angle theta  [km/s]
-	 			36- Vphi: Velocity along the Galactic azimuthal angle Phi [km/s]
-	 			37- Dist: Distane from the Sun [kpc]
-	 			38- DistG: Distance from the Galactic centre [km/s]
+	 			5-  R: Galactic cylindrical radius [kpc]
+	 			9-  Z: Galactic height above the plane [kpc]
+	 			13- Vx: Velocity along the Galactic x-axis (pointing toward the Sun) [km/s]
+	 			17- Vy: Velocity along the Galactic y-axis (pointing toward the Sun) [km/s]
+	 			21- VR: Velocity along the Galactic cylindrical Radius  [km/s]
+	 			25- Vz: Velocity along the Galactic z-axis  [km/s]
+	 			29- Vr: Velocity along the Galactic radius  [km/s]
+	 			33- Vt: Velocity along the Galactic zenithal angle theta  [km/s]
+	 			37- Vphi: Velocity along the Galactic azimuthal angle Phi [km/s]
+	 			41- Dist: Distane from the Sun [kpc]
+	 			45- DistG: Distance from the Galactic centre [km/s]
+				49- Phi: Azimuthal angle [deg]			
 	see the functions (observed_to_physical for further information)
 	"""
 
@@ -345,8 +353,8 @@ def oberved_to_physical_6D_werr(ra, dec, l, b, parallax, eparallax, mura, emura,
 	:param Vsun: 3D tuple with the velocity of the Sun in (-U,V,W) [ (-11, 12.24, 7.25) km/s]
 	:param nproc:  Number of threads [2]
 	:return:
-	 		A numpy array with dimension (Nobjects, 49)
-	 		It contains 13 variables with 4 entries excpet the first (id) with only one entry.
+	 		A numpy array with dimension (53)
+	 		It contains 14 variables with 4 entries excpet the first (id) with only one entry.
 	 		For a given variable Var the entries are:
 	 			a- Var (median of the Nrandom sampling)
 	 			b- Var_error (error on Var, estimated as mad)
@@ -355,17 +363,18 @@ def oberved_to_physical_6D_werr(ra, dec, l, b, parallax, eparallax, mura, emura,
 	 		The variables (and the column number of the respective Var) are:
 	 			0- Id: unique Id
 	 			1-  Rs: Circular radius wrt to the Sun [kpc]
-	 			4-  R: Galactic cylindrical radius [kpc]
-	 			8-  Z: Galactic height above the plane [kpc]
-	 			12- Vx: Velocity along the Galactic x-axis (pointing toward the Sun) [km/s]
-	 			16- Vy: Velocity along the Galactic y-axis (pointing toward the Sun) [km/s]
-	 			20- VR: Velocity along the Galactic cylindrical Radius  [km/s]
-	 			24- Vz: Velocity along the Galactic z-axis  [km/s]
-	 			28- Vr: Velocity along the Galactic radius  [km/s]
-	 			32- Vt: Velocity along the Galactic zenithal angle theta  [km/s]
-	 			36- Vphi: Velocity along the Galactic azimuthal angle Phi [km/s]
-	 			37- Dist: Distane from the Sun [kpc]
-	 			38- DistG: Distance from the Galactic centre [km/s]
+	 			5-  R: Galactic cylindrical radius [kpc]
+	 			9-  Z: Galactic height above the plane [kpc]
+	 			13- Vx: Velocity along the Galactic x-axis (pointing toward the Sun) [km/s]
+	 			17- Vy: Velocity along the Galactic y-axis (pointing toward the Sun) [km/s]
+	 			21- VR: Velocity along the Galactic cylindrical Radius  [km/s]
+	 			25- Vz: Velocity along the Galactic z-axis  [km/s]
+	 			29- Vr: Velocity along the Galactic radius  [km/s]
+	 			33- Vt: Velocity along the Galactic zenithal angle theta  [km/s]
+	 			37- Vphi: Velocity along the Galactic azimuthal angle Phi [km/s]
+	 			41- Dist: Distane from the Sun [kpc]
+	 			45- DistG: Distance from the Galactic centre [km/s]
+				49- Phi: Azimuthal angle [deg]			
 	"""
 
 	if Zsun!=0:
@@ -395,7 +404,7 @@ def oberved_to_physical_6D_werr(ra, dec, l, b, parallax, eparallax, mura, emura,
 
 	if outfile is not None and ( numpyfile or asciifile or fitsfile):
 
-		col_names = ('Rs', 'R', 'z', 'Vx', 'Vy', 'VR', 'Vz', 'Vrad', 'Vt', 'Vphi', 'Dist', 'DistG')
+		col_names = ('Rs', 'R', 'z', 'Vx', 'Vy', 'VR', 'Vz', 'Vrad', 'Vt', 'Vphi', 'Dist', 'DistG','Phi')
 		subcol_names = ('', '_error', '_low', '_up')
 		var_names = ['id',]
 		for col_name in col_names:
@@ -418,7 +427,7 @@ def oberved_to_physical_6D_werr(ra, dec, l, b, parallax, eparallax, mura, emura,
 				if i<10: head+='  %i:  %s \n'%(i,name)
 				else: head+='  %i: %s \n'%(i,name)
 
-			np.savetxt(outfile+'.txt', results, header=head, fmt='%i'+' %.3e '*48)
+			np.savetxt(outfile+'.txt', results, header=head, fmt='%i'+' %.3e '*52)
 
 		#Fitsfile
 		if fitsfile:
