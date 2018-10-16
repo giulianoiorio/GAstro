@@ -17,6 +17,7 @@ import matplotlib as mpl
 from multiprocessing import Pool
 from .stat import mad
 import time
+from functools import partial
 
 label_size = 18
 mpl.rcParams['xtick.labelsize'] = label_size
@@ -178,10 +179,10 @@ def vxvyvz(ra, dec, l, b, mura, mudec, vrad, dist, parallax=False, vlsr=220, vsu
 
 	return Rs, R, Z,  vZ, vR, vT
 
-def _observed_to_physical_werr_core(par):
+def _observed_to_physical_werr_core(par, dist_as_parallax=False):
 	"""
 	Estimate the physical phase space information from the observations
-	:param par: a tuple with (id, ra, dec, l, b, parallax, eparallax, mura, emura, mudec, emudec, vra, evrad, Nrandom, Vsunx, Vsuny, Vsunz Rsun)
+	:param par: a tuple with (id, ra, dec, l, b, dist, edist, mura, emura, mudec, emudec, vra, evrad, Nrandom, Vsunx, Vsuny, Vsunz, Rsun, Vls)
 	:return:
 	 		A numpy array with dimension (53)
 	 		It contains 14 variables with 4 entries excpet the first (id) with only one entry.
@@ -208,21 +209,26 @@ def _observed_to_physical_werr_core(par):
 				see the functions (observed_to_physical for further information)
 	"""
 
-	id, ra, dec, l, b, parallax, eparallax, mura, emura, mudec, emudec, vrad, evrad, Nrandom, Vsunx, Vsuny, Vsunz, Rsun = par
+	id, ra, dec, l, b, dist, edist, mura, emura, mudec, emudec, vrad, evrad, Nrandom, Vsunx, Vsuny, Vsunz, Rsun = par
 	Nrandom = int(Nrandom)
 	Vsun    = (Vsunx, Vsuny, Vsunz)
 	onest   = np.ones(Nrandom)
 
 	res = np.zeros(shape=(53), dtype=np.float)
 
-	mean 			          =   (parallax, mura, mudec, vrad)
-	std  			          =   (eparallax, emura, emudec, evrad)
+	mean 			          =   (dist, mura, mudec, vrad)
+	std  			          =   (edist, emura, emudec, evrad)
 	random_values	          =   np.random.normal(mean, std, (Nrandom,4))
 	#cov			          =   np.diag(v=std)
 	#random_values            =   np.random.multivariate_normal(mean,cov*cov,Nrandom)
 	mul, mub 		          =   co.pmrapmdec_to_pmllpmbb(random_values[:,1], random_values[:,2], onest*ra, onest*dec, degree=True).T
-	dist 			          =   ut.parallax_to_distance(random_values[:,0])
-	dist					  =	  np.where(dist>=0,dist,np.nan)
+	
+	if dist_as_parallax:
+		dist 			          =   ut.parallax_to_distance(random_values[:,0])
+		dist					  =	  np.where(dist>=0,dist,np.nan)
+	else:
+		dist 			          =   random_values[:,0]
+	
 	xs, ys, zs, vxs, vys, vzs =   co.sphergal_to_rectgal(onest*l, onest* b, dist, random_values[:,3], mul, mub, degree=True).T
 	Rs						  =   np.sqrt(xs*xs+ys*ys)
 	R, phi, Z		          =   co.XYZ_to_galcencyl(xs, ys, zs, Zsun=0, Xsun=Rsun).T
@@ -289,7 +295,7 @@ def _observed_to_physical_werr_core(par):
 
 	return res
 
-def _observed_to_physical_werr_multi(par):
+def _observed_to_physical_werr_multi(par, dist_as_parallax=False):
 	"""
 	Estimate the physical phase space information from the observations.
 	It is a wrapper to cycle the core function _observed_to_physical_werr_core with a serial for
@@ -326,11 +332,11 @@ def _observed_to_physical_werr_multi(par):
 
 	for i,pari in enumerate(par):
 
-		res.append(_observed_to_physical_werr_core(pari))
+		res.append(_observed_to_physical_werr_core(pari, dist_as_parallax))
 
 	return np.array(res, dtype=np.float)
 
-def observed_to_physical_6D_werr(ra, dec, l, b, parallax, eparallax, mura, emura, mudec, emudec, vrad, evrad, source_id=None, Nrandom=1000, Rsun=8.2, Zsun=0, Vlsr=235, Vsun=(-11.1, 12.24, 7.25), nproc=2, outfile=None, fitsfile=True, numpyfile=True, asciifile=True):
+def observed_to_physical_6D_werr(ra, dec, l, b, parallax, eparallax, mura, emura, mudec, emudec, vrad, evrad, source_id=None, Nrandom=1000, Rsun=8.2, Zsun=0, Vlsr=235, Vsun=(-11.1, 12.24, 7.25), nproc=2,  dist_as_parallax=False, outfile=None, fitsfile=True, numpyfile=True, asciifile=True):
 	"""
 	Estimate the physical phase space information from the observations
 	:param ra:  Right ascension [degree]
@@ -396,8 +402,9 @@ def observed_to_physical_6D_werr(ra, dec, l, b, parallax, eparallax, mura, emura
 		t2=time.time()
 	else:
 		t1=time.time()
+		_core_func=partial(_observed_to_physical_werr_core, dist_as_parallax=dist_as_parallax)
 		with Pool(processes=nproc) as pool:
-			results = np.array( pool.map(_observed_to_physical_werr_core, datapar) )
+			results = np.array( pool.map(_core_func, datapar) )
 		t2=time.time()
 
 	twork=t2-t1
