@@ -330,7 +330,7 @@ def _observed_to_physical_werr_multi(par):
 
 	return np.array(res, dtype=np.float)
 
-def oberved_to_physical_6D_werr(ra, dec, l, b, parallax, eparallax, mura, emura, mudec, emudec, vrad, evrad, source_id=None, Nrandom=1000, Rsun=8.2, Zsun=0, Vlsr=235, Vsun=(-11.1, 12.24, 7.25), nproc=2, outfile=None, fitsfile=True, numpyfile=True, asciifile=True):
+def observed_to_physical_6D_werr(ra, dec, l, b, parallax, eparallax, mura, emura, mudec, emudec, vrad, evrad, source_id=None, Nrandom=1000, Rsun=8.2, Zsun=0, Vlsr=235, Vsun=(-11.1, 12.24, 7.25), nproc=2, outfile=None, fitsfile=True, numpyfile=True, asciifile=True):
 	"""
 	Estimate the physical phase space information from the observations
 	:param ra:  Right ascension [degree]
