@@ -396,8 +396,8 @@ def oberved_to_physical_6D_werr(ra, dec, l, b, parallax, eparallax, mura, emura,
 		t2=time.time()
 	else:
 		t1=time.time()
-		pool = Pool(processes=nproc)
-		results = np.array( pool.map(_observed_to_physical_werr_core, datapar) )
+    	with Pool(processes=nproc) as pool:
+			results = np.array( pool.map(_observed_to_physical_werr_core, datapar) )
 		t2=time.time()
 
 	twork=t2-t1
