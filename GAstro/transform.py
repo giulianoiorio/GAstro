@@ -336,15 +336,15 @@ def _observed_to_physical_werr_multi(par, dist_as_parallax=False):
 
 	return np.array(res, dtype=np.float)
 
-def observed_to_physical_6D_werr(ra, dec, l, b, parallax, eparallax, mura, emura, mudec, emudec, vrad, evrad, source_id=None, Nrandom=1000, Rsun=8.2, Zsun=0, Vlsr=235, Vsun=(-11.1, 12.24, 7.25), nproc=2,  dist_as_parallax=False, outfile=None, fitsfile=True, numpyfile=True, asciifile=True):
+def observed_to_physical_6D_werr(ra, dec, l, b, dist, edist, mura, emura, mudec, emudec, vrad, evrad, source_id=None, Nrandom=1000, Rsun=8.2, Zsun=0, Vlsr=235, Vsun=(-11.1, 12.24, 7.25), dist_as_parallax=False, nproc=2, outfile=None, fitsfile=True, numpyfile=True, asciifile=True):
 	"""
 	Estimate the physical phase space information from the observations
 	:param ra:  Right ascension [degree]
 	:param dec: Declination [degree]
 	:param l: Galactic longitude [degree]
 	:param b: Galactic latitude [degree]
-	:param parallax:   Distance as parallax  [mas]
-	:param eparallax:  parallax error  [mas]
+	:param dist:   Distance  [kpc] or [mas] if dist_as_parallax=True
+	:param edist:  Distance error  [kpc] or [mas] if dist_as_parallax=True
 	:param mura:  Ra proper motion  [mas/year] (already multiplied for cos(delta))
 	:param emura: Error on mura  [mas/year]
 	:param mudec: Dec proper motion  [mas/year]
@@ -357,7 +357,12 @@ def observed_to_physical_6D_werr(ra, dec, l, b, parallax, eparallax, mura, emura
 	:param Zsun: Cylindrical height of the Sun wrt Galactic plane [0 kpc] (Currently not implemented)
 	:param Vlsr: Velocity of the local standard of rest [235 km/s]
 	:param Vsun: 3D tuple with the velocity of the Sun in (-U,V,W) [ (-11, 12.24, 7.25) km/s]
+	:param dist_as_parallax:  If True consider the dist and edist as parallax and its error
 	:param nproc:  Number of threads [2]
+	:param outfile: If not None, enable the file output that will have this name
+	:param fitsfile: enable the fits output [outfile.fits]
+	:param numpyfile: enable the binary numpy output [outfile.npy]
+	:param asciifile: enable the  simple txt axii output [outfile.txt]
 	:return:
 	 		A numpy array with dimension (53)
 	 		It contains 14 variables with 4 entries excpet the first (id) with only one entry.
@@ -394,7 +399,7 @@ def observed_to_physical_6D_werr(ra, dec, l, b, parallax, eparallax, mura, emura
 	Vsunzlist	= onest*Vsun[2]
 	Rsunlist	= onest*Rsun
 	if source_id is None: source_id=np.arange(Nobjects)
-	datapar = zip(source_id, ra, dec, l, b, parallax, eparallax, mura, emura, mudec, emudec, vrad, evrad, Nrandomlist, Vsunxlist, Vsunylist, Vsunzlist, Rsunlist)
+	datapar = zip(source_id, ra, dec, l, b, dist, edist, mura, emura, mudec, emudec, vrad, evrad, Nrandomlist, Vsunxlist, Vsunylist, Vsunzlist, Rsunlist)
 
 	if nproc==1:
 		t1=time.time()
