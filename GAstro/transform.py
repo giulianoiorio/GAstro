@@ -240,8 +240,8 @@ def _observed_to_physical_werr_core(par, dist_as_parallax=False):
 	vr,vt,vp, vx, vy          =   cylindrical_to_spherical(vR, vPhi, vZ, phi, theta)
 	distG					  =   np.sqrt(R*R+Z*Z)
 	Lz						  =   R*vPhi 
-	LR						  =   z*vPhi 
-	Lphi					  =   z*vR - R*vZ
+	LR						  =   Z*vPhi 
+	Lphi					  =   Z*vR - R*vZ
 	Ltot					  =   np.sqrt(LR*LR + Lphi*Lphi + Lz*Lz)
 	Ekin					  =   0.5 * np.sqrt(vR*vR + vPhi*vPhi + vZ*vZ)
  	
