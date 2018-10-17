@@ -468,7 +468,7 @@ def observed_to_physical_6D_werr(ra, dec, l, b, dist, edist, mura, emura, mudec,
 				if i<10: head+='  %i:  %s \n'%(i,name)
 				else: head+='  %i: %s \n'%(i,name)
 
-			np.savetxt(outfile+'.txt', results, header=head, fmt='%i'+' %.3e '*52)
+			np.savetxt(outfile+'.txt', results, header=head, fmt='%i'+' %.3e '*64)
 
 		#Fitsfile
 		if fitsfile:
