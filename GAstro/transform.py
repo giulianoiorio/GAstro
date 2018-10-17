@@ -243,7 +243,7 @@ def _observed_to_physical_werr_core(par, dist_as_parallax=False):
 	LR						  =   Z*vPhi 
 	Lphi					  =   Z*vR - R*vZ
 	Ltot					  =   np.sqrt(LR*LR + Lphi*Lphi + Lz*Lz)
-	Ekin					  =   0.5 * np.sqrt(vR*vR + vPhi*vPhi + vZ*vZ)
+	Ekin					  =   0.5 * (vR*vR + vPhi*vPhi + vZ*vZ)
  	
 	
 	res[0]=id
