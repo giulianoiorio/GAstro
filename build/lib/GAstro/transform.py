@@ -93,6 +93,23 @@ def spherical_to_cartesian(Ar, At, Af, theta, phi):
 	
 	return Ax, Ay, Az
 
+
+def cartesian_to_spherical(Ax, Ay, Az, theta, phi):
+
+	cost=np.cos(theta)
+	sint=np.sin(theta)
+	cosf=np.cos(phi)
+	sinf=np.sin(phi)
+
+	Ar= Ax*sint*cosf + Ay*sint*sinf + Az*cost
+	At= Ax*cost*cosf + Ay*cost*sinf - Az*sint
+	Af=	-Ax*sinf + Ay*cosf
+
+	return Ar, At, Af
+
+
+
+
 #TODO: use Montecarlo to estimate the errors
 def vxvyvz(ra, dec, l, b, mura, mudec, vrad, dist, parallax=False, vlsr=220, vsun=(-11.1, 12.24, 7.25), zsun=0, rsun=8,
 		   emura=None, emudec=None, evrad=None, edist=None, MCerror=False):
@@ -240,10 +257,10 @@ def _observed_to_physical_werr_core(par, dist_as_parallax=False):
 	vr,vt,vp, vx, vy          =   cylindrical_to_spherical(vR, vPhi, vZ, phi, theta)
 	distG					  =   np.sqrt(R*R+Z*Z)
 	Lz						  =   R*vPhi 
-	LR						  =   z*vPhi 
-	Lphi					  =   z*vR - R*vZ
+	LR						  =   Z*vPhi 
+	Lphi					  =   Z*vR - R*vZ
 	Ltot					  =   np.sqrt(LR*LR + Lphi*Lphi + Lz*Lz)
-	Ekin					  =   0.5 * np.sqrt(vR*vR + vPhi*vPhi + vZ*vZ)
+	Ekin					  =   0.5 * (vR*vR + vPhi*vPhi + vZ*vZ)
  	
 	
 	res[0]=id
@@ -468,7 +485,7 @@ def observed_to_physical_6D_werr(ra, dec, l, b, dist, edist, mura, emura, mudec,
 				if i<10: head+='  %i:  %s \n'%(i,name)
 				else: head+='  %i: %s \n'%(i,name)
 
-			np.savetxt(outfile+'.txt', results, header=head, fmt='%i'+' %.3e '*52)
+			np.savetxt(outfile+'.txt', results, header=head, fmt='%i'+' %.3e '*64)
 
 		#Fitsfile
 		if fitsfile:
@@ -478,9 +495,9 @@ def observed_to_physical_6D_werr(ra, dec, l, b, dist, edist, mura, emura, mudec,
 				else: dicf[name] = (results[:, i:i + 1], 'D')
 			ut.make_fits(dicf, outname=outfile+'.fits', header_key={'Nobjects':Nobjects,'Nrandom':Nrandom,'Rsun':Rsun,'zsun':Zsun, 'Vlsr':Vlsr, 'Vsunx':Vsun[0],'Vsuny':Vsun[1], 'Vsunz':Vsun[2]})
 
-
-
 	return results
+
+
 
 def XYZ_to_lbd(R,phi,z, xsun=8):
 	"""

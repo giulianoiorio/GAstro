@@ -43,5 +43,35 @@ def pmradec_to_pmlb(ra, dec, dist, pmra, pmdec, vrad=0, vsun=(11.1, 12.2, 7.25),
 	
 	
 	return cG.pm_l_cosb.value, cG.pm_b.value
+	
+def lb_to_radec(l,b):
+	
+	c = coord.SkyCoord(l=l*u.deg, b=b*u.deg, frame='galactic')
+	cradec=c.icrs
+	
+	return cradec.ra.value, cradec.dec.value
 		
+	
+def radec_to_sag(ra,dec):
+	
+	#Belokurov2014
+	ra=np.radians(ra)
+	dec=np.radians(dec)
+	ca=np.cos(ra)
+	sa=np.sin(ra)
+	cd=np.cos(dec)
+	sd=np.sin(dec)
+	
+	ylambda= -0.93595354*ca*cd - 0.31910658*sa*cd + 0.14886895*sd
+	xlambda= 0.21215555*ca*cd - 0.84846291*sa*cd -0.48487186*sd
+	Lambda=np.arctan2(ylambda, xlambda)
+	
+	argbeta= 0.28103559*ca*cd -0.42223415*sa*cd + 0.86182209*sd
+	Beta= np.arcsin(argbeta)
+	
+	return Lambda*180/np.pi,  Beta*180./np.pi
+	
+	
+	
+	
 	

@@ -18,6 +18,7 @@ from multiprocessing import Pool
 from .stat import mad
 import time
 from functools import partial
+import multiprocessing as mp
 
 label_size = 18
 mpl.rcParams['xtick.labelsize'] = label_size
@@ -92,6 +93,23 @@ def spherical_to_cartesian(Ar, At, Af, theta, phi):
 	
 	
 	return Ax, Ay, Az
+
+
+def cartesian_to_spherical(Ax, Ay, Az, theta, phi):
+
+	cost=np.cos(theta)
+	sint=np.sin(theta)
+	cosf=np.cos(phi)
+	sinf=np.sin(phi)
+
+	Ar= Ax*sint*cosf + Ay*sint*sinf + Az*cost
+	At= Ax*cost*cosf + Ay*cost*sinf - Az*sint
+	Af=	-Ax*sinf + Ay*cosf
+
+	return Ar, At, Af
+
+
+
 
 #TODO: use Montecarlo to estimate the errors
 def vxvyvz(ra, dec, l, b, mura, mudec, vrad, dist, parallax=False, vlsr=220, vsun=(-11.1, 12.24, 7.25), zsun=0, rsun=8,
@@ -478,9 +496,9 @@ def observed_to_physical_6D_werr(ra, dec, l, b, dist, edist, mura, emura, mudec,
 				else: dicf[name] = (results[:, i:i + 1], 'D')
 			ut.make_fits(dicf, outname=outfile+'.fits', header_key={'Nobjects':Nobjects,'Nrandom':Nrandom,'Rsun':Rsun,'zsun':Zsun, 'Vlsr':Vlsr, 'Vsunx':Vsun[0],'Vsuny':Vsun[1], 'Vsunz':Vsun[2]})
 
-
-
 	return results
+
+
 
 def XYZ_to_lbd(R,phi,z, xsun=8):
 	"""
