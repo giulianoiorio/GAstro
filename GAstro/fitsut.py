@@ -108,7 +108,7 @@ def filter(tab,filters=({},),cols=()):
 		for andfilter in orfilter:
 			
 			colname=andfilter
-			conditition=orfilter[colname]
+			condition=orfilter[colname]
 			array=tab.data[colname]
 			idx*=_check_condition_filter(array, condition)
 			
