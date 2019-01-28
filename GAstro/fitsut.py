@@ -39,8 +39,6 @@ def filter_idx(tab,index,cols=()):
 	tabo=ft.BinTableHDU.from_columns(new_colsdef)
 
 
-	tabo.header['COMMENT']='Filtered the %s'%strftime("%Y-%m-%d %H:%M:%S", gmtime())
-
 	return tabo
 	
 def _check_condition_filter(array, condition):
