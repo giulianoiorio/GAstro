@@ -112,8 +112,9 @@ def filter(tab,filters=({},),cols=()):
 			array=tab.data[colname]
 			idtt=_check_condition_filter(array, condition)
 			print(idtt)
+			print(idx)
 			input()
-			idx*=_check_condition_filter(array, condition)
+			idx*=idtt
 			
 		idx = idx | idx
 		
