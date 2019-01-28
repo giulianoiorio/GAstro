@@ -115,7 +115,7 @@ def filter(tab,filters=({},),cols=()):
 			
 		idx = idx | idx
 		
-	filteredtab = filter_idx(tab,index,cols)
+	filteredtab = filter_idx(tab,idx,cols)
 		
 	return filteredtab
 			
