@@ -18,6 +18,7 @@ from multiprocessing import Pool
 from .stat import mad
 import time
 from functools import partial
+import multiprocessing as mp
 
 label_size = 18
 mpl.rcParams['xtick.labelsize'] = label_size
