@@ -1,7 +1,7 @@
 import numpy as np
 import gala.coordinates as gala
 import astropy.coordinates as coord
-import astropy.units as u
+from astropy import units as u
 
 def pmradec_solar_correction(ra, dec, dist, pmra, pmdec,vsun=(11.1, 12.2, 7.25),vlsr=235, vrad=0):
 
@@ -72,6 +72,28 @@ def radec_to_sag(ra,dec):
 	return Lambda*180/np.pi,  Beta*180./np.pi
 	
 	
+def radec_to_gnomic(ra,dec,ra_c,dec_c):
+	
+	
+	dtr=np.pi/180
+	c_centre= coord.SkyCoord(ra=ra_c*u.degree, dec=dec_c*u.degree)
+	c = SkyCoord(ra=ra*u.degree, dec=dec*u.degree)
+	rc= c.separation(c_centre).degree
+	
+	bottom = np.sin(dec*dtr)*np.sin(dec_c*dtr) + np.cos(dec*dtr)*np.cos(dec_c*dtr)*np.cos( (ra-ra_c)*dtr )
+	
+	#XI
+	xi= np.cos(dec*dtr) * np.sin( (ra-ra_c)*dtr ) / bottom
+	xi= xi / dtr
+	
+	#ETA
+	eta= (np.sin(dec*dtr)*np.cos(dec_c*dtr) - np.cos(dec*dtr)*np.sin(dec_c*dtr)*np.cos( (ra-ra_c)*dtr )) / bottom
+	eta= eta / dtr
+	rgnomic=np.sqrt(xi*xi+eta*eta)
+	
+	return xi, eta, rgnomic
+
+
 	
 	
 	
