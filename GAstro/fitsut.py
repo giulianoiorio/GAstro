@@ -110,6 +110,9 @@ def filter(tab,filters=({},),cols=()):
 			colname=andfilter
 			condition=orfilter[colname]
 			array=tab.data[colname]
+			idtt=_check_condition_filter(array, condition)
+			print(idtt)
+			input()
 			idx*=_check_condition_filter(array, condition)
 			
 		idx = idx | idx
