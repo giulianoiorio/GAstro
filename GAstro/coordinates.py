@@ -77,7 +77,7 @@ def radec_to_gnomic(ra,dec,ra_c,dec_c):
 	
 	dtr=np.pi/180
 	c_centre= coord.SkyCoord(ra=ra_c*u.degree, dec=dec_c*u.degree)
-	c = SkyCoord(ra=ra*u.degree, dec=dec*u.degree)
+	c = coord.SkyCoord(ra=ra*u.degree, dec=dec*u.degree)
 	rc= c.separation(c_centre).degree
 	
 	bottom = np.sin(dec*dtr)*np.sin(dec_c*dtr) + np.cos(dec*dtr)*np.cos(dec_c*dtr)*np.cos( (ra-ra_c)*dtr )
