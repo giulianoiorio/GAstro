@@ -100,7 +100,7 @@ def _check_condition_filter(array, condition):
 	
 def filter(tab,filters=({},),cols=()):
 	
-	lentable=len(tab.columns.names[0])
+	lentable=len(tab.data[tab.columns.names[0]])
 	idx= np.ones(lentable, dtype=np.bool)
 	
 	for orfilter in filters:
