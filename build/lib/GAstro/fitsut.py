@@ -39,8 +39,6 @@ def filter_idx(tab,index,cols=()):
 	tabo=ft.BinTableHDU.from_columns(new_colsdef)
 
 
-	tabo.header['COMMENT']='Filtered the %s'%strftime("%Y-%m-%d %H:%M:%S", gmtime())
-
 	return tabo
 	
 def _check_condition_filter(array, condition):
@@ -100,7 +98,7 @@ def _check_condition_filter(array, condition):
 	
 def filter(tab,filters=({},),cols=()):
 	
-	lentable=len(tab.columns.names[0])
+	lentable=len(tab.data[tab.columns.names[0]])
 	idx= np.ones(lentable, dtype=np.bool)
 	
 	for orfilter in filters:
@@ -110,11 +108,12 @@ def filter(tab,filters=({},),cols=()):
 			colname=andfilter
 			condition=orfilter[colname]
 			array=tab.data[colname]
-			idx*=_check_condition_filter(array, condition)
+			idtt=_check_condition_filter(array, condition)
+			idx= idx & idtt
 			
 		idx = idx | idx
 		
-	filteredtab = filter_idx(tab,index,cols)
+	filteredtab = filter_idx(tab,idx,cols)
 		
 	return filteredtab
 			

@@ -70,16 +70,70 @@ def cylindrical_to_spherical(AR,Ap,Az,phi,theta):
 
 
 	return Ar, At, Ap, Ax, Ay
+
+
+def spherical_to_cartesian(Ar, Aphi, Atheta, phi, theta, true_theta=False, degree=True):
+	"""
+	Transform a vector from spherical to cartesian coordinate
+	:param Ar: Vector component along the radial direction
+	:param Aphi:  Vector component along the azimuthal direction
+	:param Atheta: Vector component along the zenithal direction
+	:param phi: azimuthal angle, i.e. phi=arctan(y/x) [degrees or rad]
+	:param theta:  zenithal angle, if true_theta=True: theta=np.arccos(z/r), if true_theta=False: theta=np.arcsin(z/r) [degrees or rad]
+	:param true_theta: see above
+	:param degree: If true, phi and theta are expressed in degrees else in radians
+	:return: x,y,z component of the Vector
+	"""
+
+	if degree: phi, theta = np.radians(phi), np.radians(theta)
+	if true_theta==False:
+		theta= np.pi/2. -  theta
+		Atheta=-Atheta
+
+	cost = np.cos(theta)
+	sint = np.sin(theta)
+	cosf = np.cos(phi)
+	sinf = np.sin(phi)
+
+	Ax = Ar * sint * cosf + Atheta * cost * cosf - Aphi * sinf
+	Ay = Ar * sint * sinf + Atheta * cost * sinf + Aphi * cosf
+	Az = Ar * cost        - Atheta * sint
+
+	return Ax, Ay, Az
+
+def cartesian_to_spherical(Ax, Ay, Az, phi, theta, true_theta=False, degree=True):
+	"""
+	Transform a vector from spherical to cartesian coordinate
+	:param Ax: Vector component along x-axis
+	:param Ay:  Vector component along y-axis
+	:param Az: Vector component along z-axis
+	:param phi: azimuthal angle, i.e. phi=arctan(y/x) [degrees or rad]
+	:param theta:  zenithal angle, if true_theta=True: theta=np.arccos(z/r), if true_theta=False: theta=np.arcsin(z/r) [degrees or rad]
+	:param true_theta: see above
+	:param degree: If true, phi and theta are expressed in degrees else in radians
+	:return: r, theta,phi component of the vector
+	"""
+
+	costheta=1
+	if degree: phi, theta = np.radians(phi), np.radians(theta)
+	if true_theta==False:
+		theta= np.pi/2. -  theta
+		costheta=-1
+
+
+	cost = np.cos(theta)
+	sint = np.sin(theta)
+	cosf = np.cos(phi)
+	sinf = np.sin(phi)
+
+	Ar      =    Ax*sint*cosf + Ay*sint*sinf + Az*cost
+	Atheta  =   -Ax*cost*cosf + Ay*cost*sinf - Az*sint
+	Aphi    =	-Ax*sinf      + Ay*cosf
+
+	return Ar, Atheta*costheta, Aphi
 	
-	
-def spherical_to_cartesian(Ar, At, Af, theta, phi):
-	'''
-	Ar: Vector along the radial direction
-	At: Vector along the azimuthal direction
-	Af: Vector along the zenithal
-	theta: azimuthal angle, i.e. theta=arctan(y/x)
-	phi: zenital angle wrt to z, i.e. phi=np.arcos(z/r)
-	'''
+def spherical_to_cartesian_old(Ar, At, Af, theta, phi):
+
 
 	cost=np.cos(theta)
 	sint=np.sin(theta)
@@ -90,12 +144,12 @@ def spherical_to_cartesian(Ar, At, Af, theta, phi):
 	Ax = Ar*cost*sinf - At*sint + Af*cost*cosf
 	Ay = Ar*sint*sinf + At*cost + Af*sint*cosf
 	Az = Ar*cosf - Af*sinf
-	
-	
+
+
 	return Ax, Ay, Az
 
 
-def cartesian_to_spherical(Ax, Ay, Az, theta, phi):
+def cartesian_to_spherical_old(Ax, Ay, Az, theta, phi):
 
 	cost=np.cos(theta)
 	sint=np.sin(theta)
@@ -103,7 +157,7 @@ def cartesian_to_spherical(Ax, Ay, Az, theta, phi):
 	sinf=np.sin(phi)
 
 	Ar= Ax*sint*cosf + Ay*sint*sinf + Az*cost
-	At= Ax*cost*cosf + Ay*cost*sinf - Az*sint
+	At= -Ax*cost*cosf + Ay*cost*sinf - Az*sint
 	Af=	-Ax*sinf + Ay*cosf
 
 	return Ar, At, Af
@@ -552,3 +606,51 @@ def lbd_to_XYZ(l,b,d,xsun=8):
 
 	return x_g, y_g, z_g
 
+	
+	
+def HRF_to_LRF(ra, dec, VL, raL, decL, muraL, mudecL, DL):
+	"""
+	Pass from an Heliocentric frame of referece velocity to a Local (e.g. Dwarf) frame of reference velocity (Appendix A, Walker08)
+	:param ra: ra of the stars [degree]
+	:param dec: dec of the stars  [degree]
+	:param VL: systemic velocity of the LRF [km/s]
+	:param raL: ra of the centre of  LRF [degree]
+	:param decL: dec of the centre of  LRF [degree]
+	:param muraL: mura of the centre of  LRF [mas/yr]
+	:param mudecL: mudec of the centre of  LRF [mas/yr]
+	:param DL: distance of the LRF wrt the Sun [kpc]
+	:return: vrel(ra, dec) (see Walker08)
+	"""
+	
+	ra=np.radians(ra)
+	dec=np.radians(dec)
+	raL=np.radians(raL)
+	decL=np.radians(decL)
+	cdL=np.cos(decL)
+	crL=np.cos(raL)
+	sdL=np.sin(decL)
+	srL=np.sin(raL)
+	cd=np.cos(dec)
+	cr=np.cos(ra)
+	sd=np.sin(dec)
+	sr=np.sin(ra)
+	
+	K=4.74 #From kpc*mas/yr to km/s
+	VraL= K*DL*muraL
+	VdecL=  K*DL*mudecL
+	
+	
+	Bx = cd*sr
+	By = -cd*cr
+	Bz = sd
+	
+	Adotx = VL*cdL*srL + VraL*cdL*crL -VdecL*sdL*srL
+	Adoty = -VL*cdL*crL + VdecL*sdL*crL + VraL*cdL*srL
+	Adotz = VL*sdL + VdecL*cdL
+	
+	return Bx*Adotx + By*Adoty + Bz*Adotz
+	
+
+	
+	
+	
