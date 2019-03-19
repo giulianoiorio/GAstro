@@ -132,6 +132,30 @@ def cartesian_to_spherical(Ax, Ay, Az, phi, theta, true_theta=False, degree=True
 
 	return Ar, Atheta*costheta, Aphi
 	
+def cartesian_to_cylindrical(Ax, Ay, Az, phi, degree=True):
+	"""
+	Transform a vector from spherical to cylindrical coordinate
+	:param Ax: Vector component along x-axis
+	:param Ay:  Vector component along y-axis
+	:param Az: Vector component along z-axis
+	:param phi: azimuthal angle, i.e. phi=arctan(y/x) [degrees or rad]
+	:param degree: If true, phi and theta are expressed in degrees else in radians
+	:return: R, phi, z component of the vector
+	"""
+
+	costheta=1
+	if degree: phi = np.radians(phi) 
+
+	
+	cosf = np.cos(phi)
+	sinf = np.sin(phi)
+
+	AR      =    Ax*cosf + Ay*sinf 
+	Aphi    =   -Ax*sinf + Ay*cosf 
+
+	return AR, Aphi, Az
+	
+	
 def spherical_to_cartesian_old(Ar, At, Af, theta, phi):
 
 

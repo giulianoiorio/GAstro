@@ -210,6 +210,9 @@ def equatorial_to_pole(ra, dec, pole, pmra=None, pmdec=None, center=(0,0), degre
 		pm_phi2= -pmra*sth + pmdec*cth
 	else:
 		pm_phi1=pm_phi2=None
+	
+	phi1=np.where(phi1<-180,360+phi1, phi1)	
+	phi1=np.where(phi1>180, phi1-360, phi1)	
 
 	return phi1, phi2, pm_phi1, pm_phi2
 
