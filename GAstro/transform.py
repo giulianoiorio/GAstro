@@ -115,20 +115,22 @@ def cartesian_to_spherical(Ax, Ay, Az, phi, theta, true_theta=False, degree=True
 	"""
 
 	costheta=1
-	if degree: phi, theta = np.radians(phi), np.radians(theta)
+	if degree: 
+		phi, theta = np.radians(phi), np.radians(theta)
 	if true_theta==False:
-		theta= np.pi/2. -  theta
+		theta= np.pi/2. - theta
 		costheta=-1
-
+	
 
 	cost = np.cos(theta)
 	sint = np.sin(theta)
 	cosf = np.cos(phi)
 	sinf = np.sin(phi)
-
+	
 	Ar      =    Ax*sint*cosf + Ay*sint*sinf + Az*cost
-	Atheta  =   -Ax*cost*cosf + Ay*cost*sinf - Az*sint
+	Atheta  =    Ax*cost*cosf + Ay*cost*sinf - Az*sint
 	Aphi    =	-Ax*sinf      + Ay*cosf
+	
 
 	return Ar, Atheta*costheta, Aphi
 	
