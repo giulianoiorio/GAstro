@@ -47,22 +47,22 @@ def cartesian_to_spherical(Ax, Ay, Az, phi, theta, true_theta=False, degree=True
 	"""
 
 	costheta=1
-	if degree: 
+	if degree:
 		phi, theta = np.radians(phi), np.radians(theta)
 	if true_theta==False:
 		theta= np.pi/2. - theta
 		costheta=-1
-	
+
 
 	cost = np.cos(theta)
 	sint = np.sin(theta)
 	cosf = np.cos(phi)
 	sinf = np.sin(phi)
-	
+
 	Ar      =    Ax*sint*cosf + Ay*sint*sinf + Az*cost
 	Atheta  =    Ax*cost*cosf + Ay*cost*sinf - Az*sint
 	Aphi    =	-Ax*sinf      + Ay*cosf
-	
+
 
 	return Ar, Atheta*costheta, Aphi
 
@@ -71,52 +71,52 @@ def pmradec_solar_correction(ra, dec, dist, pmra, pmdec,vsun=(11.1, 12.2, 7.25),
 
 	vsun=np.array(vsun)
 	vsun[1]=vsun[1]+vlsr
-	
-	
+
+
 	c = coord.SkyCoord(ra=ra*u.deg, dec=dec*u.deg, distance=dist*u.kpc, pm_ra_cosdec=pmra*u.mas/u.yr, pm_dec=pmdec*u.mas/u.yr, radial_velocity=0*u.km/u.s)
 
 	vsun = coord.CartesianDifferential(vsun*u.km/u.s)
 	gc_frame = coord.Galactocentric(galcen_v_sun=vsun, z_sun=0*u.kpc)
-	ccorr=gala.reflex_correct(c,gc_frame) 
-	
+	ccorr=gala.reflex_correct(c,gc_frame)
+
 	return ccorr.pm_ra_cosdec.value, ccorr.pm_dec.value
-	
+
 def pmlb_solar_correction(l, b, dist, pml, pmb, vsun=(11.1, 12.2, 7.25), vlsr=235, vrad=0):
 
 	vsun=np.array(vsun)
 	vsun[1]=vsun[1]+vlsr
-	
-	
+
+
 	c = coord.SkyCoord(l=l*u.deg, b=b*u.deg, distance=dist*u.kpc, pm_l_cosb=pml*u.mas/u.yr, pm_b=pmb*u.mas/u.yr, radial_velocity=0*u.km/u.s, frame='galactic')
 	vsun = coord.CartesianDifferential(vsun*u.km/u.s)
 	gc_frame = coord.Galactocentric(galcen_v_sun=vsun, z_sun=0*u.kpc)
-	ccorr=gala.reflex_correct(c,gc_frame) 
-	
+	ccorr=gala.reflex_correct(c,gc_frame)
+
 	return ccorr.pm_l_cosb.value, ccorr.pm_b.value
-	
-	
+
+
 def pmradec_to_pmlb(ra, dec, dist, pmra, pmdec, vrad=0, vsun=(11.1, 12.2, 7.25),vlsr=235, solar_correction=False):
-	
+
 	if solar_correction:
-		
+
 		pmra, pmdec = pmradec_solar_correction(ra, dec, dist, pmra, pmdec,vsun=vsun,vlsr=vlsr, vrad=vrad)
-	
+
 	c = coord.SkyCoord(ra=ra*u.deg, dec=dec*u.deg, distance=dist*u.kpc, pm_ra_cosdec=pmra*u.mas/u.yr, pm_dec=pmdec*u.mas/u.yr, radial_velocity=0*u.km/u.s)
-	
+
 	cG = c.galactic
-	
-	
+
+
 	return cG.pm_l_cosb.value, cG.pm_b.value
-	
+
 def lb_to_radec(l,b):
-	
+
 	c = coord.SkyCoord(l=l*u.deg, b=b*u.deg, frame='galactic')
 	cradec=c.icrs
-	
+
 	return cradec.ra.value, cradec.dec.value
 
 def radec_to_sag(ra,dec):
-	
+
 	#Belokurov2014
 	ra=np.radians(ra)
 	dec=np.radians(dec)
@@ -124,35 +124,35 @@ def radec_to_sag(ra,dec):
 	sa=np.sin(ra)
 	cd=np.cos(dec)
 	sd=np.sin(dec)
-	
+
 	ylambda= -0.93595354*ca*cd - 0.31910658*sa*cd + 0.14886895*sd
 	xlambda= 0.21215555*ca*cd - 0.84846291*sa*cd -0.48487186*sd
 	Lambda=np.arctan2(ylambda, xlambda)
-	
+
 	argbeta= 0.28103559*ca*cd -0.42223415*sa*cd + 0.86182209*sd
 	Beta= np.arcsin(argbeta)
-	
+
 	return Lambda*180/np.pi,  Beta*180./np.pi
 
 def radec_to_gnomic(ra,dec,ra_c,dec_c):
-	
-	
+
+
 	dtr=np.pi/180
 	c_centre= coord.SkyCoord(ra=ra_c*u.degree, dec=dec_c*u.degree)
 	c = coord.SkyCoord(ra=ra*u.degree, dec=dec*u.degree)
 	rc= c.separation(c_centre).degree
-	
+
 	bottom = np.sin(dec*dtr)*np.sin(dec_c*dtr) + np.cos(dec*dtr)*np.cos(dec_c*dtr)*np.cos( (ra-ra_c)*dtr )
-	
+
 	#XI
 	xi= np.cos(dec*dtr) * np.sin( (ra-ra_c)*dtr ) / bottom
 	xi= xi / dtr
-	
+
 	#ETA
 	eta= (np.sin(dec*dtr)*np.cos(dec_c*dtr) - np.cos(dec*dtr)*np.sin(dec_c*dtr)*np.cos( (ra-ra_c)*dtr )) / bottom
 	eta= eta / dtr
 	rgnomic=np.sqrt(xi*xi+eta*eta)
-	
+
 	return xi, eta, rgnomic
 
 def equatorial_to_pole(ra, dec, pole, pmra=None, pmdec=None, center=(0,0), degree=True):
@@ -212,9 +212,9 @@ def equatorial_to_pole(ra, dec, pole, pmra=None, pmdec=None, center=(0,0), degre
 		pm_phi2= -pmra*sth + pmdec*cth
 	else:
 		pm_phi1=pm_phi2=None
-	
-	phi1=np.where(phi1<-180,360+phi1, phi1)	
-	phi1=np.where(phi1>180, phi1-360, phi1)	
+
+	phi1=np.where(phi1<-180,360+phi1, phi1)
+	phi1=np.where(phi1>180, phi1-360, phi1)
 
 	return phi1, phi2, pm_phi1, pm_phi2
 
@@ -275,7 +275,3 @@ if __name__=='__main__':
 	print(Pal5(229.022, 0.111389, 138.95, 53.78, 0, 0))
 	print(change_pole(229.022, 0.111389, pole=(138.95, 53.78), pmlongitude=	-2.343, pmlatitude=-2.3085, center=(0, 0), degree=True))
 	print(change_pole(229.022, 0.111389, pole=(192.85948, 27.12825), center=(266.41683708333335, -29.007810555555555), degree=True))
-
-
-
-
