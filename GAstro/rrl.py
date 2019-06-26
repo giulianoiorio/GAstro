@@ -25,7 +25,7 @@ def _type_1_2_division(period, offset=-0.15):
 
 	logP = np.log10(period)
 
-	return _C0 + _C1*loP + _C2*logP*logP + offset
+	return _C0 + _C1*logP + _C2*logP*logP + offset
 
 def _type12_cut(period, offset=-0.15):
 	"""
