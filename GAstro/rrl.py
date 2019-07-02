@@ -135,7 +135,7 @@ def is_HASP(period, amp, offset=-0.15, period_range=(0.43,0.48), amp_range=(0.9,
 
 	idx_general = np.ones_like(period, dtype=bool)
 	if period_range is not None: idx_general*=(period>np.min(period_range))&(period<np.max(period_range))
-	if amp_range is not None:  idx_general*=(amp>(np.min(amp)+offset))&(amp<(np.max(amp)+offset)
+	if amp_range is not None:  idx_general*=(amp>(np.min(amp)+offset))&(amp<(np.max(amp)+offset))
 
 	return idx_general
 
@@ -229,4 +229,3 @@ def f_HASP(period, amp, offset=-0.15, extra_cut=True, period_range_HASP=(0.43,0.
 	return frac
 
 
-	return frac
