@@ -118,3 +118,24 @@ def is_type2(period, amp, offset=-0.15, extra_cut=True, period_range=(0.43, 0.9)
 
 	return col_type == 2
 
+def is_HASP(period, amp, offset=-0.15, period_range=(0.43,0.48), amp_range=(0.9,1.45)):
+	"""
+	Check what stars can be considered HASP. based on the definition by Belokurov+18 (MNRAS.477.1472B) Eq.3.
+	In general this can be used to check if the stars are in a given period-amplitude box.
+	NB: remember that the the amp range is corrected for the offset (default value is -0.15), if the offset is not needed put it to 0.
+	:param period: rrl period [days]
+	:param amp:  rrl amplitude (peak_to_peak)
+	:param offset: Offset of the amplitude (peak_to_peak) wrt to the function defined in Belokurov+18 (MNRAS.477.1472B) (Eq. 1C)
+	:param period_range: extra cut on period range. If not None, it need to be a tuple with two values. Only stars
+	within these values will be taken into account for the classification.
+	:param amp_range: extra cut on amp range. If not None, it need to be a tuple with two values. Only stars
+	within these values will be taken into account for the classification.
+	:return: A boolean array with the same len of period and amp with True where the stars are in the given period-amplitude box.
+	"""
+
+	idx_general = np.ones_like(period, dtype=bool)
+	if period_range is not None: idx_general*=(period>np.min(period_range))&(period<np.max(period_range))
+	if amp_range is not None:  idx_general*=(amp>(np.min(amp)+offset))&(amp<(np.max(amp)+offset)
+
+	return idx_general
+
