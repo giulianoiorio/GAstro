@@ -191,7 +191,7 @@ def ploth2(x=[],y=[],z=None, statistic='mean', H=None,edges=None,ax=None,bins=10
 	else:
 		im=None
 
-	if colorbar:
+	if colorbar and (im is not None):
 		divider = make_axes_locatable(ax)
 		cax     = divider.append_axes('right', size='5%', pad=0.05)
 		cbar	= plt.colorbar(im, cax=cax)
