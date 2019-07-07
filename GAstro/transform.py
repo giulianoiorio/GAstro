@@ -7,7 +7,18 @@
 #
 #
 #
-################################################
+#################################################
+#FUNCTIONS
+#m_to_dist(m,M)
+#cylindrical_to_spherical(AR,Ap,Az,phi,theta)
+#spherical_to_cartesian(Ar, Aphi, Atheta, phi, theta, true_theta=False, degree=True)
+#cartesian_to_spherical(Ax, Ay, Az, phi, theta, true_theta=False, degree=True)
+#cartesian_to_cylindrical(Ax, Ay, Az, phi, degree=True)
+#XYZ_to_lbd(R,phi,z, xsun=8)
+#lbd_to_XYZ(l,b,d,xsun=8)
+#HRF_to_LRF(ra, dec, VL, raL, decL, muraL, mudecL, DL)
+#################################################
+
 import matplotlib as mpl
 #mpl.use('Agg')
 import numpy as np
@@ -15,11 +26,19 @@ import galpy.util.bovy_coords as co
 import pycam.utils as ut
 import matplotlib as mpl
 from multiprocessing import Pool
-from .stat import mad
 import time
 from functools import partial
 import multiprocessing as mp
 
+
+
+#INNER IMPORT
+from .stat import mad, calc_covariance
+from . import coordinates as gao
+from . import constant as COST
+from . import utility as ut
+
+#STUFF FOR BETTER PLOT
 label_size = 18
 mpl.rcParams['xtick.labelsize'] = label_size
 mpl.rcParams['ytick.labelsize'] = label_size
@@ -45,8 +64,6 @@ def m_to_dist(m,M):
 	Dsun             = 10**power_argument
 	
 	return Dsun
-	
-
 
 def cylindrical_to_spherical(AR,Ap,Az,phi,theta):
 
@@ -70,7 +87,6 @@ def cylindrical_to_spherical(AR,Ap,Az,phi,theta):
 
 
 	return Ar, At, Ap, Ax, Ay
-
 
 def spherical_to_cartesian(Ar, Aphi, Atheta, phi, theta, true_theta=False, degree=True):
 	"""
@@ -156,429 +172,6 @@ def cartesian_to_cylindrical(Ax, Ay, Az, phi, degree=True):
 	Aphi    =   -Ax*sinf + Ay*cosf 
 
 	return AR, Aphi, Az
-	
-	
-def spherical_to_cartesian_old(Ar, At, Af, theta, phi):
-
-
-	cost=np.cos(theta)
-	sint=np.sin(theta)
-	cosf=np.cos(phi)
-	sinf=np.sin(phi)
-
-	
-	Ax = Ar*cost*sinf - At*sint + Af*cost*cosf
-	Ay = Ar*sint*sinf + At*cost + Af*sint*cosf
-	Az = Ar*cosf - Af*sinf
-
-
-	return Ax, Ay, Az
-
-
-def cartesian_to_spherical_old(Ax, Ay, Az, theta, phi):
-
-	cost=np.cos(theta)
-	sint=np.sin(theta)
-	cosf=np.cos(phi)
-	sinf=np.sin(phi)
-
-	Ar= Ax*sint*cosf + Ay*sint*sinf + Az*cost
-	At= -Ax*cost*cosf + Ay*cost*sinf - Az*sint
-	Af=	-Ax*sinf + Ay*cosf
-
-	return Ar, At, Af
-
-
-
-
-#TODO: use Montecarlo to estimate the errors
-def vxvyvz(ra, dec, l, b, mura, mudec, vrad, dist, parallax=False, vlsr=220, vsun=(-11.1, 12.24, 7.25), zsun=0, rsun=8,
-		   emura=None, emudec=None, evrad=None, edist=None, MCerror=False):
-	"""
-	Pass from observed quantities to Galactocentric coordinates and velocities
-	:param ra: Right ascension [degree]
-	:param dec:  Declination [degree]
-	:param l: Galactic longitude [degree]
-	:param b:  Galactic latitude [degree]
-	:param mura: Ra proper motion  [mas/year] (already multiplied for cos(delta))
-	:param mudec: Dec proper motion [mas/year]
-	:param vrad:  Radial velocity [km/s]
-	:param dist:  Distance in kpc o parallax (see below) [kpc or mas]
-	:param parallax: if True the dist is in parallax
-	:param vlsr: Velocity of the local standard of rest [km/s]
-	:param vsun:  3D tuple with the velocity of the Sun in (-U,V,W) [km/s]
-	:param zsun: Height of the Sun above the plane [kpc]
-	:param rsun: cylindrical radius of the Sun wrt Galactic centre [kpc]
-	:param emura:  Error on mura (it could be None)
-	:param emudec: Error on mudec (it could be None)
-	:param evrad:  Error on vrad (it could be None)
-	:param edist: Error on dist (it could be None)
-	:return:
-		Rsun: Cylindircal radius wrt to the Sun [kpc]
-		R: Galactocentric cylindrical radius [kpc]
-		Z: Height above the plane [kpc]
-		vZ: Z velocity [km/s]
-		vR: cylindrical radial velocity [km/s]
-		vT: Tangential velocity [km/s]
-		if all the errors are not None return also
-		eR: error on R [kpc]
-		eZ: error on Z [kpc]
-		eVx, eVy, eVz: error on velocities  [kpc]
-	"""
-
-
-	if parallax:
-		dist_new = ut.parallax_to_distance(dist)
-		if edist is not None: edist_new = edist * dist * dist
-	else:
-		dist_new = dist
-		edist_new = edist
-
-	mul, mub = co.pmrapmdec_to_pmllpmbb(mura, mudec, ra, dec, degree=True).T
-
-	xs, ys, zs, vxs, vys, vzs = co.sphergal_to_rectgal(l, b, dist_new, vrad, mul, mub, degree=True).T
-
-	Rs=np.sqrt(xs*xs+ys*ys)
-
-	vsun = np.array([0., vlsr, 0., ]) + np.array(vsun)
-	# vsun=(0,0,0)
-
-	R, phi, Z = co.XYZ_to_galcencyl(xs, ys, zs, Zsun=zsun, Xsun=rsun).T
-
-	if edist is not None:
-		eR = np.abs(edist_new * np.cos(b * np.pi / 180))
-		eZ = np.abs(edist_new * np.sin(b * np.pi / 180))
-	else:
-		eR = np.nan
-		eZ = np.nan
-
-	vR, vT, vZ = co.vxvyvz_to_galcencyl(vxs, vys, vzs, R, phi, Z, vsun=vsun, Xsun=rsun, Zsun=zsun,
-										galcen=True).T
-
-	if emura is not None and emudec is not None and evrad is not None and edist is not None:
-		covpmrapmdec = np.zeros((len(emura), 2, 2))
-		covpmrapmdec[:, 0, 0] = emura
-		covpmrapmdec[:, 1, 1] = emudec
-		covpmlpmb = co.cov_pmrapmdec_to_pmllpmbb(covpmrapmdec, ra, dec, degree=True)
-		covV = co.cov_dvrpmllbb_to_vxyz(dist, edist, evrad, mul, mub, covpmlpmb, l, b, plx=parallax, degree=True)
-
-		eVx, eVy, eVz = covV[:, 0, 0], covV[:, 1, 1], covV[:, 2, 2]
-		xg=xs-rsun
-		theta=np.arctan2(ys,xg)
-		ct=np.cos(theta)
-		st=np.sin(theta)
-		eVR=np.sqrt(eVx*eVx*ct*ct +  eVy*eVy*st*st)
-		eVT=np.sqrt(eVx*eVx*st*st +  eVy*eVy*ct*ct)
-
-		return Rs, R, Z, vZ, vR, vT, eR, eZ, eVR, eVT, eVz
-
-
-
-
-	return Rs, R, Z,  vZ, vR, vT
-
-def _observed_to_physical_werr_core(par, dist_as_parallax=False):
-	"""
-	Estimate the physical phase space information from the observations
-	:param par: a tuple with (id, ra, dec, l, b, dist, edist, mura, emura, mudec, emudec, vra, evrad, Nrandom, Vsunx, Vsuny, Vsunz, Rsun, Vls)
-	:return:
-	 		A numpy array with dimension (65)
-	 		It contains 14 variables with 4 entries excpet the first (id) with only one entry.
-	 		For a given variable Var the entries are:
-	 			a- Var (median of the Nrandom sampling)
-	 			b- Var_error (error on Var, estimated as mad)
-	 			c- Var_low (16% percentile of the posterior distribution of Var)
-	 			d- Var_up (64% percentile of the posterior distribution of Var)
-	 		The variables (and the column number of the respective Var) are:
-	 			0- Id: unique Id
-	 			1-  Rs: Circular radius wrt to the Sun [kpc]
-	 			5-  R: Galactic cylindrical radius [kpc]
-	 			9-  Z: Galactic height above the plane [kpc]
-	 			13- Vx: Velocity along the Galactic x-axis (pointing toward the Sun) [km/s]
-	 			17- Vy: Velocity along the Galactic y-axis (pointing toward the Sun) [km/s]
-	 			21- VR: Velocity along the Galactic cylindrical Radius  [km/s]
-	 			25- Vz: Velocity along the Galactic z-axis  [km/s]
-	 			29- Vr: Velocity along the Galactic radius  [km/s]
-	 			33- Vt: Velocity along the Galactic zenithal angle theta  [km/s]
-	 			37- Vphi: Velocity along the Galactic azimuthal angle Phi [km/s]
-	 			41- Dist: Distane from the Sun [kpc]
-	 			45- DistG: Distance from the Galactic centre [km/s]
-				49- Phi: Azimuthal angle [deg]	
-				53- Lz: z-component of angular momentum [kpc * km/s]
-				57- L:  angular momentum [kpc * km/s]
-				61- Ekin:  kinetic energy [km/s * km/s]			
-				see the functions (observed_to_physical for further information)
-	"""
-
-	id, ra, dec, l, b, dist, edist, mura, emura, mudec, emudec, vrad, evrad, Nrandom, Vsunx, Vsuny, Vsunz, Rsun = par
-	Nrandom = int(Nrandom)
-	Vsun    = (Vsunx, Vsuny, Vsunz)
-	onest   = np.ones(Nrandom)
-
-	res = np.zeros(shape=(65), dtype=np.float)
-
-	mean 			          =   (dist, mura, mudec, vrad)
-	std  			          =   (edist, emura, emudec, evrad)
-	random_values	          =   np.random.normal(mean, std, (Nrandom,4))
-	#cov			          =   np.diag(v=std)
-	#random_values            =   np.random.multivariate_normal(mean,cov*cov,Nrandom)
-	mul, mub 		          =   co.pmrapmdec_to_pmllpmbb(random_values[:,1], random_values[:,2], onest*ra, onest*dec, degree=True).T
-	
-	if dist_as_parallax:
-		dist 			          =   ut.parallax_to_distance(random_values[:,0])
-		dist					  =	  np.where(dist>=0,dist,np.nan)
-	else:
-		dist 			          =   random_values[:,0]
-	
-	xs, ys, zs, vxs, vys, vzs =   co.sphergal_to_rectgal(onest*l, onest* b, dist, random_values[:,3], mul, mub, degree=True).T
-	Rs						  =   np.sqrt(xs*xs+ys*ys)
-	R, phi, Z		          =   co.XYZ_to_galcencyl(xs, ys, zs, Zsun=0, Xsun=Rsun).T
-	vR, vPhi, vZ 	          =   co.vxvyvz_to_galcencyl(vxs, vys, vzs, R, phi, Z, vsun=Vsun, Xsun=Rsun, Zsun=0, galcen=True).T
-	theta			          =   np.arctan2(R,Z) #because in spherical coordiante theta is the angle bwen Z and r
-	vr,vt,vp, vx, vy          =   cylindrical_to_spherical(vR, vPhi, vZ, phi, theta)
-	distG					  =   np.sqrt(R*R+Z*Z)
-	Lz						  =   R*vPhi 
-	LR						  =   Z*vPhi 
-	Lphi					  =   Z*vR - R*vZ
-	Ltot					  =   np.sqrt(LR*LR + Lphi*Lphi + Lz*Lz)
-	Ekin					  =   0.5 * (vR*vR + vPhi*vPhi + vZ*vZ)
- 	
-	
-	res[0]=id
-	jj=1
-	res[jj:jj+2]   = mad(Rs, axis=0)
-	jj+=2
-	res[jj:jj + 2] = np.nanpercentile(Rs, q=(16,84), axis=0)
-	jj += 2
-	res[jj:jj + 2] = mad(R, axis=0)
-	jj += 2
-	res[jj:jj + 2] = np.nanpercentile(R, q=(16,84), axis=0)
-	jj += 2
-	res[jj:jj + 2] = mad(Z, axis=0)
-	jj += 2
-	res[jj:jj + 2] = np.nanpercentile(Z, q=(16,84), axis=0)
-	jj += 2
-	res[jj:jj + 2] = mad(vx, axis=0)
-	jj += 2
-	res[jj:jj + 2] = np.nanpercentile(vx, q=(16,84), axis=0)
-	jj += 2
-	res[jj:jj + 2] = mad(vy, axis=0)
-	jj += 2
-	res[jj:jj + 2] = np.nanpercentile(vy, q=(16,84), axis=0)
-	jj += 2
-	res[jj:jj + 2] = mad(vR, axis=0)
-	jj += 2
-	res[jj:jj + 2] = np.nanpercentile(vR, q=(16,84), axis=0)
-	jj += 2
-	res[jj:jj + 2] = mad(vZ, axis=0)
-	jj += 2
-	res[jj:jj + 2] = np.percentile(vZ, q=(16,84), axis=0)
-	jj += 2
-	res[jj:jj + 2] = mad(vr, axis=0)
-	jj += 2
-	res[jj:jj + 2] = np.nanpercentile(vr, q=(16,84), axis=0)
-	jj += 2
-	res[jj:jj + 2] = mad(vt, axis=0)
-	jj += 2
-	res[jj:jj + 2] = np.nanpercentile(vt, q=(16,84), axis=0)
-	jj += 2
-	res[jj:jj + 2] = mad(vPhi, axis=0)
-	jj += 2
-	res[jj:jj + 2] = np.nanpercentile(vPhi, q=(16,84), axis=0)
-	jj += 2
-	res[jj:jj + 2] = mad(dist, axis=0)
-	jj += 2
-	res[jj:jj + 2] = np.nanpercentile(dist, q=(16,84), axis=0)
-	jj += 2
-	res[jj:jj + 2] = mad(distG, axis=0)
-	jj += 2
-	res[jj:jj + 2] = np.nanpercentile(distG, q=(16,84), axis=0)
-	jj += 2
-	phid=phi*180./np.pi #Phi in deg
-	res[jj:jj + 2] = mad(phid, axis=0)
-	jj += 2
-	res[jj:jj + 2] = np.nanpercentile(phid, q=(16,84), axis=0)
-	jj += 2
-	res[jj:jj + 2] = mad(Lz, axis=0)
-	jj += 2
-	res[jj:jj + 2] = np.nanpercentile(Lz, q=(16,84), axis=0)
-	jj += 2
-	res[jj:jj + 2] = mad(Ltot, axis=0)
-	jj += 2
-	res[jj:jj + 2] = np.nanpercentile(Ltot, q=(16,84), axis=0)
-	jj += 2
-	res[jj:jj + 2] = mad(Ekin, axis=0)
-	jj += 2
-	res[jj:jj + 2] = np.nanpercentile(Ekin, q=(16,84), axis=0)
-	
-	return res
-
-def _observed_to_physical_werr_multi(par, dist_as_parallax=False):
-	"""
-	Estimate the physical phase space information from the observations.
-	It is a wrapper to cycle the core function _observed_to_physical_werr_core with a serial for
-	:param par: a list of  tuple with (id, ra, dec, l, b, parallax, eparallax, mura, emura, mudec, emudec, vra, evrad, Nrandom, Vsunx, Vsuny, Vsunz, Rsun)
-	:return:
-	 		A numpy array with dimension (65)
-	 		It contains 14 variables with 4 entries excpet the first (id) with only one entry.
-	 		For a given variable Var the entries are:
-	 			a- Var (median of the Nrandom sampling)
-	 			b- Var_error (error on Var, estimated as mad)
-	 			c- Var_low (16% percentile of the posterior distribution of Var)
-	 			d- Var_up (64% percentile of the posterior distribution of Var)
-	 		The variables (and the column number of the respective Var) are:
-	 			0- Id: unique Id
-	 			1-  Rs: Circular radius wrt to the Sun [kpc]
-	 			5-  R: Galactic cylindrical radius [kpc]
-	 			9-  Z: Galactic height above the plane [kpc]
-	 			13- Vx: Velocity along the Galactic x-axis (pointing toward the Sun) [km/s]
-	 			17- Vy: Velocity along the Galactic y-axis (pointing toward the Sun) [km/s]
-	 			21- VR: Velocity along the Galactic cylindrical Radius  [km/s]
-	 			25- Vz: Velocity along the Galactic z-axis  [km/s]
-	 			29- Vr: Velocity along the Galactic radius  [km/s]
-	 			33- Vt: Velocity along the Galactic zenithal angle theta  [km/s]
-	 			37- Vphi: Velocity along the Galactic azimuthal angle Phi [km/s]
-	 			41- Dist: Distane from the Sun [kpc]
-	 			45- DistG: Distance from the Galactic centre [km/s]
-				49- Phi: Azimuthal angle [deg]	
-				53- Lz: z-component of angular momentum [kpc * km/s]
-				57- L:  angular momentum [kpc * km/s]
-				61- Ekin:  kinetic energy [km/s * km/s]			
-				see the functions (observed_to_physical for further information)
-	see the functions (observed_to_physical for further information)
-	"""
-
-
-	res = []
-
-
-	for i,pari in enumerate(par):
-
-		res.append(_observed_to_physical_werr_core(pari, dist_as_parallax))
-
-	return np.array(res, dtype=np.float)
-
-#TODO: Add also the inclusion of the errors on Galactic parameters
-def observed_to_physical_6D_werr(ra, dec, l, b, dist, edist, mura, emura, mudec, emudec, vrad, evrad, source_id=None, Nrandom=1000, Rsun=8.2, Zsun=0, Vlsr=235, Vsun=(-11.1, 12.24, 7.25), dist_as_parallax=False, nproc=2, outfile=None, fitsfile=True, numpyfile=True, asciifile=True):
-	"""
-	Estimate the physical phase space information from the observations
-	:param ra:  Right ascension [degree]
-	:param dec: Declination [degree]
-	:param l: Galactic longitude [degree]
-	:param b: Galactic latitude [degree]
-	:param dist:   Distance  [kpc] or [mas] if dist_as_parallax=True
-	:param edist:  Distance error  [kpc] or [mas] if dist_as_parallax=True
-	:param mura:  Ra proper motion  [mas/year] (already multiplied for cos(delta))
-	:param emura: Error on mura  [mas/year]
-	:param mudec: Dec proper motion  [mas/year]
-	:param emudec: Error on mura  [mas/year]
-	:param vrad:  Radial velocity [km/s]
-	:param evrad:  Error on vrad  [km/s]
-	:param source_id: a key index of each star, if None it is just a counter [None]
-	:param Nrandom: Number of points exctracted from a multivariate distribution to estimate the errors
-	:param Rsun:  Cylindrical radius of the Sun wrt Galactic centre [8.2 kpc]
-	:param Zsun: Cylindrical height of the Sun wrt Galactic plane [0 kpc] (Currently not implemented)
-	:param Vlsr: Velocity of the local standard of rest [235 km/s]
-	:param Vsun: 3D tuple with the velocity of the Sun in (-U,V,W) [ (-11, 12.24, 7.25) km/s]
-	:param dist_as_parallax:  If True consider the dist and edist as parallax and its error
-	:param nproc:  Number of threads [2]
-	:param outfile: If not None, enable the file output that will have this name
-	:param fitsfile: enable the fits output [outfile.fits]
-	:param numpyfile: enable the binary numpy output [outfile.npy]
-	:param asciifile: enable the  simple txt axii output [outfile.txt]
-	:return:
-	 		A numpy array with dimension (65)
-	 		It contains 14 variables with 4 entries excpet the first (id) with only one entry.
-	 		For a given variable Var the entries are:
-	 			a- Var (median of the Nrandom sampling)
-	 			b- Var_error (error on Var, estimated as mad)
-	 			c- Var_low (16% percentile of the posterior distribution of Var)
-	 			d- Var_up (64% percentile of the posterior distribution of Var)
-	 		The variables (and the column number of the respective Var) are:
-	 			0- Id: unique Id
-	 			1-  Rs: Circular radius wrt to the Sun [kpc]
-	 			5-  R: Galactic cylindrical radius [kpc]
-	 			9-  Z: Galactic height above the plane [kpc]
-	 			13- Vx: Velocity along the Galactic x-axis (pointing toward the Sun) [km/s]
-	 			17- Vy: Velocity along the Galactic y-axis (pointing toward the Sun) [km/s]
-	 			21- VR: Velocity along the Galactic cylindrical Radius  [km/s]
-	 			25- Vz: Velocity along the Galactic z-axis  [km/s]
-	 			29- Vr: Velocity along the Galactic radius  [km/s]
-	 			33- Vt: Velocity along the Galactic zenithal angle theta  [km/s]
-	 			37- Vphi: Velocity along the Galactic azimuthal angle Phi [km/s]
-	 			41- Dist: Distane from the Sun [kpc]
-	 			45- DistG: Distance from the Galactic centre [km/s]
-				49- Phi: Azimuthal angle [deg]	
-				53- Lz: z-component of angular momentum [kpc * km/s]
-				57- L:  angular momentum [kpc * km/s]
-				61- Ekin:  kinetic energy [km/s * km/s]			
-				see the functions (observed_to_physical for further information)		
-	"""
-
-	if Zsun!=0:
-		raise NotImplementedError('Zsun!=0 not implemented!')
-
-	Nobjects 	= len(ra)
-	onest 		= np.ones(Nobjects)
-	Nrandomlist = onest*Nrandom
-	Vsunxlist	= onest*Vsun[0]
-	Vsunylist	= onest*(Vsun[1]+Vlsr)
-	Vsunzlist	= onest*Vsun[2]
-	Rsunlist	= onest*Rsun
-	if source_id is None: source_id=np.arange(Nobjects)
-	datapar = zip(source_id, ra, dec, l, b, dist, edist, mura, emura, mudec, emudec, vrad, evrad, Nrandomlist, Vsunxlist, Vsunylist, Vsunzlist, Rsunlist)
-
-	if nproc==1:
-		t1=time.time()
-		results =  _observed_to_physical_werr_multi(datapar)
-		t2=time.time()
-	else:
-		t1=time.time()
-		_core_func=partial(_observed_to_physical_werr_core, dist_as_parallax=dist_as_parallax)
-		with Pool(processes=nproc) as pool:
-			results = np.array( pool.map(_core_func, datapar) )
-		t2=time.time()
-
-	twork=t2-t1
-
-	if outfile is not None and ( numpyfile or asciifile or fitsfile):
-
-		col_names = ('Rs', 'R', 'z', 'Vx', 'Vy', 'VR', 'Vz', 'Vrad', 'Vt', 'Vphi', 'Dist', 'DistG','Phi','Lz','L','Ekin')
-		subcol_names = ('', '_error', '_low', '_up')
-		var_names = ['id',]
-		for col_name in col_names:
-			for subcol_name in subcol_names:
-				var_names.append(col_name+subcol_name)
-
-
-		#Numpy binary (pickable) file
-		if numpyfile:
-			np.save(outfile+'.npy', results, allow_pickle=True, fix_imports=True)
-
-
-
-
-		#Ascii file with header
-		if asciifile:
-			head='Infos:\n  Nobjects= %.5e   Nrandom= %i\n  Rsun= %.3f   zsun= %.3f\n  Vlsr= %.3f   Vsun= (%.3f, %.3f, %.3f)\n  CPU time= %.3f\n'%(Nobjects, Nrandom, Rsun, Zsun, Vlsr, Vsun[0],Vsun[1], Vsun[2], twork)
-			head+='SubColumns Legend:\n  a: Median\n  b(_error): Error estimated as mad\n  c(_low): 16% of the posterior\n  d(_up):64% of the posterior\nColumns Legend:\n'
-			for i,name in enumerate(var_names):
-				if i<10: head+='  %i:  %s \n'%(i,name)
-				else: head+='  %i: %s \n'%(i,name)
-
-			np.savetxt(outfile+'.txt', results, header=head, fmt='%i'+' %.3e '*64)
-
-		#Fitsfile
-		if fitsfile:
-			dicf={}
-			for i, name in enumerate(var_names):
-				if i==0: dicf[name] = (results[:, i:i + 1], 'K')
-				else: dicf[name] = (results[:, i:i + 1], 'D')
-			ut.make_fits(dicf, outname=outfile+'.fits', header_key={'Nobjects':Nobjects,'Nrandom':Nrandom,'Rsun':Rsun,'zsun':Zsun, 'Vlsr':Vlsr, 'Vsunx':Vsun[0],'Vsuny':Vsun[1], 'Vsunz':Vsun[2]})
-
-	return results
-
-
 
 def XYZ_to_lbd(R,phi,z, xsun=8):
 	"""
@@ -605,8 +198,7 @@ def XYZ_to_lbd(R,phi,z, xsun=8):
 	b=np.arcsin(z_s/rad_s)*cost
 
 	return l,b,rad_s
-	
-	
+
 def lbd_to_XYZ(l,b,d,xsun=8):
 	"""
 	Pass from l,b and d (heliocentric distance) to the Rectulangar (left-handed) Galactic frame of 
@@ -632,8 +224,6 @@ def lbd_to_XYZ(l,b,d,xsun=8):
 
 	return x_g, y_g, z_g
 
-	
-	
 def HRF_to_LRF(ra, dec, VL, raL, decL, muraL, mudecL, DL):
 	"""
 	Pass from an Heliocentric frame of referece velocity to a Local (e.g. Dwarf) frame of reference velocity (Appendix A, Walker08)
@@ -675,8 +265,236 @@ def HRF_to_LRF(ra, dec, VL, raL, decL, muraL, mudecL, DL):
 	Adotz = VL*sdL + VdecL*cdL
 	
 	return Bx*Adotx + By*Adoty + Bz*Adotz
-	
 
+#####################
+#Sample from obs
+_str_plist="(id, ra, dec, l, b, pmra, pmdec, pmra_err, pmdec_err, cov_pmra_pmdec, gc, distance, distance_error, internal_id)"
+_str_kpc="kpc"
+_str_kms="km/s"
+def _make_Vsunl(U:_str_kms=11.1, V:"km/s"=12.24, W:"km/s"=7.25, U_err:"km/s"=None, V_err:"km/s"=None, W_err:"km/s"=None, Vlsr:"km/s"=235, Vlsr_err:"km/s"=None, N:"int"=1000)->"Nx3 km/s":
+	"""
+	Auxilary function for sample_obs_error. It generates a MC sample of U,V,W solar motions.
+	:param U: Solar motion (wrt LSR) toward the Galactic center
+	(NB: here it is defined positive if it is toward the Galctice centre, but sample_obs_erro we used a left-hand system,
+	in this system a motion toward the GC is negatie. However this converstion is automatically made in sample_obs).
+	:param V: Solar proper motion (wrt LSR) along the direction of Galactic rotation.
+	:param W: Solar proper motion (wrt LSR) along the normal to the Galactic plane (positive value is an upaward motion).
+	:param U_err: Error on U.
+	:param V_err: Error on V.
+	:param W_err: Error on W.
+	:param Vlsr:  Circular motion of the LSR.
+	:param Vlsr_err:  Error on Vlsr.
+	:param N:  Number of sample to extract.
+	:return:  a Nx3 Array with a realisation of (U,V,W) in each row.
+	"""
+	onesl   = np.ones(N) #list of ones
+	#Vsun
+	if Vlsr_err is None: Vlsrl=onesl*Vlsr
+	else: np.random.normal(Vlsr, Vlsr_err)
+	if U_err is None: Ul=onesl*U
+	else: Ul=np.random.normal(U, U_err)
+	if V_err is None: Vl=onesl*V
+	else: Vl=np.random.normal(V, V_err)
+	if W_err is None: Wl=onesl*W
+	else: Wl=np.random.normal(W, W_err)
+	Vsunl = np.vstack((Ul, Vl+Vlsrl, Wl)).T
+
+	return  Vsunl
+
+#TODO: I don't like this implementation with property_list. It is nice for parallelisation but it not very user-friendly. Maybe we have to create a class od create more high-level user wrapper.
+def sample_obs_error_5D(property_list:_str_plist, Mg:"mag"=0.64, Mg_err:"mag"=0.24, Rsun:_str_kpc=8.2, Rsun_err:_str_kpc=None, U:_str_kms=11.1, V:_str_kms=12.24, W:_str_kms=7.25, U_err:_str_kms=None, V_err:_str_kms=None, W_err:_str_kms=None, Vlsr:_str_kms=235, Vlsr_err:_str_kms=None, N:"int"=1000)->"array and dic with properties":
+	"""
+	NB: WE ARE USING A GALACTIC RH system (Sun is a x=Rsun)
+	:param property_list: A tuple with the following properties (in this order):
+		"(id: source_id of the star (can be None),
+		 ra: degrees,
+		 dec: degrees,
+		 l: degrees,
+		 b: degrees,
+		 pmra: pmra proper motion (non corrected for solar motion) mas/yr,
+		 pmdec: pmdec proper motion (non corrected for solar motion) mas/yr,
+		 pmra_err: pmra error,
+		 pmdec_err: pmdec error,
+		 cov_pmra_pmdec: pmra-pmdec corr. coff (sigma_ra_dec/(sigma_ra*sigma_dec)),
+		 gc: G magnitude corrected for extinction (can be None if distance is provided),
+		 distance: Heliocentric distance in kpc (can be None if gc is provided)
+		 distance_error:
+		 internal_id: a user defined internal_id (can be None)".
+	:param Mg: Absolute magnitude to estimate distance from gc.
+	:param Mg_err: error on Absolute magnitude.
+	:param Rsun: Distance of the Sun from the Galactic centre.
+	:param Rsun_err: error on Rsun.
+	:param U: Solar motion (wrt LSR) toward the Galactic center
+	(NB: here it is defined positive if it is toward the Galctice centre, but sample_obs_erro we used a left-hand system,
+	in this system a motion toward the GC is negatie. However this converstion is automatically made).
+	:param V: Solar proper motion (wrt LSR) along the direction of Galactic rotation.
+	:param W: Solar proper motion (wrt LSR) along the normal to the Galactic plane (positive value is an upaward motion).
+	:param U_err: error on U.
+	:param V_err: error on V.
+	:param W_err: error on W.
+	:param Vlsr:  Circular motion of the LSR.
+	:param Vlsr_err:  Error on Vlsr.
+	:param N: Number of MC samples to generate.
+	:return: An array and a dictionary containing spatial and kinematic information obtained from the observables.
+	"""
+
+	_key_list_obs = ('x', 'y', 'z', 'x_err', 'y_err', 'z_err', 'p_x_y', 'p_x_z', 'p_y_z',
+					 'Rcyl', 'phi', 'Rcyl_err', 'phi_err', 'p_Rcyl_phi', 'p_Rcyl_z', 'p_phi_z',
+					 'r', 'theta', 'r_err', 'theta_err', 'p_r_theta', 'p_r_phi', 'p_theta_phi',
+					 'pmra', 'pmdec', 'pmra_err', 'pmdec_err', 'p_pmra_pmdec',
+					 'pmra_c', 'pmdec_c', 'pmra_c_err', 'pmdec_c_err', 'p_pmra_c_pmdec',
+					 'pml', 'pmb', 'pml_err', 'pmb_err', 'p_pml_pmb',
+					 'pml_c', 'pmb_c', 'pml_c_err', 'pmb_c_err', 'p_pml_c_pmb_c',
+					 'Vl', 'Vb', 'Vl_err', 'Vb_err', 'p_Vl_Vb',
+					 'Vl_c', 'Vb_c', 'Vl_c_err', 'Vb_c_err', 'p_Vl_c_Vb_c',
+					 'dsun', 'Vtan_c', 'dsun_err', 'Vtan_c_err', 'p_dsun_Vtan_c',
+					 'l', 'b', 'ra', 'dec', 'gc', 'source_id', 'id')
+
+	_K = COST._K
+	cts = cartesian_to_spherical
+	stc = spherical_to_cartesian
+
+	id, ra, dec, l, b, pmra, pmdec, pmra_err, pmdec_err, cov_pmra_pmdec, gc, distance, distance_error, internal_id = property_list
+	onesl   = np.ones(N) #list of ones
+	ral     = onesl*ra
+	decl    = onesl*dec
+	ll      = onesl*l
+	bl      = onesl*b
+	ll = np.radians(ll)
+	bl = np.radians(bl)
+
+	cov_pm               =  pmra_err*pmdec_err*cov_pmra_pmdec
+	cov_matrix           =  [ [pmra_err**2, cov_pm],  [cov_pm, pmdec_err**2] ]
+	pmral, pmdecl        =  np.random.multivariate_normal( [pmra, pmdec], cov_matrix, N).T
+	pmll, pmbl		     =  co.pmrapmdec_to_pmllpmbb(pmral, pmdecl, ral, decl, degree=True).T
+
+	#Check  if we have to use distance (priority) or gc and Mg
+	if distance is not None and distance_error is not None:
+		Dsunl  = np.random.normal(distance, distance_error,N)
+	elif distance is not None:
+		Dsunl  = np.repeat(distance, N)
+	elif gc is not None:
+		Mgl = np.random.normal(Mg, Mg_err, N)
+		Dsunl = m_to_dist(gc, Mgl)
+	else:
+		raise ValueError("distance and gc cannot be both None")
+	#
+
+	#Rsun
+	if Rsun_err is None: Rsunl = onesl*Rsun
+	else: Rsunl = np.random.normal(Rsun, Rsun_err, N)
+
+
+	#Vsun
+	Vsunl = _make_Vsunl(U, V, W, U_err, V_err, W_err, Vlsr, Vlsr_err, N)
+
+	# LHS COORD
+	xsl    =  Dsunl * np.cos(ll) * np.cos(bl)
+	yl     =  Dsunl * np.sin(ll) * np.cos(bl)
+	zl     =  Dsunl * np.sin(bl)
+	xl     =  Rsunl - xsl
+	Rl     =  np.sqrt(xl * xl + yl * yl)
+	phil   =  np.arctan2(yl, xl)
+	rl     =  np.sqrt( Rl*Rl + zl*zl )
+	thetal =  np.arcsin(zl/rl)
+
+
+	#pml pmb corr
+	Vl_nocorr =  _K*Dsunl*pmll
+	Vb_nocorr =  _K*Dsunl*pmbl
+
+	vxsl_corr, vysl_corr, vzsl_corr  = stc(np.zeros_like(Vl_nocorr), Vl_nocorr, Vb_nocorr, ll, bl, true_theta=False, degree=False)
+	vxl_corr, vyl_corr, vzl_corr     = -(vxsl_corr + Vsunl[:,0]), vysl_corr + Vsunl[:, 1], vzsl_corr + Vsunl[:, 2]
+	_, Vbl, Vll                      = cts(-vxl_corr, vyl_corr, vzl_corr, ll, bl, true_theta=False, degree=False)
+	pmbl_corr, pmll_corr             = Vbl/(_K*Dsunl), Vll/(_K*Dsunl)
+	#pmral_corr, pmdecl_corr			 = co.pmllpmbb_to_pmrapmdec(pmll=pmll_corr, pmbb=pmbl_corr, l=ll, b=bl, degree=True).T
+	#A		 = co.pmllpmbb_to_pmrapmdec(pmll=pmll_corr, pmbb=pmbl_corr, l=ll, b=bl, degree=True).T
+	Vtanl                            = np.sqrt(Vll*Vll + Vbl*Vbl)
+
+	#Estiamte Std, Cov
+	Mean_cart, Std_cart, rho_cart = calc_covariance( xl, yl, zl)
+	Mean_cyl, Std_cyl, rho_cyl    = calc_covariance( Rl, np.degrees(phil), zl)
+	Mean_sph, Std_sph, rho_sph    = calc_covariance( rl, np.degrees(thetal), np.degrees(phil))
+	Mean_sky, Std_sky, rho_sky    = calc_covariance(pmll, pmbl)
+	Mean_sky_corr, Std_sky_corr, rho_sky_corr = calc_covariance(pmll_corr, pmbl_corr)
+	Mean_skyp, Std_skyp, rho_skyp = calc_covariance(Vl_nocorr, Vb_nocorr)
+	Mean_skyp_corr, Std_skyp_corr, rho_skyp_corr = calc_covariance(Vll, Vbl)
+	Mean_sky_tan, Std_sky_tan, rho_Sky_tan = calc_covariance(Dsunl, Vtanl)
+	#pmra pmdec corr
+	pmral_corr, pmdecl_corr = co.pmllpmbb_to_pmrapmdec(pmll_corr,pmbl_corr, ll, bl, degree=False, epoch=2000.0).T
+	Mean_skyeq_corr, Std_skyeq_corr, rho_skyeq_corr = calc_covariance(pmral_corr, pmdecl_corr)
+
+	out_array = np.zeros(65)
+	#Cartesian
+	out_array[0:3] = Mean_cart[:3] #x,y,z
+	out_array[3:6] = Std_cart[:3] #err on x,y,z
+	out_array[6:9] = rho_cart[:3] #cov on x,y,z
+	#Cylindrical
+	out_array[9:11] = Mean_cyl[:2] #R, phi
+	out_array[11:13] = Std_cyl[:2] #err on Rphi
+	out_array[13:16] = rho_cyl[:3]
+	#Spherical
+	out_array[16:18] = Mean_sph[:2] #r, theta
+	out_array[18:20] = Std_sph[:2] #err on r, theta
+	out_array[20:23] = rho_sph[:3]
+
+	#PMRA
+	out_array[23] = pmra
+	out_array[24] = pmdec
+	out_array[25] = pmra_err
+	out_array[26] = pmdec_err
+	out_array[27] = cov_pmra_pmdec
+	out_array[28:30] = Mean_skyeq_corr #r, theta
+	out_array[30:32] = Std_skyeq_corr #err on r, theta
+	out_array[32] = rho_skyeq_corr[0]
+
+	#PML
+	out_array[33:35] = Mean_sky #r, theta
+	out_array[35:37] = Std_sky #err on r, theta
+	out_array[37] = rho_sky[0]
+	out_array[38:40] = Mean_sky_corr #r, theta
+	out_array[40:42] = Std_sky_corr #err on r, theta
+	out_array[42] = rho_sky_corr[0]
+
+	#V
+	out_array[43:45] = Mean_skyp #r, theta
+	out_array[45:47] = Std_skyp #err on r, theta
+	out_array[47] = rho_skyp[0]
+	out_array[48:50] = Mean_skyp_corr #r, theta
+	out_array[50:52] = Std_skyp_corr #err on r, theta
+	out_array[52] = rho_skyp_corr[0]
+	out_array[53:55] = Mean_sky_tan #r, theta
+	out_array[55:57] = Std_sky_tan#err on r, theta
+	out_array[57] = rho_Sky_tan[0]
+
+	#AUX
+	out_array[58] 	 = l
+	out_array[59] 	 = b
+	out_array[60] 	 = ra
+	out_array[61] 	 = dec
+	out_array[62] 	 = gc
+
+
+	#CHECK ID
+	if id is None and internal_id is None: id = internal_id = ut.create_long_index()
+	elif internal_id is None: internal_id = id
+	elif id is None: id = internal_id
+
+
+	out_array[63] 	 = int(id)
+	out_array[64] 	 = internal_id
+
+
+
+	return out_array, dict(zip(_key_list_obs, out_array))
+
+
+#####################
 	
 	
-	
+if __name__=="__main__":
+
+	print(_make_Vsunl.__annotations__)
+	print(sample_obs_error.__annotations__)
+	print(ut.create_long_index())
+

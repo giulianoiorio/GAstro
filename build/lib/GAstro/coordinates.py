@@ -66,7 +66,6 @@ def cartesian_to_spherical(Ax, Ay, Az, phi, theta, true_theta=False, degree=True
 
 	return Ar, Atheta*costheta, Aphi
 
-
 def pmradec_solar_correction(ra, dec, dist, pmra, pmdec,vsun=(11.1, 12.2, 7.25),vlsr=235, vrad=0):
 
 	vsun=np.array(vsun)
@@ -93,7 +92,6 @@ def pmlb_solar_correction(l, b, dist, pml, pmb, vsun=(11.1, 12.2, 7.25), vlsr=23
 	ccorr=gala.reflex_correct(c,gc_frame)
 
 	return ccorr.pm_l_cosb.value, ccorr.pm_b.value
-
 
 def pmradec_to_pmlb(ra, dec, dist, pmra, pmdec, vrad=0, vsun=(11.1, 12.2, 7.25),vlsr=235, solar_correction=False):
 
