@@ -290,7 +290,7 @@ def _make_Vsunl(U:_str_kms=11.1, V:"km/s"=12.24, W:"km/s"=7.25, U_err:"km/s"=Non
 	onesl   = np.ones(N) #list of ones
 	#Vsun
 	if Vlsr_err is None: Vlsrl=onesl*Vlsr
-	else: np.random.normal(Vlsr, Vlsr_err)
+	else: Vlsrl=np.random.normal(Vlsr, Vlsr_err)
 	if U_err is None: Ul=onesl*U
 	else: Ul=np.random.normal(U, U_err)
 	if V_err is None: Vl=onesl*V

@@ -2,18 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6786ee18-aa09-44af-8430-3dec9f667fc5" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/GAstro/_old/old_transform.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GAstro/constant.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GAstro/tests/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GAstro/tests/test_stat.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GAstro/tests/test_transform.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GAstro/utility.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GAstro/coordinates.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAstro/coordinates.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GAstro/stat.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAstro/stat.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GAstro/transform.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAstro/transform.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/lib/GAstro/plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/build/lib/GAstro/plot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/lib/GAstro/stat.py" beforeDir="false" afterPath="$PROJECT_DIR$/build/lib/GAstro/stat.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -24,11 +13,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="transform.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="transform.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/GAstro/transform.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2495">
-              <caret line="304" column="73" selection-start-line="304" selection-start-column="73" selection-end-line="304" selection-end-column="73" />
+            <state relative-caret-position="213">
+              <caret line="299" column="35" selection-start-line="299" selection-start-column="35" selection-end-line="299" selection-end-column="35" />
               <folding>
                 <element signature="e#598#622#0" expanded="true" />
                 <element signature="e#938#1258#0" />
@@ -39,17 +28,16 @@
                 <element signature="e#27366#27994#0" />
                 <element signature="e#28030#28622#0" />
                 <element signature="e#29978#31032#0" />
-                <element signature="e#7695#8934#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test_transform.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="test_transform.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GAstro/tests/test_transform.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
+            <state relative-caret-position="-440">
+              <caret line="10" selection-start-line="10" selection-end-line="16" />
               <folding>
                 <element signature="e#0#30#0" expanded="true" />
               </folding>
@@ -179,9 +167,9 @@
         <option value="$PROJECT_DIR$/GAstro/_old/old_transform.py" />
         <option value="$PROJECT_DIR$/GAstro/tests/utility.py" />
         <option value="$PROJECT_DIR$/GAstro/utility.py" />
-        <option value="$PROJECT_DIR$/GAstro/transform.py" />
         <option value="$PROJECT_DIR$/GAstro/stat.py" />
         <option value="$PROJECT_DIR$/GAstro/tests/test_transform.py" />
+        <option value="$PROJECT_DIR$/GAstro/transform.py" />
       </list>
     </option>
   </component>
@@ -347,7 +335,6 @@
             <element signature="e#27366#27994#0" />
             <element signature="e#28030#28622#0" />
             <element signature="e#29978#31032#0" />
-            <element signature="e#7695#8934#0" />
           </folding>
         </state>
       </provider>
@@ -380,7 +367,6 @@
             <element signature="e#27366#27994#0" />
             <element signature="e#28030#28622#0" />
             <element signature="e#29978#31032#0" />
-            <element signature="e#7695#8934#0" />
           </folding>
         </state>
       </provider>
@@ -413,7 +399,6 @@
             <element signature="e#27366#27994#0" />
             <element signature="e#28030#28622#0" />
             <element signature="e#29978#31032#0" />
-            <element signature="e#7695#8934#0" />
           </folding>
         </state>
       </provider>
@@ -446,7 +431,6 @@
             <element signature="e#27366#27994#0" />
             <element signature="e#28030#28622#0" />
             <element signature="e#29978#31032#0" />
-            <element signature="e#7695#8934#0" />
           </folding>
         </state>
       </provider>
@@ -479,7 +463,6 @@
             <element signature="e#27366#27994#0" />
             <element signature="e#28030#28622#0" />
             <element signature="e#29978#31032#0" />
-            <element signature="e#7695#8934#0" />
           </folding>
         </state>
       </provider>
@@ -512,7 +495,6 @@
             <element signature="e#27366#27994#0" />
             <element signature="e#28030#28622#0" />
             <element signature="e#29978#31032#0" />
-            <element signature="e#7695#8934#0" />
           </folding>
         </state>
       </provider>
@@ -545,7 +527,6 @@
             <element signature="e#27366#27994#0" />
             <element signature="e#28030#28622#0" />
             <element signature="e#29978#31032#0" />
-            <element signature="e#7695#8934#0" />
           </folding>
         </state>
       </provider>
@@ -578,7 +559,6 @@
             <element signature="e#27366#27994#0" />
             <element signature="e#28030#28622#0" />
             <element signature="e#29978#31032#0" />
-            <element signature="e#7695#8934#0" />
           </folding>
         </state>
       </provider>
@@ -611,7 +591,6 @@
             <element signature="e#27366#27994#0" />
             <element signature="e#28030#28622#0" />
             <element signature="e#29978#31032#0" />
-            <element signature="e#7695#8934#0" />
           </folding>
         </state>
       </provider>
@@ -734,25 +713,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/transform.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2495">
-          <caret line="304" column="73" selection-start-line="304" selection-start-column="73" selection-end-line="304" selection-end-column="73" />
-          <folding>
-            <element signature="e#598#622#0" expanded="true" />
-            <element signature="e#938#1258#0" />
-            <element signature="e#1312#1771#0" />
-            <element signature="e#1863#2854#0" />
-            <element signature="e#2940#3896#0" />
-            <element signature="e#3960#4528#0" />
-            <element signature="e#27366#27994#0" />
-            <element signature="e#28030#28622#0" />
-            <element signature="e#29978#31032#0" />
-            <element signature="e#7695#8934#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/GAstro/__init__.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -776,10 +736,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/GAstro/tests/test_transform.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
+        <state relative-caret-position="-440">
+          <caret line="10" selection-start-line="10" selection-end-line="16" />
           <folding>
             <element signature="e#0#30#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GAstro/transform.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="299" column="35" selection-start-line="299" selection-start-column="35" selection-end-line="299" selection-end-column="35" />
+          <folding>
+            <element signature="e#598#622#0" expanded="true" />
+            <element signature="e#938#1258#0" />
+            <element signature="e#1312#1771#0" />
+            <element signature="e#1863#2854#0" />
+            <element signature="e#2940#3896#0" />
+            <element signature="e#3960#4528#0" />
+            <element signature="e#27366#27994#0" />
+            <element signature="e#28030#28622#0" />
+            <element signature="e#29978#31032#0" />
           </folding>
         </state>
       </provider>
