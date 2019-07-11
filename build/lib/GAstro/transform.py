@@ -290,7 +290,7 @@ def _make_Vsunl(U:_str_kms=11.1, V:"km/s"=12.24, W:"km/s"=7.25, U_err:"km/s"=Non
 	onesl   = np.ones(N) #list of ones
 	#Vsun
 	if Vlsr_err is None: Vlsrl=onesl*Vlsr
-	else: np.random.normal(Vlsr, Vlsr_err)
+	else: Vlsrl=np.random.normal(Vlsr, Vlsr_err)
 	if U_err is None: Ul=onesl*U
 	else: Ul=np.random.normal(U, U_err)
 	if V_err is None: Vl=onesl*V
@@ -488,6 +488,17 @@ def sample_obs_error_5D(property_list:_str_plist, Mg:"mag"=0.64, Mg_err:"mag"=0.
 
 	return out_array, dict(zip(_key_list_obs, out_array))
 
+sample_obs_error_5D_key_list_obs = ('x', 'y', 'z', 'x_err', 'y_err', 'z_err', 'p_x_y', 'p_x_z', 'p_y_z',
+					 'Rcyl', 'phi', 'Rcyl_err', 'phi_err', 'p_Rcyl_phi', 'p_Rcyl_z', 'p_phi_z',
+					 'r', 'theta', 'r_err', 'theta_err', 'p_r_theta', 'p_r_phi', 'p_theta_phi',
+					 'pmra', 'pmdec', 'pmra_err', 'pmdec_err', 'p_pmra_pmdec',
+					 'pmra_c', 'pmdec_c', 'pmra_c_err', 'pmdec_c_err', 'p_pmra_c_pmdec',
+					 'pml', 'pmb', 'pml_err', 'pmb_err', 'p_pml_pmb',
+					 'pml_c', 'pmb_c', 'pml_c_err', 'pmb_c_err', 'p_pml_c_pmb_c',
+					 'Vl', 'Vb', 'Vl_err', 'Vb_err', 'p_Vl_Vb',
+					 'Vl_c', 'Vb_c', 'Vl_c_err', 'Vb_c_err', 'p_Vl_c_Vb_c',
+					 'dsun', 'Vtan_c', 'dsun_err', 'Vtan_c_err', 'p_dsun_Vtan_c',
+					 'l', 'b', 'ra', 'dec', 'gc', 'source_id', 'id')
 
 #####################
 	

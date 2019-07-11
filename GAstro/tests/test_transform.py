@@ -41,7 +41,7 @@ def test_sample_obs_error():
 	ra, dec, l, b = sc.ra.value, sc.dec.value, gc.l.value, gc.b.value
 	pmra, pmdec = sc.pm_ra_cosdec.value, sc.pm_dec.value
 	dhelio = sc.distance.value
-	dhelio_err= 1e-3
+	dhelio_err= dhelio*0.05
 	pmra_err = 1e-3
 	pmdec_err = 1e-3
 	cov_pmra_pmdec = 0
@@ -53,7 +53,8 @@ def test_sample_obs_error():
 	param_list=(id, ra, dec, l, b, pmra, pmdec, pmra_err, pmdec_err, cov_pmra_pmdec, gc_, dhelio, dhelio_err, id_internal)
 	arr,dic=tr.sample_obs_error_5D(property_list=param_list, Mg=0.64, Mg_err=0.24, Rsun=Rsun, Rsun_err=None, U=U, V=V, W=W, U_err=None, V_err=None, W_err=None, Vlsr=Vlsr, Vlsr_err=None, N=1000)
 
-
+	print(dic['dsun'])
+	print(dic['dsun_err'])
 	assert math.isclose(x, dic['x'], rel_tol=tollerance)
 	assert math.isclose(y, dic['y'], rel_tol=tollerance)
 	assert math.isclose(z, dic['z'], rel_tol=tollerance)
