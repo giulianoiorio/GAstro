@@ -1,4 +1,4 @@
-from GAstro import stat
+from .. import stat
 import math
 import numpy as np
 
