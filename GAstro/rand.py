@@ -81,8 +81,49 @@ def Multivariate(mean, covariance_matrix, Npersample=1, flatten=True):
 
 	return ret
 
+def consistent_skypoint_cartesian(N, xrange=(-20,20), yrange=(-20,20), zrange=(-20,20), Rsun=8.1):
+	"""
+	Generate random coordinate l,b (sky spherical) and phi, theta (Galactic spherical) starting from
+	a random distribution in cartesian coordinates in a system centred on the Sun.
+	:param N: Number of object to draw.
+	:param xrange:  Uniform x-range used in Heliocentric Cartesian to extract the initial coordinates.
+	:param yrange:  Uniform y-range used in Heliocentric Cartesian to extract the initial coordinates.
+	:param zrange:  Uniform z-range used in Heliocentric Cartesian to extract the initial coordinates.
+	:param Rsun:  Distance Sun-Galactic centre.
+	:return: Numpy 1D Arrays with length=N: l, b, phi, theta.
+	"""
+	#Solar Cartsian rhs frame of reference
+	x    = np.random.uniform(xrange[0],xrange[1],N)
+	y    = np.random.uniform(yrange[0],yrange[1],N)
+	z    = np.random.uniform(zrange[0],zrange[1],N)
+	Dsun = np.sqrt(x*x+y*y+z*z)
+
+	#l,b
+	l = np.degrees(np.arctan2(y,x))
+	l[l<0]+= 360
+	b = np.degrees(np.arcsin(z/Dsun))
+
+	#Galactic cartesian lhs system,
+	xg, yg, zg = Rsun - x, y, z
+	Dgal  = np.sqrt(xg*xg+yg*yg+zg*zg)
+	phi   = np.degrees(np.arctan2(y,x))
+	phi[phi<0]+=360
+	theta = np.degrees(np.arcsin(z/Dgal))
+
+	return l, b, phi, theta
+
+
+
 if __name__=='__main__':
 
+
+	l,b,phi,theta = consistent_skypoint_cartesian(10)
+	print(l)
+	print(b)
+	print(phi)
+	print(theta)
+
+	'''
 	A = np.array([10,10])
 	B = np.array([0,0])
 	C = np.array([-10,-10])
@@ -110,5 +151,5 @@ if __name__=='__main__':
 	A=Mutivariate(mean, cov_list, Npersample=10, flatten=False)
 	print(A.shape)
 
-
 	plt.show()
+	'''

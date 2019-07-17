@@ -70,7 +70,7 @@ def ploth2(x=[],y=[],z=None, statistic='mean', H=None,edges=None,ax=None,bins=10
 
 	if H is None:
 
-		if range is None: range = [[np.min(x), np.max(x)], [np.min(y), np.max(y)]]
+		if range is None: range = [[np.nanmin(x), np.nanmax(x)], [np.nanmin(y), np.nanmax(y)]]
 		else: range = range
 
 		if isinstance(bins,float) or isinstance(bins,int):

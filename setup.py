@@ -47,7 +47,7 @@ import sys
 
 setup(
 		name='GAstro',
-		version='0.0.dev0',
+		version='0.1.dev0',
 		author='Giuliano Iorio',
 		author_email='',
 		url='',
