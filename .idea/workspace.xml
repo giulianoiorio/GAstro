@@ -4,8 +4,7 @@
     <list default="true" id="6786ee18-aa09-44af-8430-3dec9f667fc5" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GAstro/rand.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAstro/rand.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/lib/GAstro/plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/build/lib/GAstro/plot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/lib/GAstro/rand.py" beforeDir="false" afterPath="$PROJECT_DIR$/build/lib/GAstro/rand.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16,23 +15,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="plot.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GAstro/plot.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="163">
-              <caret line="194" column="8" lean-forward="true" selection-start-line="194" selection-start-column="8" selection-end-line="194" selection-end-column="41" />
-              <folding>
-                <element signature="e#134#165#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="prob.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GAstro/prob.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1055">
-              <caret line="162" column="7" lean-forward="true" selection-start-line="162" selection-start-column="7" selection-end-line="162" selection-end-column="7" />
+            <state relative-caret-position="2754">
+              <caret line="162" column="7" selection-start-line="162" selection-start-column="7" selection-end-line="162" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -40,11 +27,8 @@
       <file leaf-file-name="rand.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/GAstro/rand.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="92" column="61" selection-start-line="92" selection-start-column="61" selection-end-line="92" selection-end-column="61" />
-              <folding>
-                <element signature="e#257#3159#0" />
-              </folding>
+            <state relative-caret-position="221">
+              <caret line="68" column="19" selection-start-line="68" selection-end-line="69" />
             </state>
           </provider>
         </entry>
@@ -52,7 +36,7 @@
       <file leaf-file-name="test_prob.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GAstro/tests/test_prob.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
+            <state relative-caret-position="527">
               <caret line="33" column="11" selection-start-line="33" selection-start-column="11" selection-end-line="33" selection-end-column="11" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
@@ -64,8 +48,35 @@
       <file leaf-file-name="setup.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/setup.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="141">
-              <caret line="49" column="20" selection-start-line="49" selection-start-column="20" selection-end-line="49" selection-end-column="20" />
+            <state relative-caret-position="884">
+              <caret line="54" column="22" selection-start-line="54" selection-end-line="55" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="transform.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GAstro/transform.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4607">
+              <caret line="500" column="20" selection-start-line="500" selection-start-column="20" selection-end-line="500" selection-end-column="20" />
+              <folding>
+                <element signature="e#7801#9046#0" />
+                <element signature="e#9576#16928#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="fitsut.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GAstro/fitsut.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="202">
+              <caret line="13" column="14" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="14" />
+              <folding>
+                <element signature="e#220#836#0" />
+                <element signature="e#889#2449#0" />
+                <element signature="e#2494#2877#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -73,7 +84,7 @@
       <file leaf-file-name="index_tricks.py" pinned="false" current-in-tab="false">
         <entry file="file:///anaconda3/lib/python3.7/site-packages/numpy/lib/index_tricks.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-469">
+            <state relative-caret-position="6562">
               <caret line="403" selection-start-line="403" selection-end-line="403" />
             </state>
           </provider>
@@ -82,17 +93,8 @@
       <file leaf-file-name="colors.py" pinned="false" current-in-tab="false">
         <entry file="file:///anaconda3/lib/python3.7/site-packages/matplotlib/colors.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="129">
+            <state relative-caret-position="20536">
               <caret line="1214" selection-start-line="1214" selection-end-line="1214" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_multivariate.py" pinned="false" current-in-tab="false">
-        <entry file="file:///anaconda3/lib/python3.7/site-packages/scipy/stats/_multivariate.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-12360">
-              <caret line="1241" selection-start-line="1241" selection-end-line="1241" />
             </state>
           </provider>
         </entry>
@@ -100,10 +102,10 @@
       <file leaf-file-name="test_stat.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GAstro/tests/test_stat.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="11" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="54" />
+            <state relative-caret-position="221">
+              <caret line="15" column="11" lean-forward="true" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="54" />
               <folding>
-                <element signature="e#0#23#0" expanded="true" />
+                <element signature="e#0#19#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -112,8 +114,8 @@
       <file leaf-file-name="test_transform.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GAstro/tests/test_transform.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1003">
-              <caret selection-end-line="2" selection-end-column="11" />
+            <state relative-caret-position="-210">
+              <caret line="25" selection-start-line="25" selection-end-line="27" selection-end-column="35" />
               <folding>
                 <element signature="e#0#30#0" expanded="true" />
               </folding>
@@ -179,9 +181,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="385" />
-    <option name="y" value="129" />
-    <option name="width" value="1202" />
+    <option name="x" value="392" />
+    <option name="y" value="271" />
+    <option name="width" value="941" />
     <option name="height" value="786" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -190,7 +192,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -207,18 +208,13 @@
               <item name="GAstro" type="b2602c69:ProjectViewProjectNode" />
               <item name="GAstro" type="462c0819:PsiDirectoryNode" />
               <item name="GAstro" type="462c0819:PsiDirectoryNode" />
-              <item name="_old" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GAstro" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GAstro" type="462c0819:PsiDirectoryNode" />
-              <item name="GAstro" type="462c0819:PsiDirectoryNode" />
               <item name="tests" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -261,7 +257,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="385" y="129" width="1202" height="786" extended-state="0" />
+    <frame x="392" y="271" width="941" height="786" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -270,13 +266,12 @@
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.39912918" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4710145" visible="true" weight="0.19655173" />
+      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.39912918" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4589372" visible="true" weight="0.27808675" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32946298" />
       <window_info anchor="right" id="SciView" order="3" />
-      <window_info id="Structure" order="1" sideWeight="0.5289855" side_tool="true" visible="true" weight="0.19655173" />
+      <window_info id="Structure" order="1" sideWeight="0.5410628" side_tool="true" visible="true" weight="0.27808675" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -285,6 +280,7 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32946298" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -299,13 +295,17 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/GAstro/rand.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="83" column="4" selection-start-line="83" selection-start-column="4" selection-end-line="83" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/GAstro/transform.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1992">
           <caret line="88" selection-start-line="88" selection-end-line="90" />
-          <folding>
-            <element signature="e#598#622#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -327,9 +327,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
           <caret line="19" column="44" selection-start-line="19" selection-start-column="44" selection-end-line="19" selection-end-column="44" />
-          <folding>
-            <element signature="e#598#622#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -351,9 +348,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
           <caret line="19" column="44" selection-start-line="19" selection-start-column="44" selection-end-line="19" selection-end-column="44" />
-          <folding>
-            <element signature="e#598#622#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -375,9 +369,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
           <caret line="19" column="44" selection-start-line="19" selection-start-column="44" selection-end-line="19" selection-end-column="44" />
-          <folding>
-            <element signature="e#598#622#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -399,9 +390,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
           <caret line="19" column="44" lean-forward="true" selection-start-line="19" selection-start-column="44" selection-end-line="19" selection-end-column="44" />
-          <folding>
-            <element signature="e#598#622#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -423,9 +411,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3072">
           <caret line="133" lean-forward="true" selection-start-line="133" selection-end-line="133" />
-          <folding>
-            <element signature="e#598#622#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -447,9 +432,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="552">
           <caret line="28" column="4" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="10" />
-          <folding>
-            <element signature="e#598#622#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -471,9 +453,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="552">
           <caret line="28" column="4" lean-forward="true" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="10" />
-          <folding>
-            <element signature="e#598#622#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -495,9 +474,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2664">
           <caret line="116" column="19" lean-forward="true" selection-start-line="116" selection-start-column="19" selection-end-line="116" selection-end-column="19" />
-          <folding>
-            <element signature="e#598#622#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -563,9 +539,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="578">
           <caret line="36" selection-start-line="36" selection-end-line="36" />
-          <folding>
-            <element signature="e#142#160#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -573,10 +546,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="1" column="17" selection-start-line="1" selection-end-line="2" />
-          <folding>
-            <element signature="e#230#1221#0" />
-            <element signature="e#1307#2259#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -587,87 +556,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/fitsut.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="13" column="14" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/transform.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="490" selection-start-line="490" selection-end-line="490" selection-end-column="32" />
-          <folding>
-            <element signature="e#598#622#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/GAstro/plot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="194" column="8" lean-forward="true" selection-start-line="194" selection-start-column="8" selection-end-line="194" selection-end-column="41" />
-          <folding>
-            <element signature="e#134#165#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="3145">
+          <caret line="194" column="8" selection-start-line="194" selection-start-column="8" selection-end-line="194" selection-end-column="41" />
         </state>
       </provider>
     </entry>
     <entry file="file:///anaconda3/lib/python3.7/site-packages/scipy/stats/_multivariate.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-12360">
+        <state relative-caret-position="20859">
           <caret line="1241" selection-start-line="1241" selection-end-line="1241" />
         </state>
       </provider>
     </entry>
     <entry file="file:///anaconda3/lib/python3.7/site-packages/matplotlib/colors.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
+        <state relative-caret-position="20536">
           <caret line="1214" selection-start-line="1214" selection-end-line="1214" />
         </state>
       </provider>
     </entry>
     <entry file="file:///anaconda3/lib/python3.7/site-packages/numpy/lib/index_tricks.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-469">
+        <state relative-caret-position="6562">
           <caret line="403" selection-start-line="403" selection-end-line="403" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/tests/testprob.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/tests/test_transform.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1003">
-          <caret selection-end-line="2" selection-end-column="11" />
-          <folding>
-            <element signature="e#0#30#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/tests/test_stat.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="11" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="54" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/setup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="49" column="20" selection-start-line="49" selection-start-column="20" selection-end-line="49" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/GAstro/tests/test_prob.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
+        <state relative-caret-position="527">
           <caret line="33" column="11" selection-start-line="33" selection-start-column="11" selection-end-line="33" selection-end-column="11" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
@@ -677,18 +596,65 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/GAstro/prob.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1055">
-          <caret line="162" column="7" lean-forward="true" selection-start-line="162" selection-start-column="7" selection-end-line="162" selection-end-column="7" />
+        <state relative-caret-position="2754">
+          <caret line="162" column="7" selection-start-line="162" selection-start-column="7" selection-end-line="162" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GAstro/tests/test_stat.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="15" column="11" lean-forward="true" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="54" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/setup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="884">
+          <caret line="54" column="22" selection-start-line="54" selection-end-line="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GAstro/transform.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4607">
+          <caret line="500" column="20" selection-start-line="500" selection-start-column="20" selection-end-line="500" selection-end-column="20" />
+          <folding>
+            <element signature="e#7801#9046#0" />
+            <element signature="e#9576#16928#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GAstro/fitsut.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="13" column="14" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="14" />
+          <folding>
+            <element signature="e#220#836#0" />
+            <element signature="e#889#2449#0" />
+            <element signature="e#2494#2877#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GAstro/tests/test_transform.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-210">
+          <caret line="25" selection-start-line="25" selection-end-line="27" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#30#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/GAstro/rand.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="92" column="61" selection-start-line="92" selection-start-column="61" selection-end-line="92" selection-end-column="61" />
-          <folding>
-            <element signature="e#257#3159#0" />
-          </folding>
+        <state relative-caret-position="221">
+          <caret line="68" column="19" selection-start-line="68" selection-end-line="69" />
         </state>
       </provider>
     </entry>
