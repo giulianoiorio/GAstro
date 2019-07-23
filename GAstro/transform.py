@@ -65,7 +65,42 @@ def m_to_dist(m,M):
 	
 	return Dsun
 
-def cylindrical_to_spherical(AR,Ap,Az,phi,theta):
+
+def cylindrical_to_spherical(AR, Az, Aphi, theta, true_theta=False, degree=True):
+
+	if degree: theta = np.radians(theta)
+	if true_theta==True:
+		theta= np.pi/2. -  theta
+		Stheta=-1
+	else:
+		Stheta=1
+
+	cost = np.cos(theta)
+	sint = np.sin(theta)
+
+	Ar     =  AR*cost + Az*sint
+	Atheta = -AR*sint + Az*cost
+
+	return Ar, Atheta*Stheta, Aphi
+
+def spherical_to_cylindrical(Ar, Atheta, Aphi, theta, true_theta=False, degree=True):
+
+	if degree: theta = np.radians(theta)
+	if true_theta==True:
+		theta= np.pi/2. -  theta
+		Stheta=-1
+	else:
+		Stheta=1
+
+	cost = np.cos(theta)
+	sint = np.sin(theta)
+
+	AR = Ar*cost - Atheta*sint
+	Az = Ar*sint + Atheta*cost
+
+	return AR, Az*Stheta, Aphi
+
+def cylindrical_to_spherical_old(AR,Ap,Az,phi,theta):
 
 	st=np.sin(theta)
 	ct=np.cos(theta)
