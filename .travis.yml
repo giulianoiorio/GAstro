@@ -1,9 +1,9 @@
 warnings_are_errors: false
 language: python
 python:
-  - 3.4
   - 3.5
-  - 3.6  
+  - 3.6
+  - 3.7  
 before_install:
   - pip install cython
   - git clone https://github.com/iogiul/starhalo_inspector.git
