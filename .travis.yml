@@ -12,6 +12,11 @@ before_install:
   - cd starhalo_inspector 
   - python setup.py install
   - cd ..
+  - git https://github.com/iogiul/roteasy.git
+  - cd roteasy
+  - python setup.py install
+  - cd ..
+  
 install:
   - pip install .
 script: pytest
