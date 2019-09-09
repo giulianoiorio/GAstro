@@ -5,7 +5,12 @@ python:
   - 3.3
   - 3.4
   - 3.5
-  - 3.6
+  - 3.6  
+before install:
+  - git clone https://github.com/iogiul/starhalo_inspector.git
+  - cd starhalo_inspector 
+  - python setup.py install
+  - cd ..
 install:
   - pip install .
 script: pytest
