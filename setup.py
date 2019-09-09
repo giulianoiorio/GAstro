@@ -52,6 +52,6 @@ setup(
 		author_email='',
 		url='',
 		packages=['GAstro'],
-        install_requires=['numpy>=1.9', 'scipy>=0.19', 'matplotlib','emcee','sklearn','galpy'],
+        install_requires=['numpy>=1.9', 'scipy>=0.19', 'matplotlib','emcee','sklearn','galpy','astropy'],
 		zip_safe=False
 )
