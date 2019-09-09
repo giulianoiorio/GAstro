@@ -16,7 +16,7 @@ before_install:
   - cd roteasy
   - python setup.py install
   - cd ..
-  
+  - pip install gala
 install:
   - pip install .
 script: pytest
