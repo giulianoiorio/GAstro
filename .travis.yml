@@ -7,9 +7,4 @@ python:
   - 3.5
   - 3.6
 install:
-  - gcc --version
   - python setup.py install
-  - pip list
-script:
-  - python setup.py test -q
-sudo: false
