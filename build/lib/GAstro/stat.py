@@ -47,6 +47,59 @@ def calc_covariance(*args):
 	return Mean, Std, rho
 
 
+def recursive_mean(value, old_mean, N):
+	"""
+	Estimate the  mean value using the mean of a sample of len N and a new value.
+	:param value:   Array containing numbers whose the mean is deseride. If a is not an array, a conversion is attempted.
+	:param old_mean: Array containing the value of the mean so far.
+	:param N: Number of objects used to estimate the mean (including the value in  input)
+	:return: The mean of the sample containing the old objects and the new one.
+	"""
+
+	new_mean = value/N + (N-1)/N * old_mean
+
+	return new_mean
+
+
+
+def recursive_std(value, old_std, N, dof=0):
+	"""
+	 where std^2 = (1/(N-dof))*(sum (xi - <x>)^2)
+	:param value:
+	:param old_std:
+	:param N:
+	:param dof:
+	:return:
+	"""
+	l = N - dof
+	A = (l - 1) / (l)
+	B = (N - 1) / (l * N)
+
+	var_a = A * old_std * old_std
+	vec_diff = (value - old_mean)
+	var_b = B * (vec_diff * vec_diff)
+
+	return np.sqrt(var_a + var_b)
+
+def recursive_cov(value, old_cov, old_mean, N, dof=1):
+	"""
+	where cov = (1/(N-dof))*(sum (Xi - <X>)(Xi-<X>)T)
+	:param value:
+	:param old_cov:
+	:param old_mean:
+	:param N:
+	:param dof:
+	:return:
+	"""
+	l = N - dof
+	A = (l - 1) / (l)
+	B = (N - 1) / (l * N)
+
+	cov_a = A * old_cov
+	vec_diff = value - old_mean
+	cov_b = B * np.outer(vec_diff, vec_diff)
+
+	return cov_a + cov_b
 
 if __name__=='__main__':
 
