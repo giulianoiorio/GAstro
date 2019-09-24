@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6786ee18-aa09-44af-8430-3dec9f667fc5" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GAstro/transform.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAstro/transform.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -75,8 +75,8 @@
       <file leaf-file-name="transform.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/GAstro/transform.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1832">
-              <caret line="85" column="85" selection-start-line="85" selection-start-column="85" selection-end-line="85" selection-end-column="85" />
+            <state relative-caret-position="179">
+              <caret line="342" column="67" selection-start-line="342" selection-start-column="67" selection-end-line="342" selection-end-column="67" />
               <folding>
                 <element signature="e#1420#1740#0" />
                 <element signature="e#1827#2079#0" />
@@ -164,11 +164,11 @@
         <option value="$PROJECT_DIR$/GAstro/tests/testprob.py" />
         <option value="$PROJECT_DIR$/GAstro/tests/test_stat.py" />
         <option value="$PROJECT_DIR$/GAstro/tests/test_prob.py" />
-        <option value="$PROJECT_DIR$/GAstro/transform.py" />
         <option value="$PROJECT_DIR$/GAstro/prob.py" />
         <option value="$PROJECT_DIR$/GAstro/rand.py" />
         <option value="$PROJECT_DIR$/GAstro/stat.py" />
         <option value="$PROJECT_DIR$/setup.py" />
+        <option value="$PROJECT_DIR$/GAstro/transform.py" />
       </list>
     </option>
   </component>
@@ -179,9 +179,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="473" />
-    <option name="y" value="342" />
-    <option name="width" value="1108" />
+    <option name="x" value="295" />
+    <option name="y" value="215" />
+    <option name="width" value="1283" />
     <option name="height" value="821" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -249,7 +249,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="473" y="342" width="1108" height="821" extended-state="0" />
+    <frame x="295" y="215" width="1283" height="821" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -258,12 +258,12 @@
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.37983426" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.43207127" visible="true" weight="0.29549718" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.37983426" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.43207127" visible="true" weight="0.25382757" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="right" id="SciView" order="3" />
-      <window_info id="Structure" order="1" sideWeight="0.56792873" side_tool="true" visible="true" weight="0.29549718" />
+      <window_info id="Structure" order="1" sideWeight="0.56792873" side_tool="true" visible="true" weight="0.25382757" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -638,8 +638,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/GAstro/transform.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1832">
-          <caret line="85" column="85" selection-start-line="85" selection-start-column="85" selection-end-line="85" selection-end-column="85" />
+        <state relative-caret-position="179">
+          <caret line="342" column="67" selection-start-line="342" selection-start-column="67" selection-end-line="342" selection-end-column="67" />
           <folding>
             <element signature="e#1420#1740#0" />
             <element signature="e#1827#2079#0" />
