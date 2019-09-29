@@ -339,7 +339,8 @@ def _make_Vsunl(U:_str_kms=11.1, V:"km/s"=12.24, W:"km/s"=7.25, U_err:"km/s"=Non
 #TODO: I don't like this implementation with property_list. It is nice for parallelisation but it not very user-friendly. Maybe we have to create a class od create more high-level user wrapper.
 def sample_obs_error_5D(property_list:_str_plist, Mg:"mag"=0.64, Mg_err:"mag"=0.24, Rsun:_str_kpc=8.2, Rsun_err:_str_kpc=None, U:_str_kms=11.1, V:_str_kms=12.24, W:_str_kms=7.25, U_err:_str_kms=None, V_err:_str_kms=None, W_err:_str_kms=None, Vlsr:_str_kms=235, Vlsr_err:_str_kms=None, N:"int"=1000)->"array and dic with properties":
 	"""
-	NB: WE ARE USING A GALACTIC RH system (Sun is a x=Rsun)
+	NB: THE INPUT ARE ASSUME A GALACTIC RH system (Sun is a x=Rsun),
+		BUT THE OUTPUT ARE IN GALACTIC LH system (I know is crazy).
 	:param property_list: A tuple with the following properties (in this order):
 		"(id: source_id of the star (can be None),
 		 ra: degrees,

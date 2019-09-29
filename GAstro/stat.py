@@ -13,6 +13,25 @@ from scipy.interpolate import UnivariateSpline
 from sklearn.covariance import MinCovDet
 
 
+def boostrap(arr, fstatistic=np.nanmean, N=1000):
+	"""
+
+	:param arr:  at least 1D array
+	:param fstatistic: a user-defined function which takes a ND array of values (should support the argmunent axis), and outputs a single numerical statistic. This function will be called on the values in each bin. Empty bins will be represented by function([]), or NaN if this returns an error.
+	:param N: number of sampling
+	:return:
+	"""
+
+	arr = np.atleast_1d(arr)
+	boot_random = np.random.choice(arr, size=(N, len(arr)), replace=True)
+	stat_array = fstatistic(boot_random,axis=1)
+
+	mean = np.mean(stat_array)
+	std  = np.std(stat_array)
+
+	return mean, std
+
+
 def mad(arr,c=1.482602218505602,axis=None):
 	"""
 	Estimate the median and the std through the median deviation around median.
