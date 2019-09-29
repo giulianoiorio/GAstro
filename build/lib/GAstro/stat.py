@@ -13,7 +13,7 @@ from scipy.interpolate import UnivariateSpline
 from sklearn.covariance import MinCovDet
 
 
-def boostrap(arr, fstatistic=np.nanmean, N=1000):
+def bootstrap(arr, fstatistic=np.nanmean, N=1000):
 	"""
 
 	:param arr:  at least 1D array
