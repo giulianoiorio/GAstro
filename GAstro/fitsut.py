@@ -116,7 +116,38 @@ def filter(tab,filters=({},),cols=()):
 	filteredtab = filter_idx(tab,idx,cols)
 		
 	return filteredtab
-			
+
+
+def make_fits(dict,outname=None,header_key={}):
+	'''
+	Make a fits table from a numpy array
+	args must be dictionary containing the type  and the columnf of the table, e.g.
+	{'l':(col1,'D'),'b':(col2,'D')}
+	'''
+
+
+	col=[]
+	for field in dict:
+		if len(dict[field])==2:
+			format=dict[field][1]
+			array=dict[field][0]
+		else:
+			format='D'
+			array=dict[field]
+
+		col.append(ft.Column(name=field,format=format,array=array))
+
+	cols = ft.ColDefs(col)
+	tab = ft.BinTableHDU.from_columns(cols)
+	for key in header_key:
+		item=header_key[key]
+		if item is None: tab.header[key]=str(item)
+		else: tab.header[key]=item
+
+
+	if outname is not None: tab.writeto(outname,clobber=True)
+
+	return tab
 
 
 
