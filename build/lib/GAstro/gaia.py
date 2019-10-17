@@ -1,5 +1,6 @@
 import numpy as np
 
+
 class Extinction:
 
 
@@ -119,6 +120,23 @@ class Extinction:
 		bp_rp_0 = self.kbr_iterative(bp_rp, ebv, Nmax=Nmax, abs_tollerance=abs_tollerance, rel_tollerace=rel_tollerace)
 
 		return self.kg(bp_rp_0, ebv)
+
+	def kg_iterative_error(self, bp_rp, ebv, bp_rp_error=None, ebv_error=None, Nerror=1000, Nmax=1000, abs_tollerance=0.001, rel_tollerace=0.001):
+
+		if bp_rp_error is None: bp_rp_s=np.repeat(bp_rp, Nerror)
+		else:  bp_rp_s = np.random.normal(np.repeat(bp_rp,Nerror), np.repeat(bp_rp_error, Nerror))
+
+		if ebv_error is None: ebv_s=np.repeat(ebv, Nerror)
+		else: ebv_s = np.random.normal(np.repeat(ebv, Nerror), np.repeat(ebv_error, Nerror))
+
+		bp_rp_0_s = self.kbr_iterative(bp_rp_s, ebv_s, Nmax=Nmax, abs_tollerance=abs_tollerance, rel_tollerace=rel_tollerace)
+		k_s = self.kg(bp_rp_0_s, ebv_s).reshape(-1, Nerror).T
+
+		k_mean, k_std = np.mean(k_s,axis=0), np.std(k_s,axis=0)
+
+
+
+		return k_mean, k_std
 
 
 if __name__=="__main__":
