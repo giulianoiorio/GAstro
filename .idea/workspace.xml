@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="6786ee18-aa09-44af-8430-3dec9f667fc5" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GAstro/gaia.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAstro/gaia.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -13,41 +14,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="plot.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="plot.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GAstro/plot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="29" column="335" selection-start-line="29" selection-start-column="335" selection-end-line="29" selection-end-column="362" />
+            <state relative-caret-position="255">
+              <caret line="24" column="31" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
               <folding>
                 <element signature="e#134#165#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="prob.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GAstro/prob.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="22" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="rrl.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GAstro/rrl.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-305">
-              <caret line="197" column="10" selection-start-line="197" selection-start-column="4" selection-end-line="197" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="utility.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GAstro/utility.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="11" column="49" selection-start-line="11" selection-start-column="49" selection-end-line="11" selection-end-column="49" />
             </state>
           </provider>
         </entry>
@@ -61,10 +35,19 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="rrl.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GAstro/rrl.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3349">
+              <caret line="197" column="10" selection-start-line="197" selection-start-column="4" selection-end-line="197" selection-end-column="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="functions.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GAstro/functions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-16">
+            <state relative-caret-position="289">
               <caret line="17" column="7" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
             </state>
           </provider>
@@ -73,12 +56,12 @@
       <file leaf-file-name="fitsut.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GAstro/fitsut.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="13" column="14" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="14" />
+            <state relative-caret-position="663">
+              <caret line="120" column="27" lean-forward="true" selection-start-line="120" selection-end-line="121" />
               <folding>
+                <element signature="e#135#153#0" expanded="true" />
                 <element signature="e#220#836#0" />
                 <element signature="e#889#2449#0" />
-                <element signature="e#2494#2877#0" />
               </folding>
             </state>
           </provider>
@@ -87,7 +70,7 @@
       <file leaf-file-name="transform.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GAstro/transform.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1858">
+            <state relative-caret-position="17">
               <caret line="424" column="18" selection-start-line="424" selection-start-column="18" selection-end-line="424" selection-end-column="18" />
               <folding>
                 <element signature="e#598#622#0" expanded="true" />
@@ -107,11 +90,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="gaia.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="gaia.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/GAstro/gaia.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" selection-start-line="2" selection-end-line="2" />
+            <state relative-caret-position="107">
+              <caret line="10" column="46" selection-start-line="10" selection-start-column="46" selection-end-line="10" selection-end-column="46" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="fit.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GAstro/fit.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="799">
+              <caret line="48" column="21" selection-start-line="48" selection-start-column="21" selection-end-line="48" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -119,8 +111,17 @@
       <file leaf-file-name="mockery.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GAstro/mockery.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-617">
+            <state>
               <caret selection-end-line="9" selection-end-column="48" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="rand.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GAstro/rand.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1054">
+              <caret line="62" column="52" selection-start-line="62" selection-start-column="52" selection-end-line="62" selection-end-column="52" />
             </state>
           </provider>
         </entry>
@@ -173,8 +174,9 @@
         <option value="$PROJECT_DIR$/GAstro/rand.py" />
         <option value="$PROJECT_DIR$/setup.py" />
         <option value="$PROJECT_DIR$/GAstro/transform.py" />
-        <option value="$PROJECT_DIR$/GAstro/gaia.py" />
         <option value="$PROJECT_DIR$/GAstro/stat.py" />
+        <option value="$PROJECT_DIR$/GAstro/fitsut.py" />
+        <option value="$PROJECT_DIR$/GAstro/gaia.py" />
       </list>
     </option>
   </component>
@@ -185,9 +187,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="61" />
-    <option name="y" value="23" />
-    <option name="width" value="1283" />
+    <option name="x" value="199" />
+    <option name="y" value="173" />
+    <option name="width" value="1561" />
     <option name="height" value="821" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -196,7 +198,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -213,10 +214,12 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
@@ -255,7 +258,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="61" y="23" width="1283" height="821" extended-state="0" />
+    <frame x="199" y="173" width="1561" height="821" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -265,11 +268,11 @@
       <window_info anchor="bottom" id="Python Console" order="7" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.37983426" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7216036" visible="true" weight="0.2659146" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7149221" visible="true" weight="0.22712311" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="right" id="SciView" order="3" />
-      <window_info id="Structure" order="1" sideWeight="0.27839643" side_tool="true" visible="true" weight="0.2659146" />
+      <window_info id="Structure" order="1" sideWeight="0.28507796" side_tool="true" visible="true" weight="0.22712311" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -547,67 +550,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/rand.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1054">
-          <caret line="62" column="52" selection-start-line="62" selection-start-column="52" selection-end-line="62" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/fit.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="799">
-          <caret line="48" column="21" selection-start-line="48" selection-start-column="21" selection-end-line="48" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/GAstro/stat.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="43">
           <caret line="15" column="8" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
-          <folding>
-            <element signature="e#142#160#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/coordinates.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="17" selection-start-line="1" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/gaia.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/mockery.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-617">
-          <caret selection-end-line="9" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/fitsut.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="13" column="14" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="14" />
-          <folding>
-            <element signature="e#220#836#0" />
-            <element signature="e#889#2449#0" />
-            <element signature="e#2494#2877#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/functions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-16">
-          <caret line="17" column="7" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
         </state>
       </provider>
     </entry>
@@ -618,13 +564,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/rrl.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-305">
-          <caret line="197" column="10" selection-start-line="197" selection-start-column="4" selection-end-line="197" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/GAstro/utility.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -632,9 +571,73 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/GAstro/fit.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="799">
+          <caret line="48" column="21" selection-start-line="48" selection-start-column="21" selection-end-line="48" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GAstro/coordinates.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="17" selection-start-line="1" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GAstro/rand.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1054">
+          <caret line="62" column="52" selection-start-line="62" selection-start-column="52" selection-end-line="62" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GAstro/rrl.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3349">
+          <caret line="197" column="10" selection-start-line="197" selection-start-column="4" selection-end-line="197" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GAstro/plot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="24" column="31" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
+          <folding>
+            <element signature="e#134#165#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GAstro/mockery.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="9" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GAstro/functions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="7" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GAstro/fitsut.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="663">
+          <caret line="120" column="27" lean-forward="true" selection-start-line="120" selection-end-line="121" />
+          <folding>
+            <element signature="e#135#153#0" expanded="true" />
+            <element signature="e#220#836#0" />
+            <element signature="e#889#2449#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/GAstro/transform.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1858">
+        <state relative-caret-position="17">
           <caret line="424" column="18" selection-start-line="424" selection-start-column="18" selection-end-line="424" selection-end-column="18" />
           <folding>
             <element signature="e#598#622#0" expanded="true" />
@@ -653,13 +656,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/plot.py">
+    <entry file="file://$PROJECT_DIR$/GAstro/gaia.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="29" column="335" selection-start-line="29" selection-start-column="335" selection-end-line="29" selection-end-column="362" />
-          <folding>
-            <element signature="e#134#165#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="107">
+          <caret line="10" column="46" selection-start-line="10" selection-start-column="46" selection-end-line="10" selection-end-column="46" />
         </state>
       </provider>
     </entry>
