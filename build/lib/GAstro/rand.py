@@ -59,8 +59,8 @@ def Multivariate(mean, covariance_matrix, Npersample=1, flatten=True):
 
 	if Ninput==1:
 
-		if flatten: ret=np.random.multivariate_normal(mean, covariance_matrix, Npersample).T
-		else: ret=np.random.multivariate_normal(mean, covariance_matrix, Npersample)
+		if flatten: ret=np.random.multivariate_normal(mean[0], covariance_matrix[0], Npersample).T
+		else: ret=np.random.multivariate_normal(mean[0], covariance_matrix[0], Npersample)
 
 	else:
 

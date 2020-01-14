@@ -199,3 +199,13 @@ def ploth2(x=[],y=[],z=None, statistic='mean', H=None,edges=None,ax=None,bins=10
 
 	edges=(xedges,yedges)
 	return H,edges,im
+
+def make_colorbar(im, ax, label=None, position='right',size='5%', pad=0.05, fontsize=None):
+
+	divider = make_axes_locatable(ax)
+	cax = divider.append_axes(position, size=size, pad=pad)
+	cbar = plt.colorbar(im, cax=cax)
+	if fontsize is None: fontsize=mpl.rcParams['font.size']
+	cbar.ax.set_ylabel(label, fontsize=fontsize)
+
+	return cbar, cax

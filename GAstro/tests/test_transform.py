@@ -1,4 +1,4 @@
-from .. import transform as tr
+import GAstro.transform as tr
 import numpy as np
 import math
 
@@ -26,7 +26,7 @@ def test_sample_obs_error():
 	import astropy.units as u
 	import astropy.coordinates as coord
 	import gala.coordinates as gala
-	from ..constant import _K
+	from GAstro.constant import _K
 
 	vu=u.km/u.s
 	Vsun = coord.CartesianDifferential(d_x=U*vu, d_y=(V+Vlsr)*vu, d_z=W*vu)
@@ -50,11 +50,24 @@ def test_sample_obs_error():
 	id_internal = None
 	#id, ra, dec, l, b, pmra, pmdec, pmra_err, pmdec_err, cov_pmra_pmdec, gc, distance, distance_error, internal_id = property_list
 
-	param_list=(id, ra, dec, l, b, pmra, pmdec, pmra_err, pmdec_err, cov_pmra_pmdec, gc_, dhelio, dhelio_err, id_internal)
+	if l>180: l2=l-360
+	else: l2=l
+
+	param_list=(id, ra, dec, l2, b, pmra, pmdec, pmra_err, pmdec_err, cov_pmra_pmdec, gc_, dhelio, dhelio_err, id_internal)
 	arr,dic=tr.sample_obs_error_5D(property_list=param_list, Mg=0.64, Mg_err=0.24, Rsun=Rsun, Rsun_err=None, U=U, V=V, W=W, U_err=None, V_err=None, W_err=None, Vlsr=Vlsr, Vlsr_err=None, N=1000)
 
+	print(l,l2)
 	print(dic['dsun'])
 	print(dic['dsun_err'])
+	print(_K*gccorr.pm_l_cosb.value*sccorr.distance.value, dic['Vl_c'])
+
+	param_list=(id, ra, dec, l2, b, pmra, pmdec, pmra_err, pmdec_err, cov_pmra_pmdec, gc_, dhelio, dhelio_err, id_internal)
+	arr,dic=tr.sample_obs_error_5D(property_list=param_list, Mg=0.64, Mg_err=0.24, Rsun=Rsun, Rsun_err=None, U=U, V=V, W=W, U_err=None, V_err=None, W_err=None, Vlsr=Vlsr, Vlsr_err=None, N=1000)
+
+	print(_K*gccorr.pm_l_cosb.value*sccorr.distance.value, dic['Vl_c'])
+
+
+
 	assert math.isclose(x, dic['x'], rel_tol=tollerance)
 	assert math.isclose(y, dic['y'], rel_tol=tollerance)
 	assert math.isclose(z, dic['z'], rel_tol=tollerance)

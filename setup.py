@@ -39,7 +39,8 @@ except:
 '''
 
 
-from distutils.core import setup
+#from distutils.core import setup
+from setuptools import setup
 import os
 import sysconfig
 import sys
@@ -47,11 +48,12 @@ import sys
 
 setup(
 		name='GAstro',
-		version='0.2.dev0',
+		version='0.5.dev0',
 		author='Giuliano Iorio',
 		author_email='',
 		url='',
 		packages=['GAstro'],
-        install_requires=['numpy>=1.9', 'scipy>=0.19', 'matplotlib','emcee','sklearn','galpy','astropy'],
+        install_requires=['numpy>=1.9', 'scipy>=0.19', 'matplotlib','emcee','sklearn','galpy','astropy','pandas', 'xdgmm','sklearn'],
+		include_package_data=True,
 		zip_safe=False
 )

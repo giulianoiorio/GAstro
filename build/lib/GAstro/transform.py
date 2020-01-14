@@ -62,7 +62,7 @@ def m_to_dist(m,M):
 	distance_modulus = (m-M)
 	power_argument   = distance_modulus/5 -2
 	Dsun             = 10**power_argument
-	
+
 	return Dsun
 
 
@@ -456,6 +456,9 @@ def sample_obs_error_5D(property_list:_str_plist, Mg:"mag"=0.64, Mg_err:"mag"=0.
 	Mean_skyp, Std_skyp, rho_skyp = calc_covariance(Vl_nocorr, Vb_nocorr)
 	Mean_skyp_corr, Std_skyp_corr, rho_skyp_corr = calc_covariance(Vll, Vbl)
 	Mean_sky_tan, Std_sky_tan, rho_Sky_tan = calc_covariance(Dsunl, Vtanl)
+	_,_, rho_Dsun_Vlc = calc_covariance(Dsunl, Vll)
+	_,_, rho_Dsun_Vbc = calc_covariance(Dsunl, Vbl)
+
 	#pmra pmdec corr
 	pmral_corr, pmdecl_corr = co.pmllpmbb_to_pmrapmdec(pmll_corr,pmbl_corr, ll, bl, degree=False, epoch=2000.0).T
 	Mean_skyeq_corr, Std_skyeq_corr, rho_skyeq_corr = calc_covariance(pmral_corr, pmdecl_corr)
@@ -537,6 +540,10 @@ sample_obs_error_5D_key_list_obs = ('x', 'y', 'z', 'x_err', 'y_err', 'z_err', 'p
 					 'l', 'b', 'ra', 'dec', 'gc', 'source_id', 'id')
 
 #####################
+
+
+
+#####
 	
 	
 if __name__=="__main__":

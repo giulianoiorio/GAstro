@@ -1,0 +1,12 @@
+The files in this folder contain the chains obtained fitting a linear relation of the kind
+Fe/H=Fe/H_hat_fit + slope_p*(P-P_hat) + slope_phi31*(Phi31-Phi31_hat).
+For the RRab (layeden, marsakov, nemec) we used P_hat=0.6 and Phi31_hat=2, for the RRc (RRc_Gc)
+we used P_hat=0.3 and Phi31_hat=3.5. In the files Fe_hat_fit refers to the normalisation used in the
+fitting equation, Fe_hat refers to the equation
+Fe/H=Fe/H_hat + slope_p*P + slope_phi31*Phi31 and Fe/H_hat=Fe/H_hat_fit - slope_p*P_hat - slope_phi31*Phi31_hat.
+For the RRab stars the different fit refers to different datasample:
+-Layden:  Layden+94 - Spectroscopic sample matched with Gaia (84 stars).
+-Marsakov:  Marsakov+12 - Spec. sample matched with Gaia (76 Stars).
+-Nemec: Nemec+13 -  from Kepler light curves (21 stars)
+-Zinn: From Zinn+19 (149 stars)
+For the RRc stars, we used the GC members from Helmi+18 (Gaia Paper) and the metallicity from the compilation of Harris.
