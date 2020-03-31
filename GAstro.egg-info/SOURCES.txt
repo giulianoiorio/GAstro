@@ -22,6 +22,8 @@ GAstro.egg-info/dependency_links.txt
 GAstro.egg-info/not-zip-safe
 GAstro.egg-info/requires.txt
 GAstro.egg-info/top_level.txt
+GAstro/data/gaia_sos_distribution/RRab_SOS_metallicity.xdgmm
+GAstro/data/gaia_sos_distribution/RRc_SOS_metallicity.xdgmm
 GAstro/data/ggaia_to_sos_correction/gsos_ggaia_diff.xdgmm
 GAstro/data/period_phi31_fit/RRab_SOS_pf_phi31.xdgmm
 GAstro/data/period_phi31_fit/RRc_SOS_p1_phi31.xdgmm

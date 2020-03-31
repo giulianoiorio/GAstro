@@ -1,3 +1,4 @@
 include GAstro/data/rrl_metallicity_fit_trace/*.csv
 include GAstro/data/period_phi31_fit/*.xdgmm
 include GAstro/data/ggaia_to_sos_correction/*.xdgmm
+include GAstro/data/gaia_sos_distribution/*.xdgmm

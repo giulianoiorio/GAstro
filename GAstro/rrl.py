@@ -649,6 +649,32 @@ def sample_g_gaia_to_g_sos(g_gaia, Nsample=1000):
 
 	return g_sos
 
+def sample_Dsun_fromMg(g,ebv,Mg,Mg_error=None, bp_rp=None, g_error=None, ebv_error=None,bp_rp_error=None, kg=2.27, kg_error=0.3,sos_correction=False, return_all=False, Nsample=1000):
+
+	if sos_correction:
+		g_sample = sample_g_gaia_to_g_sos(g, Nsample=Nsample)
+		if bp_rp is not None:
+			Ag_sample = _ext_class_for_gc.Ag_iterative_error_sample(bp_rp, ebv, bp_rp_error=bp_rp_error, ebv_error=ebv_error, Nerror=Nsample, Nmax=1000)
+		else:
+			if ebv_error is None: ebv_error=0
+			Ag_sample = np.random.normal(kg, kg_error, Nsample) * np.random.normal(ebv, ebv_error, Nsample)
+		_gc_sample = g_sample - Ag_sample
+	else:
+		_gc_sample = gc_sample(g, ebv, bp_rp=bp_rp, kg=kg, g_error=g_error, bp_rp_error=bp_rp_error, kg_error=kg_error,ebv_error=ebv_error, Nsample=Nsample)
+
+	if (Mg_error is not None):
+		Mg_sample=np.random.normal(Mg,Mg_error,Nsample)
+	else:
+		Mg_sample=np.ones(Nsample)*Mg
+
+	dist_sample=m_to_dist(_gc_sample, Mg_sample)
+
+	if return_all:
+		return dist_sample, _gc_sample, Mg_sample
+	else:
+		return dist_sample
+
+
 
 def sample_Dsun_single(g, ebv, period=None, phi31=None, bp_rp=None,  g_error=None, ebv_error=None, period_error=0, phi31_error=0, bp_rp_error=None, kg=2.27, kg_error=0.3,  type="RRab", default_trace="layden", sos_correction=False, return_all=False, Nsample=1000):
 	"""
@@ -721,7 +747,7 @@ def sample_Dsun_single(g, ebv, period=None, phi31=None, bp_rp=None,  g_error=Non
 _str_plist="(id, ra, dec, l, b, pmra, pmdec, pmra_err, pmdec_err, cov_pmra_pmdec, gc, distance, distance_error, internal_id)"
 _str_kpc="kpc"
 _str_kms="km/s"
-def sample_obs_error_5D_rrl(property_list:_str_plist, Rsun:_str_kpc=8.2, Rsun_err:_str_kpc=None, U:_str_kms=11.1, V:_str_kms=12.24, W:_str_kms=7.25, U_err:_str_kms=None, V_err:_str_kms=None, W_err:_str_kms=None, Vlsr:_str_kms=235, Vlsr_err:_str_kms=None, N:"int"=1000, sos_correction:"sos_correction"=True, q=1.0, qinf=1.0, rq=10.0, p=1.0, alpha=0, beta=0, gamma=0, ax='zyx')->"array and dic with properties":
+def sample_obs_error_5D_rrl(property_list:_str_plist, Rsun:_str_kpc=8.2, Rsun_err:_str_kpc=None, U:_str_kms=11.1, V:_str_kms=12.24, W:_str_kms=7.25, U_err:_str_kms=None, V_err:_str_kms=None, W_err:_str_kms=None, Vlsr:_str_kms=235, Vlsr_err:_str_kms=None, Mgc:"mag"=None, Mgc_err:"mag"=None, N:"int"=1000, sos_correction:"sos_correction"=True, q=1.0, qinf=1.0, rq=10.0, p=1.0, alpha=0, beta=0, gamma=0, ax='zyx')->"array and dic with properties":
 	"""
 	NB: THE INPUT ARE ASSUME A GALACTIC RH system (Sun is a x=Rsun),
 		BUT THE OUTPUT ARE IN GALACTIC LH system (I know is crazy).
@@ -749,8 +775,7 @@ def sample_obs_error_5D_rrl(property_list:_str_plist, Rsun:_str_kpc=8.2, Rsun_er
 		 distance: Heliocentric distance in kpc (can be None if gc is provided)
 		 distance_error:
 		 internal_id: a user defined internal_id (can be None)".
-	:param Mg: Absolute magnitude to estimate distance from gc.
-	:param Mg_err: error on Absolute magnitude.
+
 	:param Rsun: Distance of the Sun from the Galactic centre.
 	:param Rsun_err: error on Rsun.
 	:param U: Solar motion (wrt LSR) toward the Galactic center
@@ -763,6 +788,8 @@ def sample_obs_error_5D_rrl(property_list:_str_plist, Rsun:_str_kpc=8.2, Rsun_er
 	:param W_err: error on W.
 	:param Vlsr:  Circular motion of the LSR.
 	:param Vlsr_err:  Error on Vlsr.
+	:param Mgc: Absolute magnitude to estimate distance from gc.
+	:param Mgc_err: error on Absolute magnitude.
 	:param N: Number of MC samples to generate.
 	:return: An array and a dictionary containing spatial and kinematic information obtained from the observables.
 	"""
@@ -800,7 +827,7 @@ def sample_obs_error_5D_rrl(property_list:_str_plist, Rsun:_str_kpc=8.2, Rsun_er
 
 
 		#1-Distance stuff
-		#Check  if we have to use distance (priority) or gc and Mg
+		#Check  if we have to use  distance (priority), Mg,  or gc and Mg
 		if distance is not None and distance_error is not None:
 			Dsunl  = np.random.normal(distance, distance_error,N)
 			FeHl = gcl = Mgl = np.repeat(-999, N)
@@ -809,17 +836,23 @@ def sample_obs_error_5D_rrl(property_list:_str_plist, Rsun:_str_kpc=8.2, Rsun_er
 			FeHl = gcl = Mgl = np.repeat(-999, N)
 		else:
 
-			if sos_correction:
-				if g_sos is None: sos_correction_input, g_input = True, g
-				else: sos_correction_input, g_input = False, g_sos
-
 			if type.lower()=="rrab": period_input, type_input = period, type
 			elif type.lower()=="rrc": period_input, type_input = period_1o, type
 			else: raise ValueError("Can be rrab or rrc in file %s"%__file__)
 
-			Dsunl, FeHl, gcl, Mgl = sample_Dsun_single(g_input, ebv, period=period_input, phi31=phi31, bp_rp=bp_rp, g_error=None, ebv_error=0.16*ebv,
-								   period_error=period_error, phi31_error=phi31_error, bp_rp_error=None, kg=2.27, kg_error=0.3, type=type_input, default_trace="layden",
-								   sos_correction=sos_correction_input, return_all=True, Nsample=N)
+			if sos_correction:
+				if g_sos is None: sos_correction_input, g_input = True, g
+				else: sos_correction_input, g_input = False, g_sos
+
+			if Mgc is not None:
+				Dsunl,gcl, Mgl = sample_Dsun_fromMg(g_input,ebv,Mgc,Mg_error=Mgc_err, bp_rp=bp_rp, g_error=None, ebv_error=0.16*ebv,bp_rp_error=None,
+													kg=2.27, kg_error=0.3,sos_correction=sos_correction_input, return_all=True, Nsample=N)
+				FeHl = np.repeat(-999, N)
+			else:
+
+				Dsunl, FeHl, gcl, Mgl = sample_Dsun_single(g_input, ebv, period=period_input, phi31=phi31, bp_rp=bp_rp, g_error=None, ebv_error=0.16*ebv,
+									   period_error=period_error, phi31_error=phi31_error, bp_rp_error=None, kg=2.27, kg_error=0.3, type=type_input, default_trace="layden",
+									   sos_correction=sos_correction_input, return_all=True, Nsample=N)
 
 		#1b-
 		#Rsun
