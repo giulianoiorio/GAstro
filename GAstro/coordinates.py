@@ -133,7 +133,14 @@ def radec_to_sag(ra,dec):
 	return Lambda*180/np.pi,  Beta*180./np.pi
 
 def radec_to_gnomic(ra,dec,ra_c,dec_c):
-
+	"""
+	Gnomic projection of the sky coordinates with respect to a point on the sphere
+	:param ra: float, numpy.ndarray right ascension in degrees
+	:param dec: float, numpy.ndarray declination  in degrees
+	:param ra_c:  float, right ascension of the reference point in degrees
+	:param dec_c: float, declination of the reference point in degrees
+	:return:  xi, eta, rgnomic (x, y and r=sqrt(x*x+y*y) values of the gnomic projection in degrees)
+	"""
 
 	dtr=np.pi/180
 	c_centre= coord.SkyCoord(ra=ra_c*u.degree, dec=dec_c*u.degree)
