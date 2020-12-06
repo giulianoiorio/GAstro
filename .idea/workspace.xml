@@ -2,7 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6786ee18-aa09-44af-8430-3dec9f667fc5" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/GAstro/gaia_src/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GAstro/gaia_src/gaia.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GAstro/gaia_src/gaia_edr3.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GAstro.egg-info/PKG-INFO" beforeDir="false" afterPath="$PROJECT_DIR$/GAstro.egg-info/PKG-INFO" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GAstro.egg-info/SOURCES.txt" beforeDir="false" afterPath="$PROJECT_DIR$/GAstro.egg-info/SOURCES.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GAstro.egg-info/top_level.txt" beforeDir="false" afterPath="$PROJECT_DIR$/GAstro.egg-info/top_level.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GAstro/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAstro/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GAstro/fitsut.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAstro/fitsut.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GAstro/gaia.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAstro/gaia.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GAstro/plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAstro/plot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GAstro/rrl.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAstro/rrl.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GAstro/transform.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAstro/transform.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/lib/GAstro/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/build/lib/GAstro/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/lib/GAstro/fitsut.py" beforeDir="false" afterPath="$PROJECT_DIR$/build/lib/GAstro/fitsut.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/lib/GAstro/gaia.py" beforeDir="false" afterPath="$PROJECT_DIR$/build/lib/GAstro/gaia.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/lib/GAstro/plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/build/lib/GAstro/plot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/lib/GAstro/rrl.py" beforeDir="false" afterPath="$PROJECT_DIR$/build/lib/GAstro/rrl.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/lib/GAstro/transform.py" beforeDir="false" afterPath="$PROJECT_DIR$/build/lib/GAstro/transform.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/GAstro-0.5.dev0-py3.7.egg" beforeDir="false" afterPath="$PROJECT_DIR$/dist/GAstro-0.5.dev0-py3.7.egg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -12,39 +32,24 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+    <leaf>
+      <file leaf-file-name="gaia.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GAstro/gaia.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="33" selection-start-line="1" selection-start-column="33" selection-end-line="1" selection-end-column="33" />
+              <folding>
+                <element signature="e#0#28#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="rrl.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GAstro/rrl.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="13872">
-              <caret line="816" column="52" selection-start-line="816" selection-start-column="52" selection-end-line="816" selection-end-column="52" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="rand.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GAstro/rand.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="935">
-              <caret line="55" column="30" selection-start-line="55" selection-start-column="30" selection-end-line="55" selection-end-column="30" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="setup.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/setup.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="439">
-              <caret line="58" column="1" selection-start-line="58" selection-start-column="1" selection-end-line="58" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="stat.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GAstro/stat.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1020">
-              <caret line="62" column="38" selection-start-line="62" selection-start-column="38" selection-end-line="62" selection-end-column="38" />
+            <state relative-caret-position="253">
+              <caret line="952" column="23" selection-start-line="952" selection-start-column="23" selection-end-line="952" selection-end-column="23" />
               <folding>
                 <element signature="e#142#160#0" expanded="true" />
               </folding>
@@ -52,62 +57,84 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="transform.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GAstro/transform.py">
+      <file leaf-file-name="gaia_edr3.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GAstro/gaia_src/gaia_edr3.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="782">
-              <caret line="63" selection-start-line="63" selection-end-line="63" />
+            <state>
+              <caret column="18" selection-start-column="18" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="fitsut.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GAstro/fitsut.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="345">
+              <caret line="174" selection-start-line="174" selection-end-line="174" />
               <folding>
-                <element signature="e#598#622#0" expanded="true" />
+                <element signature="e#135#153#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test_transform.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GAstro/tests/test_transform.py">
+      <file leaf-file-name="plot.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/GAstro/plot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1003">
-              <caret line="61" column="57" selection-start-line="61" selection-start-column="57" selection-end-line="61" selection-end-column="57" />
+            <state relative-caret-position="318">
+              <caret line="98" lean-forward="true" selection-start-line="98" selection-end-line="98" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test_rrl.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GAstro/tests/test_rrl.py">
+      <file leaf-file-name="fit.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GAstro/fit.py">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="setup.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/setup.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="884">
-              <caret line="52" column="57" selection-start-line="52" selection-end-line="53" />
+              <caret line="54" column="43" selection-start-line="54" selection-start-column="43" selection-end-line="54" selection-end-column="43" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GAstro/__init__.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="22" selection-start-column="22" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="mockery.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GAstro/mockery.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="1" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="gaia.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GAstro/gaia.py">
+        <entry file="file://$PROJECT_DIR$/GAstro/gaia_src/gaia.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3264">
-              <caret line="192" column="23" selection-start-line="192" selection-start-column="23" selection-end-line="192" selection-end-column="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="test_extinction.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GAstro/tests/test_extinction.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="24" selection-start-line="24" selection-end-line="25" selection-end-column="21" />
+            <state relative-caret-position="3253">
+              <caret line="477" selection-start-line="477" selection-end-line="477" />
               <folding>
-                <element signature="e#0#34#0" expanded="true" />
+                <element signature="e#42#6503#0" />
+                <element signature="e#6934#7048#0" />
+                <element signature="e#7079#7124#0" />
+                <element signature="e#7155#7201#0" />
+                <element signature="e#7232#7278#0" />
+                <element signature="e#7341#7471#0" />
+                <element signature="e#7610#8312#0" />
+                <element signature="e#8410#9405#0" />
+                <element signature="e#9528#10511#0" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="gaia.py" pinned="false" current-in-tab="false">
-        <entry file="file:///anaconda3/lib/python3.7/site-packages/GAstro-0.3.dev0-py3.7.egg/GAstro/gaia.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1819">
-              <caret line="107" selection-start-line="107" selection-end-line="107" />
             </state>
           </provider>
         </entry>
@@ -134,6 +161,7 @@
       <find>sample_obs_error_5D_key_list_obs</find>
       <find>gc_sample</find>
       <find>put</find>
+      <find>gaia_</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -142,43 +170,15 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/mock.py" />
-        <option value="$PROJECT_DIR$/mockery.py" />
-        <option value="$PROJECT_DIR$/transform.py" />
-        <option value="$PROJECT_DIR$/GAstro/fit.py" />
-        <option value="$PROJECT_DIR$/GAstro/functions.py" />
-        <option value="$PROJECT_DIR$/GAstro/random.py" />
-        <option value="$PROJECT_DIR$/GAstro/random2.py" />
-        <option value="$PROJECT_DIR$/GAstro/tests/__init__.py" />
-        <option value="$PROJECT_DIR$/GAstro/coordinates.py" />
-        <option value="$PROJECT_DIR$/GAstro/constant.py" />
-        <option value="$PROJECT_DIR$/GAstro/_old.py" />
-        <option value="$PROJECT_DIR$/GAstro/_old/old_transform.py" />
-        <option value="$PROJECT_DIR$/GAstro/tests/utility.py" />
-        <option value="$PROJECT_DIR$/GAstro/utility.py" />
-        <option value="$PROJECT_DIR$/GAstro/tests/testprob.py" />
-        <option value="$PROJECT_DIR$/GAstro/tests/test_stat.py" />
-        <option value="$PROJECT_DIR$/GAstro/tests/test_prob.py" />
-        <option value="$PROJECT_DIR$/GAstro/prob.py" />
-        <option value="$PROJECT_DIR$/GAstro/stat.py" />
+        <option value="$PROJECT_DIR$/GAstro/gaia/gaia.py" />
+        <option value="$PROJECT_DIR$/GAstro/gaia/gaia_edr3.py" />
+        <option value="$PROJECT_DIR$/GAstro/__init__.py" />
+        <option value="$PROJECT_DIR$/GAstro/rrl.py" />
+        <option value="$PROJECT_DIR$/GAstro/gaia.py" />
+        <option value="$PROJECT_DIR$/setup.py" />
+        <option value="$PROJECT_DIR$/GAstro/gaia_src/gaia_edr3.py" />
         <option value="$PROJECT_DIR$/GAstro/fitsut.py" />
         <option value="$PROJECT_DIR$/GAstro/plot.py" />
-        <option value="$PROJECT_DIR$/GAstro/rrl_metallicity_fit_trace/trace_fe_pf_rel_layden.csv" />
-        <option value="$PROJECT_DIR$/GAstro/rrl_metallicity_fit_trace/trace_fe_pf_rel_marsakov.csv" />
-        <option value="$PROJECT_DIR$/GAstro/rrl_metallicity_fit_trace/trace_fe_pf_rel_nemec.csv" />
-        <option value="$PROJECT_DIR$/GAstro/rrl_metallicity_fit_trace/trace_fe_pf_rel_RRc_GC.csv" />
-        <option value="$PROJECT_DIR$/GAstro/rrl_metallicity_fit_trace/test" />
-        <option value="$PROJECT_DIR$/GAstro/rrl_metallicity_fit_trace/README" />
-        <option value="$PROJECT_DIR$/MANIFEST.in" />
-        <option value="$PROJECT_DIR$/GAstro/tests/test_rrl.py" />
-        <option value="$PROJECT_DIR$/GAstro/data/rrl_metallicity_fit_trace/README" />
-        <option value="$PROJECT_DIR$/GAstro/tests/test_transform.py" />
-        <option value="$PROJECT_DIR$/GAstro/transform.py" />
-        <option value="$PROJECT_DIR$/GAstro/gaia.py" />
-        <option value="$PROJECT_DIR$/GAstro/tests/test_extinction.py" />
-        <option value="$PROJECT_DIR$/GAstro/rrl.py" />
-        <option value="$PROJECT_DIR$/GAstro/rand.py" />
-        <option value="$PROJECT_DIR$/setup.py" />
       </list>
     </option>
   </component>
@@ -189,18 +189,18 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="482" />
-    <option name="y" value="286" />
-    <option name="width" value="1680" />
-    <option name="height" value="872" />
+    <option name="x" value="192" />
+    <option name="y" value="66" />
+    <option name="width" value="1183" />
+    <option name="height" value="958" />
   </component>
+  <component name="ProjectId" id="1eMT92Xgnp269PlvvCzlALKjaxh" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -213,42 +213,16 @@
               <item name="GAstro" type="462c0819:PsiDirectoryNode" />
               <item name="GAstro" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="GAstro" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GAstro" type="462c0819:PsiDirectoryNode" />
-              <item name="GAstro" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GAstro" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GAstro" type="462c0819:PsiDirectoryNode" />
-              <item name="GAstro" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
-              <item name="ggaia_to_sos_correction" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GAstro" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GAstro" type="462c0819:PsiDirectoryNode" />
-              <item name="GAstro" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
-              <item name="rrl_metallicity_fit_trace" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GAstro" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GAstro" type="462c0819:PsiDirectoryNode" />
-              <item name="GAstro" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GAstro" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GAstro" type="462c0819:PsiDirectoryNode" />
-              <item name="GAstro.egg-info" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -291,33 +265,39 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1526697055043</updated>
+      <workItem from="1594130308945" duration="7090000" />
+      <workItem from="1594282682230" duration="113000" />
+      <workItem from="1594390140376" duration="1510000" />
+      <workItem from="1594716153585" duration="20000" />
     </task>
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="482" y="286" width="1680" height="872" extended-state="0" />
+    <frame x="-149" y="65" width="1183" height="958" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
-      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" />
-      <window_info anchor="bottom" id="Python Console" order="10" weight="0.32872927" />
+      <window_info anchor="right" id="JuliaSciView" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.21935484" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6760331" visible="true" weight="0.26373628" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="right" id="Database" order="4" />
-      <window_info anchor="right" id="SciView" order="3" />
-      <window_info id="Structure" order="1" sideWeight="0.32396695" side_tool="true" visible="true" weight="0.26373628" />
-      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" weight="0.329849" />
+      <window_info anchor="bottom" id="Python Console" weight="0.329849" />
+      <window_info active="true" anchor="bottom" id="Terminal" visible="true" weight="0.329849" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2497809" />
+      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
+      <window_info anchor="right" id="Database" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.329849" />
+      <window_info anchor="right" id="SciView" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info id="Favorites" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32946298" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -328,352 +308,93 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="3" />
+      <option name="time" value="1" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/GAstro/tests/test_extinction.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="24" selection-start-line="24" selection-end-line="25" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#34#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///anaconda3/lib/python3.7/site-packages/GAstro-0.3.dev0-py3.7.egg/GAstro/gaia.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1819">
-          <caret line="107" selection-start-line="107" selection-end-line="107" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/tests/test_transform.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1003">
-          <caret line="61" column="57" selection-start-line="61" selection-start-column="57" selection-end-line="61" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/mockery.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="10" selection-start-line="10" selection-end-line="11" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/transform.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="19" column="44" lean-forward="true" selection-start-line="19" selection-start-column="44" selection-end-line="19" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/setup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1224">
-          <caret line="53" column="25" selection-start-line="53" selection-start-column="25" selection-end-line="53" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/mockery.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="10" selection-start-line="10" selection-end-line="11" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/transform.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3072">
-          <caret line="133" lean-forward="true" selection-start-line="133" selection-end-line="133" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/setup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1224">
-          <caret line="53" column="25" selection-start-line="53" selection-start-column="25" selection-end-line="53" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/mockery.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="10" selection-start-line="10" selection-end-line="11" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/transform.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="552">
-          <caret line="28" column="4" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/setup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1224">
-          <caret line="53" column="25" selection-start-line="53" selection-start-column="25" selection-end-line="53" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/mockery.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="10" selection-start-line="10" selection-end-line="11" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/transform.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="552">
-          <caret line="28" column="4" lean-forward="true" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/setup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1224">
-          <caret line="53" column="25" selection-start-line="53" selection-start-column="25" selection-end-line="53" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/mockery.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="10" selection-start-line="10" selection-end-line="11" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/transform.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2664">
-          <caret line="116" column="19" lean-forward="true" selection-start-line="116" selection-start-column="19" selection-end-line="116" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/setup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1224">
-          <caret line="53" column="25" selection-start-line="53" selection-start-column="25" selection-end-line="53" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/mockery.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="10" selection-start-line="10" selection-end-line="11" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/random.py" />
-    <entry file="file://$PROJECT_DIR$/GAstro/random2.py" />
-    <entry file="file://$PROJECT_DIR$/GAstro/_old/old_transform.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="416" column="21" selection-start-line="416" selection-start-column="21" selection-end-line="416" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///anaconda3/lib/python3.7/site-packages/scipy/stats/_multivariate.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20859">
-          <caret line="1241" selection-start-line="1241" selection-end-line="1241" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///anaconda3/lib/python3.7/site-packages/matplotlib/colors.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20536">
-          <caret line="1214" selection-start-line="1214" selection-end-line="1214" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///anaconda3/lib/python3.7/site-packages/numpy/lib/index_tricks.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6562">
-          <caret line="403" selection-start-line="403" selection-end-line="403" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/tests/test_prob.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="33" column="11" selection-start-line="33" selection-start-column="11" selection-end-line="33" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/tests/test_stat.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="15" column="11" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/coordinates.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4234">
-          <caret line="1" column="17" selection-start-line="1" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/fit.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="48" column="21" selection-start-line="48" selection-start-column="21" selection-end-line="48" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/functions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="17" column="7" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/rrl_metallicity_fit_trace/trace_fe_pf_rel_layden.csv" />
-    <entry file="file://$PROJECT_DIR$/GAstro/rrl_metallicity_fit_trace/README" />
-    <entry file="file://$PROJECT_DIR$/GAstro/data/rrl_metallicity_fit_trace/trace_fe_pf_rel_layden_mod.csv">
+    <entry file="file://$PROJECT_DIR$/GAstro/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="17" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/prob.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="22" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/fitsut.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="120" column="27" selection-start-line="120" selection-end-line="121" />
+          <caret column="22" selection-start-column="22" selection-end-column="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/GAstro/mockery.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="9" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/utility.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="11" column="49" selection-start-line="11" selection-start-column="49" selection-end-line="11" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MANIFEST.in">
-      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
-          <caret line="2" column="51" selection-start-line="2" selection-start-column="51" selection-end-line="2" selection-end-column="51" />
+          <caret line="2" column="1" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/constant.py">
+    <entry file="file://$PROJECT_DIR$/GAstro/rrl.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="47" selection-start-line="2" selection-start-column="47" selection-end-line="2" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/plot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="274">
-          <caret line="196" column="8" selection-start-line="196" selection-start-column="8" selection-end-line="196" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/data/rrl_metallicity_fit_trace/README">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="30" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/stat.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1020">
-          <caret line="62" column="38" selection-start-line="62" selection-start-column="38" selection-end-line="62" selection-end-column="38" />
+        <state relative-caret-position="253">
+          <caret line="952" column="23" selection-start-line="952" selection-start-column="23" selection-end-line="952" selection-end-column="23" />
           <folding>
             <element signature="e#142#160#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file:///anaconda3/lib/python3.7/site-packages/GAstro-0.3.dev0-py3.7.egg/GAstro/gaia.py">
+    <entry file="file://$PROJECT_DIR$/GAstro/gaia_src/gaia.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1819">
-          <caret line="107" selection-start-line="107" selection-end-line="107" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/tests/test_rrl.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="884">
-          <caret line="52" column="57" selection-start-line="52" selection-end-line="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/transform.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="782">
-          <caret line="63" selection-start-line="63" selection-end-line="63" />
+        <state relative-caret-position="3253">
+          <caret line="477" selection-start-line="477" selection-end-line="477" />
           <folding>
-            <element signature="e#598#622#0" expanded="true" />
+            <element signature="e#42#6503#0" />
+            <element signature="e#6934#7048#0" />
+            <element signature="e#7079#7124#0" />
+            <element signature="e#7155#7201#0" />
+            <element signature="e#7232#7278#0" />
+            <element signature="e#7341#7471#0" />
+            <element signature="e#7610#8312#0" />
+            <element signature="e#8410#9405#0" />
+            <element signature="e#9528#10511#0" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/tests/test_extinction.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="24" selection-start-line="24" selection-end-line="25" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#34#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/tests/test_transform.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1003">
-          <caret line="61" column="57" selection-start-line="61" selection-start-column="57" selection-end-line="61" selection-end-column="57" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/GAstro/gaia.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3264">
-          <caret line="192" column="23" selection-start-line="192" selection-start-column="23" selection-end-line="192" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/rrl.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="13872">
-          <caret line="816" column="52" selection-start-line="816" selection-start-column="52" selection-end-line="816" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/rand.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="935">
-          <caret line="55" column="30" selection-start-line="55" selection-start-column="30" selection-end-line="55" selection-end-column="30" />
+        <state relative-caret-position="17">
+          <caret line="1" column="33" selection-start-line="1" selection-start-column="33" selection-end-line="1" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/setup.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="439">
-          <caret line="58" column="1" selection-start-line="58" selection-start-column="1" selection-end-line="58" selection-end-column="1" />
+        <state relative-caret-position="884">
+          <caret line="54" column="43" selection-start-line="54" selection-start-column="43" selection-end-line="54" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GAstro/gaia_src/gaia_edr3.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="18" selection-start-column="18" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GAstro/fit.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GAstro/fitsut.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="174" selection-start-line="174" selection-end-line="174" />
+          <folding>
+            <element signature="e#135#153#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GAstro/plot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="318">
+          <caret line="98" lean-forward="true" selection-start-line="98" selection-end-line="98" />
         </state>
       </provider>
     </entry>

@@ -32,3 +32,6 @@ GAstro/data/rrl_metallicity_fit_trace/trace_fe_pf_rel_layden_mod.csv
 GAstro/data/rrl_metallicity_fit_trace/trace_fe_pf_rel_marsakov_mod.csv
 GAstro/data/rrl_metallicity_fit_trace/trace_fe_pf_rel_nemec_mod.csv
 GAstro/data/rrl_metallicity_fit_trace/trace_fe_pf_rel_zinn.csv
+GAstro/gaia_src/__init__.py
+GAstro/gaia_src/gaia.py
+GAstro/gaia_src/gaia_edr3.py

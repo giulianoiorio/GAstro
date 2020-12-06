@@ -48,11 +48,11 @@ import sys
 
 setup(
 		name='GAstro',
-		version='0.5.dev0',
+		version='0.6.dev0',
 		author='Giuliano Iorio',
 		author_email='',
 		url='',
-		packages=['GAstro'],
+		packages=['GAstro','GAstro/gaia_src'],
         install_requires=['numpy>=1.9', 'scipy>=0.19', 'matplotlib','emcee','sklearn','galpy','astropy','pandas', 'xdgmm','sklearn'],
 		include_package_data=True,
 		zip_safe=False

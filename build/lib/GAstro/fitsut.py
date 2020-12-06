@@ -149,7 +149,40 @@ def make_fits(dict,outname=None,header_key={}):
 
 	return tab
 
+def addcol_fits(fitsfile,newcols=({},),idtable=1,outname=None):
+	"""
+	fitsfile: name of fitsfile or table hdu
+	newxols: a tuole of dics with keyword 'name', 'format' and 'array'
+	idtable: the id of the table to modify
+	outname: if not None the name of the outputted fits file
+	"""
 
+	if idtable is not None:
+
+		try:
+			orig_table = ft.open(fitsfile)[idtable].data
+		except:
+			orig_table = fitsfile[idtable].data
+
+	else:
+
+		try:
+			orig_table = ft.open(fitsfile).data
+		except:
+			orig_table = fitsfile.data
+
+	orig_cols = orig_table.columns
+
+	col_list=[]
+	for dic in newcols:
+		coltmp=ft.Column(name=dic['name'], format=dic['format'], array=dic['array'])
+		col_list.append(coltmp)
+	new_cols=ft.ColDefs(col_list)
+	hdu = ft.BinTableHDU.from_columns(orig_cols + new_cols)
+
+	if outname is not None: hdu.writeto(outname,clobber=True)
+
+	return hdu
 
 
 

@@ -65,6 +65,82 @@ def m_to_dist(m,M):
 
 	return Dsun
 
+def cartesian_to_sky(Ax,Ay,Az,l,b, degree=True):
+	"""
+
+	:param Ax:
+	:param Ay:
+	:param Az:
+	:param l:
+	:param b:
+	:param degree:
+	:return:
+	"""
+
+	if degree:
+		l=np.radians(l)
+		b=np.radians(b)
+
+	cb = np.cos(b)
+	sb = np.sin(b)
+	cl = np.cos(l)
+	sl = np.sin(l)
+
+	Vb   = -Ax*cl*sb -Ay*sl*sb + Az*cb
+	Vl   = -Ax*sl + Ay*cl
+	Vlos = Ax*cl*cb + Ay*sl*cb + Az*sb
+
+	return Vlos, Vl, Vb
+
+def sky_to_cartesian(Alos, Al, Ab, l, b, degree=True):
+	"""
+
+	:param Alos:
+	:param Al:
+	:param Ab:
+	:param l:
+	:param b:
+	:param degree:
+	:return:
+	"""
+
+	if degree:
+		l=np.radians(l)
+		b=np.radians(b)
+
+	cb = np.cos(b)
+	sb = np.sin(b)
+	cl = np.cos(l)
+	sl = np.sin(l)
+
+	Ax =  -Ab*cl*sb -Al*sl + Alos*cl*cb
+	Ay = -Ab*sl*sb + Al*cl + Alos*sl*cb
+	Az = Ab*cb + Alos*sb
+
+
+
+	return Ax, Ay, Az
+
+def sky_to_spherical(Alos, Al, Ab, l,b, phi, theta, true_theta=False, degree=True):
+	"""
+
+	:param Alos:
+	:param Al:
+	:param Ab:
+	:param l:
+	:param b:
+	:param phi:
+	:param theta:
+	:param true_theta:
+	:param degree:
+	:return:
+	"""
+
+	Ax, Ay, Az = sky_to_cartesian(Alos, Al, Ab, l, b, degree=degree)
+	Ar, Atheta, Aphi = cartesian_to_spherical(Ax, Ay, Az, phi, theta, true_theta=true_theta, degree=degree)
+
+	return Ar, Atheta, Aphi
+
 
 def cylindrical_to_spherical(AR, Az, Aphi, theta, true_theta=False, degree=True):
 

@@ -27,7 +27,7 @@ def plot_ellipse(mean,covar,ax=None):
 	angle=np.arctan(u[1]/u[0])*(180./np.pi)
 	ell = mpl.patches.Ellipse(mean, v[0], v[1], 180+angle)
 
-def ploth2(x=[],y=[],z=None, statistic='mean', H=None,edges=None,ax=None,bins=100,weights=None, colorbar=True, colorbar_label='',linex=[],liney=[],func=[],xlim=None,ylim=None,xlabel=None,ylabel=None,fontsize=14,cmap='gray_r',gamma=1,invertx=False,inverty=False,interpolation='none',title=None,vmax=None,norm=None,range=None,vmin=None, vminmax_option='percentile',zero_as_blank=True,levels=None,xlogbin=False,ylogbin=False, aspect='equal'):
+def ploth2(x=[],y=[],z=None, statistic='mean', H=None,edges=None,ax=None,bins=100,weights=None, colorbar=True, colorbar_label='',linex=[],liney=[],func=[],xlim=None,ylim=None,xlabel=None,ylabel=None,fontsize=14,cmap='gray_r',gamma=1,invertx=False,inverty=False,interpolation='none',title=None,vmax=None,norm=None,range=None,vmin=None, vminmax_option='percentile',zero_as_blank=True,levels=None,levels_color=None,xlogbin=False,ylogbin=False, aspect='equal'):
 	"""
 
 	:param x:
@@ -176,7 +176,10 @@ def ploth2(x=[],y=[],z=None, statistic='mean', H=None,edges=None,ax=None,bins=10
 				ax.plot(xf,f(xf),c='blue',lw=2,zorder=1000)
 
 		if levels is not None:
-			ax.contour(H.T,origin='lower',extent=extent,levels=levels)
+			if levels_color is None:
+				ax.contour(H.T,origin='lower',extent=extent,levels=levels)
+			else:
+				ax.contour(H.T, origin='lower', extent=extent, levels=levels,colors=levels_color)
 
 
 		if xlim is not None: ax.set_xlim(xlim)
@@ -191,11 +194,14 @@ def ploth2(x=[],y=[],z=None, statistic='mean', H=None,edges=None,ax=None,bins=10
 	else:
 		im=None
 
+	ax.tick_params(labelsize=fontsize)
+
 	if colorbar and (ax is not None):
 		divider = make_axes_locatable(ax)
 		cax     = divider.append_axes('right', size='5%', pad=0.05)
 		cbar	= plt.colorbar(im, cax=cax)
 		cbar.ax.set_ylabel(colorbar_label, fontsize=fontsize)
+		cbar.ax.tick_params(labelsize=fontsize)
 
 	edges=(xedges,yedges)
 	return H,edges,im

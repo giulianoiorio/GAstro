@@ -550,6 +550,24 @@ def metallicity_RRc(period, phi31, period_err=None, phi31_err=None, Nsample=1000
 
 	return ret_stat, Fe_lin
 
+
+def sample_metallicity_SOS(metallicity, metallicity_err,type,N):
+
+	if metallicity is None:
+		if type.lower() == "rrab": path_to_file = data_file_path + "gaia_sos_distribution/RRab_SOS_metallicity.xdgmm"
+		elif type.lower() == "rrc": path_to_file = data_file_path + "gaia_sos_distribution/RRc_SOS_metallicity.xdgmm"
+		else: raise ValueError("type %s not allowed"%(type))
+
+		xdgmm = XDGMM(filename=path_to_file)
+		met = xdgmm.sample(N).flatten()
+	elif metallicity_err is None:
+		met=np.random.normal(metallicity,0.5,N)
+	else:
+		met = np.random.normal(metallicity, metallicity_err, N)
+
+	return met
+
+
 ##Mg
 #Mg-Fe relation from Muraveva+19  -> Mg = M_hat + _slope_fe*[Fe/H] +- _Mscatter
 _Mhat           = 1.11
@@ -674,6 +692,40 @@ def sample_Dsun_fromMg(g,ebv,Mg,Mg_error=None, bp_rp=None, g_error=None, ebv_err
 	else:
 		return dist_sample
 
+def sample_Dsun_single_SOS(g, ebv, metallicity=None, bp_rp=None, g_error=None, ebv_error=None, metallicity_error=None, bp_rp_error=None, kg=2.27, kg_error=0.3,  type="RRab", sos_correction=False, return_all=False, Nsample=1000):
+
+	#1 ad 2 (depend on type)
+	met_sample=sample_metallicity_SOS(metallicity, metallicity_error, type, Nsample)
+
+	#3-Mg
+	Mg_sample=sample_Mg_single(met_sample)
+	#print(np.mean(Mg_sample), np.std(Mg_sample))
+
+	#5-Correct g for SOS (optional)
+	if sos_correction:
+		g_sample = sample_g_gaia_to_g_sos(g, Nsample=Nsample)
+		if bp_rp is not None:
+			Ag_sample = _ext_class_for_gc.Ag_iterative_error_sample(bp_rp, ebv, bp_rp_error=bp_rp_error, ebv_error=ebv_error, Nerror=Nsample, Nmax=1000)
+		else:
+			if ebv_error is None: ebv_error=0
+			Ag_sample = np.random.normal(kg, kg_error, Nsample) * np.random.normal(ebv, ebv_error, Nsample)
+		_gc_sample = g_sample - Ag_sample
+	else:
+		_gc_sample = gc_sample(g, ebv, bp_rp=bp_rp, kg=kg, g_error=g_error, bp_rp_error=bp_rp_error, kg_error=kg_error,ebv_error=ebv_error, Nsample=Nsample)
+
+	#5b-Gc
+	#_gc_sample = gc_sample(g, ebv, bp_rp=bp_rp, kg=kg, g_error=g_error, bp_rp_error=bp_rp_error, kg_error=kg_error, ebv_error=ebv_error,Nsample=Nsample)
+	#print(np.mean(_gc_sample), np.std(_gc_sample))
+
+
+	#Distance
+	dist_sample=m_to_dist(_gc_sample, Mg_sample)
+	#print(np.mean(dist_sample), np.std(dist_sample))
+
+	if return_all:
+		return dist_sample, met_sample, _gc_sample, Mg_sample
+	else:
+		return dist_sample
 
 
 def sample_Dsun_single(g, ebv, period=None, phi31=None, bp_rp=None,  g_error=None, ebv_error=None, period_error=0, phi31_error=0, bp_rp_error=None, kg=2.27, kg_error=0.3,  type="RRab", default_trace="layden", sos_correction=False, return_all=False, Nsample=1000):
@@ -843,6 +895,8 @@ def sample_obs_error_5D_rrl(property_list:_str_plist, Rsun:_str_kpc=8.2, Rsun_er
 			if sos_correction:
 				if g_sos is None: sos_correction_input, g_input = True, g
 				else: sos_correction_input, g_input = False, g_sos
+			else:
+				sos_correction_input, g_input = False, g
 
 			if Mgc is not None:
 				Dsunl,gcl, Mgl = sample_Dsun_fromMg(g_input,ebv,Mgc,Mg_error=Mgc_err, bp_rp=bp_rp, g_error=None, ebv_error=0.16*ebv,bp_rp_error=None,
@@ -853,6 +907,287 @@ def sample_obs_error_5D_rrl(property_list:_str_plist, Rsun:_str_kpc=8.2, Rsun_er
 				Dsunl, FeHl, gcl, Mgl = sample_Dsun_single(g_input, ebv, period=period_input, phi31=phi31, bp_rp=bp_rp, g_error=None, ebv_error=0.16*ebv,
 									   period_error=period_error, phi31_error=phi31_error, bp_rp_error=None, kg=2.27, kg_error=0.3, type=type_input, default_trace="layden",
 									   sos_correction=sos_correction_input, return_all=True, Nsample=N)
+
+		#1b-
+		#Rsun
+		if Rsun_err is None: Rsunl = onesl*Rsun
+		else: Rsunl = np.random.normal(Rsun, Rsun_err, N)
+
+		# LHS COORD
+		xsl    =  Dsunl * np.cos(ll) * np.cos(bl)
+		yl     =  Dsunl * np.sin(ll) * np.cos(bl)
+		zl     =  Dsunl * np.sin(bl)
+		xl     =  Rsunl - xsl
+		Rl     =  np.sqrt(xl * xl + yl * yl)
+		phil   =  np.arctan2(yl, xl)
+		rl     =  np.sqrt( Rl*Rl + zl*zl )
+		thetal =  np.arcsin(zl/rl)
+		rel	   =  xyz_to_m(xl, yl, zl, q=q, qinf=qinf, rq=rq, p=p, alpha=alpha, beta=beta, gamma=gamma, ax=ax)
+
+		#STOP HERE IF PMRA OR PMDEC ARE NONE
+		if pmra is None or np.isnan(pmra) or pmdec is None or np.isnan(pmdec):
+
+			# Estiamte Std, Cov
+			_nan3= np.array([np.nan,]*3)
+			_nan2= np.array([np.nan,]*2)
+			Mean_cart, Std_cart, rho_cart = calc_covariance( xl, yl, zl)
+			Mean_cyl, Std_cyl, rho_cyl = calc_covariance(Rl, np.degrees(phil), zl)
+			Mean_sph, Std_sph, rho_sph = calc_covariance(rl, np.degrees(thetal), np.degrees(phil))
+			Mean_sky, Std_sky, rho_sky = _nan2, _nan2, _nan2
+			Mean_sky_corr, Std_sky_corr, rho_sky_corr = _nan2,_nan2,_nan2
+			Mean_skyp, Std_skyp, rho_skyp = _nan2,_nan2,_nan2
+			Mean_skyp_corr, Std_skyp_corr, rho_skyp_corr = _nan2,_nan2,_nan2
+			Mean_sky_tan, Std_sky_tan, rho_Sky_tan = _nan2,_nan2,_nan2
+			_, _, rho_Dsun_Vlc = _nan2,_nan2,_nan2
+			_, _, rho_Dsun_Vbc = _nan2,_nan2,_nan2
+			Mean_Dsun_feh, Std_Dsun_feh, rho_Dsun_feh = calc_covariance(Dsunl, FeHl)
+			_, _, rho_vl_feh = _nan3,_nan3,_nan3
+
+			# pmra pmdec corr
+			Mean_skyeq_corr, Std_skyeq_corr, rho_skyeq_corr = _nan2,_nan2,_nan2
+
+		else:
+
+
+			#2a-Estiamte total error for proper motion
+			pmra_err = gaia.total_error_pm(pmra_err, g)
+			pmdec_err = gaia.total_error_pm(pmdec_err, g)
+
+
+			#2b-Sample proper motion
+			cov_pm               =  pmra_err*pmdec_err*cov_pmra_pmdec
+			cov_matrix           =  [ [pmra_err**2, cov_pm],  [cov_pm, pmdec_err**2] ]
+			pmral, pmdecl        =  np.random.multivariate_normal( [pmra, pmdec], cov_matrix, N).T
+
+			#print("pmral",pmral[0], pmral.shape)
+
+			#3-Correct proper motion  for internal rotation for bright star
+			if g<12:
+				pmral, pmdecl = gaia.sample_pm_frame_correction(pmral, pmdecl, ral, decl, Nsample=1)
+
+			#print("pmral",pmral[0], pmral.shape)
+
+			#4-Sample proper motion l and b
+			pmll, pmbl		     =  co.pmrapmdec_to_pmllpmbb(pmral, pmdecl, ral, decl, degree=True).T
+
+			#5 Sample Galacitc properties
+			#Vsun
+			Vsunl = tr._make_Vsunl(U, V, W, U_err, V_err, W_err, Vlsr, Vlsr_err, N)
+
+
+			#pml pmb corr
+			Vl_nocorr =  _K*Dsunl*pmll
+			Vb_nocorr =  _K*Dsunl*pmbl
+
+			vxsl_corr, vysl_corr, vzsl_corr  = stc(np.zeros_like(Vl_nocorr), Vl_nocorr, Vb_nocorr, ll, bl, true_theta=False, degree=False)
+			vxl_corr, vyl_corr, vzl_corr     = -(vxsl_corr + Vsunl[:,0]), vysl_corr + Vsunl[:, 1], vzsl_corr + Vsunl[:, 2]
+			_, Vbl, Vll                      = cts(-vxl_corr, vyl_corr, vzl_corr, ll, bl, true_theta=False, degree=False)
+			pmbl_corr, pmll_corr             = Vbl/(_K*Dsunl), Vll/(_K*Dsunl)
+			#pmral_corr, pmdecl_corr			 = co.pmllpmbb_to_pmrapmdec(pmll=pmll_corr, pmbb=pmbl_corr, l=ll, b=bl, degree=True).T
+			#A		 = co.pmllpmbb_to_pmrapmdec(pmll=pmll_corr, pmbb=pmbl_corr, l=ll, b=bl, degree=True).T
+			Vtanl                            = np.sqrt(Vll*Vll + Vbl*Vbl)
+
+			#Estiamte Std, Cov
+			Mean_cart, Std_cart, rho_cart = calc_covariance( xl, yl, zl)
+			Mean_cyl, Std_cyl, rho_cyl    = calc_covariance( Rl, np.degrees(phil), zl)
+			Mean_sph, Std_sph, rho_sph    = calc_covariance( rl, np.degrees(thetal), np.degrees(phil))
+			Mean_sky, Std_sky, rho_sky    = calc_covariance(pmll, pmbl)
+			Mean_sky_corr, Std_sky_corr, rho_sky_corr = calc_covariance(pmll_corr, pmbl_corr)
+			Mean_skyp, Std_skyp, rho_skyp = calc_covariance(Vl_nocorr, Vb_nocorr)
+			Mean_skyp_corr, Std_skyp_corr, rho_skyp_corr = calc_covariance(Vll, Vbl)
+			Mean_sky_tan, Std_sky_tan, rho_Sky_tan = calc_covariance(Dsunl, Vtanl)
+			_,_, rho_Dsun_Vlc = calc_covariance(Dsunl, Vll)
+			_,_, rho_Dsun_Vbc = calc_covariance(Dsunl, Vbl)
+			Mean_Dsun_feh, Std_Dsun_feh, rho_Dsun_feh = calc_covariance(Dsunl, FeHl)
+			_, _, rho_vl_feh = calc_covariance(FeHl, Vll, Vbl)
+
+			#pmra pmdec corr
+			pmral_corr, pmdecl_corr = co.pmllpmbb_to_pmrapmdec(pmll_corr,pmbl_corr, ll, bl, degree=False, epoch=2000.0).T
+			Mean_skyeq_corr, Std_skyeq_corr, rho_skyeq_corr = calc_covariance(pmral_corr, pmdecl_corr)
+
+		#out_array = np.zeros(65)
+		out_array = np.zeros(76)
+		#Cartesian
+		out_array[0:3] = Mean_cart[:3] #x,y,z
+		out_array[3:6] = Std_cart[:3] #err on x,y,z
+		out_array[6:9] = rho_cart[:3] #cov on x,y,z
+		#Cylindrical
+		out_array[9:11] = Mean_cyl[:2] #R, phi
+		out_array[11:13] = Std_cyl[:2] #err on Rphi
+		out_array[13:16] = rho_cyl[:3]
+		#Spherical
+		out_array[16:18] = Mean_sph[:2] #r, theta
+		out_array[18:20] = Std_sph[:2] #err on r, theta
+		out_array[20:23] = rho_sph[:3]
+
+		#PMRA
+		out_array[23] = pmra
+		out_array[24] = pmdec
+		out_array[25] = pmra_err
+		out_array[26] = pmdec_err
+		out_array[27] = cov_pmra_pmdec
+		out_array[28:30] = Mean_skyeq_corr #r, theta
+		out_array[30:32] = Std_skyeq_corr #err on r, theta
+		out_array[32] = rho_skyeq_corr[0]
+
+		#PML
+		out_array[33:35] = Mean_sky #r, theta
+		out_array[35:37] = Std_sky #err on r, theta
+		out_array[37] = rho_sky[0]
+		out_array[38:40] = Mean_sky_corr #r, theta
+		out_array[40:42] = Std_sky_corr #err on r, theta
+		out_array[42] = rho_sky_corr[0]
+
+		#V
+		out_array[43:45] = Mean_skyp #r, theta
+		out_array[45:47] = Std_skyp #err on r, theta
+		out_array[47] = rho_skyp[0]
+		out_array[48:50] = Mean_skyp_corr #r, theta
+		out_array[50:52] = Std_skyp_corr #err on r, theta
+		out_array[52] = rho_skyp_corr[0]
+		out_array[53:55] = Mean_sky_tan #r, theta
+		out_array[55:57] = Std_sky_tan#err on r, theta
+		out_array[57] = rho_Sky_tan[0]
+
+		#AUX
+		out_array[58] 	 = l
+		out_array[59] 	 = b
+		out_array[60] 	 = ra
+		out_array[61] 	 = dec
+		out_array[62] 	 = np.nanmean(gcl)
+		out_array[63] 	 = np.nanstd(gcl)
+		out_array[64] 	 = np.nanmean(Mgl)
+		out_array[65] 	 = np.nanstd(Mgl)
+		out_array[66]	 = Mean_Dsun_feh[1]
+		out_array[67]	 = Std_Dsun_feh[1]
+		out_array[68]	 = rho_Dsun_feh[0]
+		out_array[69:71] = rho_Dsun_feh[:2]
+		out_array[71]    = np.mean(rel)
+		out_array[72]    = np.std(rel)
+
+		#CHECK ID
+		if id is None and internal_id is None: id = internal_id = ut.create_long_index()
+		elif internal_id is None: internal_id = id
+		elif id is None: id = internal_id
+
+		if type_input=="rrab": out_array[73]    = 0
+		elif type_input=="rrc": out_array[73]    = 1
+
+		out_array[74] 	 = int(id)
+		out_array[75] 	 = internal_id
+
+		out_array=np.where(np.isfinite(out_array),out_array,np.nan)
+
+	except ValueError():
+		out_array = np.zeros(76)
+		out_array[:] = np.nan
+
+
+	return out_array, dict(zip(_key_list_obs, out_array))
+
+def sample_obs_error_5D_rrl_SOS(property_list:_str_plist, Rsun:_str_kpc=8.2, Rsun_err:_str_kpc=None, U:_str_kms=11.1, V:_str_kms=12.24, W:_str_kms=7.25, U_err:_str_kms=None, V_err:_str_kms=None, W_err:_str_kms=None, Vlsr:_str_kms=235, Vlsr_err:_str_kms=None, Mgc:"mag"=None, Mgc_err:"mag"=None, N:"int"=1000, sos_correction:"sos_correction"=True, q=1.0, qinf=1.0, rq=10.0, p=1.0, alpha=0, beta=0, gamma=0, ax='zyx')->"array and dic with properties":
+	"""
+	NB: THE INPUT ARE ASSUME A GALACTIC RH system (Sun is a x=Rsun),
+		BUT THE OUTPUT ARE IN GALACTIC LH system (I know is crazy).
+	:param property_list: A tuple with the following properties (in this order):
+		"(id: source_id of the star (can be None),
+		 ra: degrees,
+		 dec: degrees,
+		 l: degrees,
+		 b: degrees,
+		 pmra: pmra proper motion (non corrected for solar motion) mas/yr,
+		 pmdec: pmdec proper motion (non corrected for solar motion) mas/yr,
+		 pmra_err: pmra error,
+		 pmdec_err: pmdec error,
+		 cov_pmra_pmdec: pmra-pmdec corr. coff (sigma_ra_dec/(sigma_ra*sigma_dec)),
+		 g: G magnitude (can be None if distance is provided), not corrected for reddening
+		 g_sos: G magnitude as estimated in SOS (can be None), not corrected for reddening
+		 bp_rp: Gaia color,
+		 ebv: ebv,
+		 metallicity: SOS metallicity,
+		 metallicity_error: SOS metallicity error,
+		 type: "rrab" or "rrc",
+		 distance: Heliocentric distance in kpc (can be None if gc is provided)
+		 distance_error:
+		 internal_id: a user defined internal_id (can be None)".
+
+	:param Rsun: Distance of the Sun from the Galactic centre.
+	:param Rsun_err: error on Rsun.
+	:param U: Solar motion (wrt LSR) toward the Galactic center
+	(NB: here it is defined positive if it is toward the Galctice centre, but sample_obs_erro we used a left-hand system,
+	in this system a motion toward the GC is negatie. However this converstion is automatically made).
+	:param V: Solar proper motion (wrt LSR) along the direction of Galactic rotation.
+	:param W: Solar proper motion (wrt LSR) along the normal to the Galactic plane (positive value is an upaward motion).
+	:param U_err: error on U.
+	:param V_err: error on V.
+	:param W_err: error on W.
+	:param Vlsr:  Circular motion of the LSR.
+	:param Vlsr_err:  Error on Vlsr.
+	:param Mgc: Absolute magnitude to estimate distance from gc.
+	:param Mgc_err: error on Absolute magnitude.
+	:param N: Number of MC samples to generate.
+	:return: An array and a dictionary containing spatial and kinematic information obtained from the observables.
+	"""
+
+	_key_list_obs = ('x', 'y', 'z', 'x_err', 'y_err', 'z_err', 'p_x_y', 'p_x_z', 'p_y_z',
+					 'Rcyl', 'phi', 'Rcyl_err', 'phi_err', 'p_Rcyl_phi', 'p_Rcyl_z', 'p_phi_z',
+					 'r', 'theta', 'r_err', 'theta_err', 'p_r_theta', 'p_r_phi', 'p_theta_phi',
+					 'pmra', 'pmdec', 'pmra_err', 'pmdec_err', 'p_pmra_pmdec',
+					 'pmra_c', 'pmdec_c', 'pmra_c_err', 'pmdec_c_err', 'p_pmra_c_pmdec',
+					 'pml', 'pmb', 'pml_err', 'pmb_err', 'p_pml_pmb',
+					 'pml_c', 'pmb_c', 'pml_c_err', 'pmb_c_err', 'p_pml_c_pmb_c',
+					 'Vl', 'Vb', 'Vl_err', 'Vb_err', 'p_Vl_Vb',
+					 'Vl_c', 'Vb_c', 'Vl_c_err', 'Vb_c_err', 'p_Vl_c_Vb_c',
+					 'dsun', 'Vtan_c', 'dsun_err', 'Vtan_c_err', 'p_dsun_Vtan_c',
+					 'l', 'b', 'ra', 'dec', 'gc', 'gc_err', 'Mg', 'Mg_err', 'feh', 'feh_err',
+					 'p_dsun_feh', 'p_Vl_c_feh', 'p_Vb_c_feh', 're', 're_err',  'type_rrl', 'source_id', 'id')
+
+
+
+	_K = COST._K
+	cts = tr.cartesian_to_spherical
+	stc = tr.spherical_to_cartesian
+
+	#TO BE SURE THAT EVERYTHING IS OK
+
+	try:
+		id, ra, dec, l, b, pmra, pmdec, pmra_err, pmdec_err, cov_pmra_pmdec, g, g_sos, bp_rp, ebv, metallicity, metallicity_err,  type, distance, distance_error, internal_id = property_list
+		onesl   = np.ones(N) #list of ones
+		ral     = onesl*ra
+		decl    = onesl*dec
+		ll      = onesl*l
+		bl      = onesl*b
+		ll = np.radians(ll)
+		bl = np.radians(bl)
+		type_input = type
+
+
+		#1-Distance stuff
+		#Check  if we have to use  distance (priority), Mg,  or gc and Mg
+		if distance is not None and distance_error is not None:
+			Dsunl  = np.random.normal(distance, distance_error,N)
+			FeHl = gcl = Mgl = np.repeat(-999, N)
+		elif distance is not None:
+			Dsunl  = np.repeat(distance, N)
+			FeHl = gcl = Mgl = np.repeat(-999, N)
+		else:
+
+
+
+			if sos_correction:
+				if g_sos is None: sos_correction_input, g_input = True, g
+				else: sos_correction_input, g_input = False, g_sos
+			else:
+				sos_correction_input, g_input = False, g
+
+			if Mgc is not None:
+				Dsunl,gcl, Mgl = sample_Dsun_fromMg(g_input,ebv,Mgc,Mg_error=Mgc_err, bp_rp=bp_rp, g_error=None, ebv_error=0.16*ebv,bp_rp_error=None,
+													kg=2.27, kg_error=0.3,sos_correction=sos_correction_input, return_all=True, Nsample=N)
+				FeHl = np.repeat(-999, N)
+			else:
+
+				Dsunl, FeHl, gcl, Mgl = sample_Dsun_single_SOS(g=g_input, ebv=ebv, metallicity=metallicity, bp_rp=bp_rp, g_error=None, ebv_error=0.16*ebv, metallicity_error=metallicity_err,
+									   bp_rp_error=None, kg=2.27, kg_error=0.3,  type=type, sos_correction=sos_correction_input, return_all=True, Nsample=N)
 
 		#1b-
 		#Rsun
