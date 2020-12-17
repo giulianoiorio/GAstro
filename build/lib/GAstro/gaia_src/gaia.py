@@ -230,6 +230,7 @@ def bp_rp_err(flux_bp, flux_err_bp, flux_rp, flux_err_rp):
 	return np.sqrt(_bp_err*_bp_err + _rp_err*_rp_err)
 
 _ext_class_for_gc = Extinction()
+
 def gc_sample_babusiaux(g,  ebv, bp_rp, g_error=None, bp_rp_error=None, ebv_error=None, Nsample=1000):
 	"""
 	Sample the unreddend g mag using the iterative formula on Eq.1 of Babusiaux+18 paper:

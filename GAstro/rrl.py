@@ -19,7 +19,8 @@ import pycam.utils as ut
 from .stat import mad, calc_covariance
 from .gaia import gc_sample
 from .transform import m_to_dist
-from .gaia import _ext_class_for_gc
+#from .gaia import _ext_class_for_gc
+from .gaia import Extinction
 from . import transform as tr
 from . import constant as COST
 from . import gaia
@@ -27,7 +28,7 @@ from pycam.utils import xyz_to_m
 
 data_file_path= os.path.abspath(os.path.dirname(__file__)) + "/data/"
 
-
+_ext_class_for_gc = Extinction()
 
 
 def _type_1_2_division(period, offset=-0.15):
@@ -876,7 +877,7 @@ def sample_obs_error_5D_rrl(property_list:_str_plist, Rsun:_str_kpc=8.2, Rsun_er
 		bl      = onesl*b
 		ll = np.radians(ll)
 		bl = np.radians(bl)
-
+		type_input = type
 
 		#1-Distance stuff
 		#Check  if we have to use  distance (priority), Mg,  or gc and Mg
@@ -950,8 +951,9 @@ def sample_obs_error_5D_rrl(property_list:_str_plist, Rsun:_str_kpc=8.2, Rsun_er
 
 
 			#2a-Estiamte total error for proper motion
-			pmra_err = gaia.total_error_pm(pmra_err, g)
-			pmdec_err = gaia.total_error_pm(pmdec_err, g)
+			if g is not None:
+				pmra_err = gaia.total_error_pm(pmra_err, g)
+				pmdec_err = gaia.total_error_pm(pmdec_err, g)
 
 
 			#2b-Sample proper motion
@@ -962,7 +964,7 @@ def sample_obs_error_5D_rrl(property_list:_str_plist, Rsun:_str_kpc=8.2, Rsun_er
 			#print("pmral",pmral[0], pmral.shape)
 
 			#3-Correct proper motion  for internal rotation for bright star
-			if g<12:
+			if g is not None and g<12:
 				pmral, pmdecl = gaia.sample_pm_frame_correction(pmral, pmdecl, ral, decl, Nsample=1)
 
 			#print("pmral",pmral[0], pmral.shape)
@@ -1070,7 +1072,8 @@ def sample_obs_error_5D_rrl(property_list:_str_plist, Rsun:_str_kpc=8.2, Rsun_er
 		elif internal_id is None: internal_id = id
 		elif id is None: id = internal_id
 
-		if type_input=="rrab": out_array[73]    = 0
+		if type_input is None:  out_array[73] = np.nan
+		elif type_input=="rrab": out_array[73]    = 0
 		elif type_input=="rrc": out_array[73]    = 1
 
 		out_array[74] 	 = int(id)
@@ -1078,7 +1081,7 @@ def sample_obs_error_5D_rrl(property_list:_str_plist, Rsun:_str_kpc=8.2, Rsun_er
 
 		out_array=np.where(np.isfinite(out_array),out_array,np.nan)
 
-	except ValueError():
+	except: #ValueError():
 		out_array = np.zeros(76)
 		out_array[:] = np.nan
 
@@ -1161,6 +1164,7 @@ def sample_obs_error_5D_rrl_SOS(property_list:_str_plist, Rsun:_str_kpc=8.2, Rsu
 		bl = np.radians(bl)
 		type_input = type
 
+		print("WE")
 
 		#1-Distance stuff
 		#Check  if we have to use  distance (priority), Mg,  or gc and Mg
@@ -1229,10 +1233,10 @@ def sample_obs_error_5D_rrl_SOS(property_list:_str_plist, Rsun:_str_kpc=8.2, Rsu
 
 		else:
 
-
 			#2a-Estiamte total error for proper motion
-			pmra_err = gaia.total_error_pm(pmra_err, g)
-			pmdec_err = gaia.total_error_pm(pmdec_err, g)
+			if g is not None:
+				pmra_err = gaia.total_error_pm(pmra_err, g)
+				pmdec_err = gaia.total_error_pm(pmdec_err, g)
 
 
 			#2b-Sample proper motion
