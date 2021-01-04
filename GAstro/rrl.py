@@ -24,7 +24,8 @@ from .gaia import Extinction
 from . import transform as tr
 from . import constant as COST
 from . import gaia
-from pycam.utils import xyz_to_m
+#from pycam.utils import xyz_to_m
+from .transform import xyz_to_m
 
 data_file_path= os.path.abspath(os.path.dirname(__file__)) + "/data/"
 

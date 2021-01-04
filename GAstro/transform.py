@@ -29,7 +29,7 @@ from multiprocessing import Pool
 import time
 from functools import partial
 import multiprocessing as mp
-
+import roteasy as rs
 
 
 #INNER IMPORT
@@ -334,6 +334,40 @@ def lbd_to_XYZ(l,b,d,xsun=8):
 	x_g=xsun-x_s
 
 	return x_g, y_g, z_g
+
+def xyz_to_m(x,y,z,q=1.0,qinf=1.0,rq=10.0,p=1.0,alpha=0,beta=0,gamma=0,ax='zyx'):
+	"""
+	Return the m-value of an ellipsoid from the observ magnitude and galactic coordinate.
+	if q=1 and p=1, the ellipsoid is indeed a sphere and m=r
+	:param x: Galactic x (lhf, sun is a x~8)
+	:param y: Galactic y
+	:param z: Galactic z
+	:param q: Flattening along the z-direction, q=1 no flattening.
+	:param p: Flattening along the y-direction, p=1 no flattening.
+	:return: the m-value for an ellipsoid m^2=x^2+(y/p)^2+(z/q)^2.
+	"""
+
+	x = np.asarray(x, dtype=np.float64)
+	y = np.asarray(y, dtype=np.float64)
+	z = np.asarray(z, dtype=np.float64)
+
+	i=np.abs(alpha)+np.abs(beta)+np.abs(gamma)
+	if i!=0:
+		cord=rs.rotate_frame(cord=np.array([x,y,z]).T, angles=(alpha,beta,gamma), axes=ax, reference='lh' )
+		x=cord[:,0]
+		y=cord[:,1]
+		z=cord[:,2]
+
+	if q==qinf:
+		y=y/p
+		z=z/q
+		m=np.sqrt(x*x+y*y+z*z)
+	else:
+		m=np.array(calc_m(x,y,z, q, qinf, rq, p))
+
+
+	return m
+
 
 def HRF_to_LRF(ra, dec, VL, raL, decL, muraL, mudecL, DL):
 	"""
