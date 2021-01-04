@@ -891,7 +891,7 @@ def sample_obs_error_5D_rrl(property_list:_str_plist, Rsun:_str_kpc=8.2, Rsun_er
 
 			if type.lower()=="rrab": period_input, type_input = period, type
 			elif type.lower()=="rrc": period_input, type_input = period_1o, type
-			else: raise ValueError("Can be rrab or rrc in file %s"%__file__)
+			else: raise ValueError("Can be rrab or rrc in file %s, it is instead %s"%(__file__,type))
 
 			if sos_correction:
 				if g_sos is None: sos_correction_input, g_input = True, g
@@ -1081,7 +1081,7 @@ def sample_obs_error_5D_rrl(property_list:_str_plist, Rsun:_str_kpc=8.2, Rsun_er
 
 		out_array=np.where(np.isfinite(out_array),out_array,np.nan)
 
-	except: #ValueError():
+	except:
 		out_array = np.zeros(76)
 		out_array[:] = np.nan
 
