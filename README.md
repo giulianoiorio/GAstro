@@ -9,7 +9,7 @@ If you want help in using some of the utilities in the package, please send me a
     - Pandas
     - Matplotlib
     - Sklearn
-    - Roteasy
+    - [Roteasy](https://github.com/giulianoiorio/roteasy)
     - [Gala](https://github.com/adrn/gala)
     - [Xdgmm](https://github.com/tholoien/XDGMM)
     - [Emcee](https://emcee.readthedocs.io/en/stable/)
