@@ -13,7 +13,7 @@ import pandas as pd
 import os
 from xdgmm import XDGMM
 import galpy.util.bovy_coords as co
-import pycam.utils as ut
+#import pycam.utils as ut
 
 #Inner import
 from .stat import mad, calc_covariance
@@ -21,11 +21,11 @@ from .gaia import gc_sample
 from .transform import m_to_dist
 #from .gaia import _ext_class_for_gc
 from .gaia import Extinction
+from . import utility as ut
 from . import transform as tr
 from . import constant as COST
 from . import gaia
 #from pycam.utils import xyz_to_m
-from .transform import xyz_to_m
 
 data_file_path= os.path.abspath(os.path.dirname(__file__)) + "/data/"
 
@@ -924,7 +924,7 @@ def sample_obs_error_5D_rrl(property_list:_str_plist, Rsun:_str_kpc=8.2, Rsun_er
 		phil   =  np.arctan2(yl, xl)
 		rl     =  np.sqrt( Rl*Rl + zl*zl )
 		thetal =  np.arcsin(zl/rl)
-		rel	   =  xyz_to_m(xl, yl, zl, q=q, qinf=qinf, rq=rq, p=p, alpha=alpha, beta=beta, gamma=gamma, ax=ax)
+		rel	   =  tr.xyz_to_m(xl, yl, zl, q=q, qinf=qinf, rq=rq, p=p, alpha=alpha, beta=beta, gamma=gamma, ax=ax)
 
 		#STOP HERE IF PMRA OR PMDEC ARE NONE
 		if pmra is None or np.isnan(pmra) or pmdec is None or np.isnan(pmdec):
@@ -1208,7 +1208,7 @@ def sample_obs_error_5D_rrl_SOS(property_list:_str_plist, Rsun:_str_kpc=8.2, Rsu
 		phil   =  np.arctan2(yl, xl)
 		rl     =  np.sqrt( Rl*Rl + zl*zl )
 		thetal =  np.arcsin(zl/rl)
-		rel	   =  xyz_to_m(xl, yl, zl, q=q, qinf=qinf, rq=rq, p=p, alpha=alpha, beta=beta, gamma=gamma, ax=ax)
+		rel	   =  tr.xyz_to_m(xl, yl, zl, q=q, qinf=qinf, rq=rq, p=p, alpha=alpha, beta=beta, gamma=gamma, ax=ax)
 
 		#STOP HERE IF PMRA OR PMDEC ARE NONE
 		if pmra is None or np.isnan(pmra) or pmdec is None or np.isnan(pmdec):

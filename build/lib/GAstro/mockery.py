@@ -11,7 +11,8 @@
 import matplotlib as mpl
 mpl.use('Agg')
 import numpy as np
-from pycam.plot import ploth2, ploth1
+#from pycam.plot import ploth2, ploth1
+from .plot import ploth2, ploth1
 import matplotlib.pyplot as plt
 
 label_size = 18

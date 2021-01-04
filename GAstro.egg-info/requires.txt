@@ -7,4 +7,3 @@ galpy
 astropy
 pandas
 xdgmm
-sklearn
