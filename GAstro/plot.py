@@ -217,8 +217,20 @@ def ploth2(x=[],y=[],z=None, statistic='mean', H=None,edges=None,ax=None,bins=10
 		#X,Y=np.meshgrid(xedges,yedges)
 
 
-		if gamma==0: im=ax.imshow(H.T,origin='low',extent=extent, aspect=aspect,cmap=cmap,norm=LogNorm(),interpolation=interpolation,vmax=vmaxM,vmin=vminM)
-		else: im=ax.imshow(H.T,origin='low',extent=extent, aspect=aspect,cmap=cmap,norm=PowerNorm(gamma=gamma),interpolation=interpolation,vmax=vmaxM,vmin=vminM)
+		if xlogbin or ylogbin:
+
+			xim = 0.5*(edges[0][1:]+edges[0][:-1])
+			yim = 0.5*(edges[1][1:]+edges[1][:-1])
+
+			if gamma==0: im=ax.pcolor(xim,yim,H.T,cmap=cmap,norm=LogNorm(),vmax=vmaxM,vmin=vminM)
+			else: im=ax.pcolor(xim,yim,H.T,cmap=cmap,norm=PowerNorm(gamma=gamma),vmax=vmaxM,vmin=vminM)
+
+		else:
+			if gamma==0: im=ax.imshow(H.T,origin='low',extent=extent, aspect=aspect,cmap=cmap,norm=LogNorm(),interpolation=interpolation,vmax=vmaxM,vmin=vminM)
+			else: im=ax.imshow(H.T,origin='low',extent=extent, aspect=aspect,cmap=cmap,norm=PowerNorm(gamma=gamma),interpolation=interpolation,vmax=vmaxM,vmin=vminM)
+
+
+
 		#if gamma==0: im=ax.pcolormesh(X,Y,H.T, cmap=cmap,norm=LogNorm(),vmax=vmax,vmin=vmin)
 		#else: im=ax.pcolormesh(X,Y,H.T, cmap=cmap,norm=PowerNorm(gamma=gamma),vmax=vmax,vmin=vmin)
 

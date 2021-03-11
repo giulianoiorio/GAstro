@@ -23,7 +23,6 @@ import matplotlib as mpl
 #mpl.use('Agg')
 import numpy as np
 import galpy.util.bovy_coords as co
-import pycam.utils as ut
 import matplotlib as mpl
 from multiprocessing import Pool
 import time

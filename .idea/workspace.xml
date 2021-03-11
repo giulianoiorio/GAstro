@@ -3,6 +3,17 @@
   <component name="ChangeListManager">
     <list default="true" id="6786ee18-aa09-44af-8430-3dec9f667fc5" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GAstro.egg-info/PKG-INFO" beforeDir="false" afterPath="$PROJECT_DIR$/GAstro.egg-info/PKG-INFO" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GAstro/plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/GAstro/plot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/lib/GAstro/plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/build/lib/GAstro/plot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/lib/GAstro/rrl.py" beforeDir="false" afterPath="$PROJECT_DIR$/build/lib/GAstro/rrl.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/lib/GAstro/transform.py" beforeDir="false" afterPath="$PROJECT_DIR$/build/lib/GAstro/transform.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/GAstro-0.2.dev0-py3.7.egg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/GAstro-0.3.dev0-py3.7.egg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/GAstro-0.5.dev0-py3.7.egg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/GAstro-0.6.1.dev0-py3.7.egg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/GAstro-0.6.5.dev0-py3.7.egg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/GAstro-0.6.dev0-py3.7.egg" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16,7 +27,7 @@
       <file leaf-file-name="gaia.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GAstro/gaia.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
+            <state relative-caret-position="24">
               <caret line="1" column="33" selection-start-line="1" selection-start-column="33" selection-end-line="1" selection-end-column="33" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
@@ -28,7 +39,7 @@
       <file leaf-file-name="rrl.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GAstro/rrl.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="23018">
+            <state relative-caret-position="32112">
               <caret line="1354" column="69" selection-start-line="1354" selection-start-column="66" selection-end-line="1354" selection-end-column="69" />
             </state>
           </provider>
@@ -49,7 +60,7 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="187">
+              <first_editor relative-caret-position="264">
                 <caret line="11" column="9" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
               </first_editor>
               <second_editor />
@@ -71,8 +82,20 @@
       <file leaf-file-name="transform.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GAstro/transform.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="25" selection-start-line="25" selection-end-line="25" />
+            <state relative-caret-position="482">
+              <caret line="229" column="26" selection-start-line="229" selection-start-column="4" selection-end-line="229" selection-end-column="26" />
+              <folding>
+                <element signature="e#598#622#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="plot.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/GAstro/plot.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="163">
+              <caret line="221" column="50" lean-forward="true" selection-start-line="221" selection-start-column="50" selection-end-line="221" selection-end-column="50" />
             </state>
           </provider>
         </entry>
@@ -80,7 +103,7 @@
       <file leaf-file-name="fitsut.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GAstro/fitsut.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="867">
+            <state relative-caret-position="1224">
               <caret line="151" column="49" selection-start-line="151" selection-start-column="49" selection-end-line="151" selection-end-column="61" />
               <folding>
                 <element signature="e#135#153#0" expanded="true" />
@@ -92,11 +115,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="setup.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="setup.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/setup.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="314">
-              <caret line="51" column="32" lean-forward="true" selection-start-line="51" selection-start-column="32" selection-end-line="51" selection-end-column="32" />
+            <state relative-caret-position="1176">
+              <caret line="51" column="32" selection-start-line="51" selection-start-column="32" selection-end-line="51" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -104,7 +127,7 @@
       <file leaf-file-name="coordinates.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GAstro/coordinates.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
+            <state relative-caret-position="528">
               <caret line="162" column="88" selection-start-line="162" selection-start-column="88" selection-end-line="162" selection-end-column="88" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
@@ -173,11 +196,11 @@
         <option value="$PROJECT_DIR$/GAstro/coordinates.py" />
         <option value="$PROJECT_DIR$/GAstro/gaia_src/gaia.py" />
         <option value="$PROJECT_DIR$/GAstro/mockery.py" />
-        <option value="$PROJECT_DIR$/GAstro/plot.py" />
         <option value="$PROJECT_DIR$/GAstro/rrl.py" />
         <option value="$PROJECT_DIR$/GAstro/transform.py" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/setup.py" />
+        <option value="$PROJECT_DIR$/GAstro/plot.py" />
       </list>
     </option>
   </component>
@@ -188,10 +211,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="896" />
-    <option name="y" value="346" />
-    <option name="width" value="1183" />
-    <option name="height" value="958" />
+    <option name="x" value="704" />
+    <option name="y" value="302" />
+    <option name="width" value="1742" />
+    <option name="height" value="1138" />
   </component>
   <component name="ProjectId" id="1eMT92Xgnp269PlvvCzlALKjaxh" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -280,7 +303,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="896" y="346" width="1183" height="958" extended-state="0" />
+    <frame x="704" y="302" width="1742" height="1138" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -290,8 +313,8 @@
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.329849" />
       <window_info anchor="bottom" id="Python Console" order="7" weight="0.329849" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.329849" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28045574" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.2728146" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19411765" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="right" id="SciView" order="3" />
@@ -323,6 +346,34 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/GAstro/coordinates.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="162" column="88" selection-start-line="162" selection-start-column="88" selection-end-line="162" selection-end-column="88" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#230#1221#0" />
+            <element signature="e#1307#2259#0" />
+            <element signature="e#2362#2769#0" />
+            <element signature="e#2865#3270#0" />
+            <element signature="e#3389#3725#0" />
+            <element signature="e#3751#3867#0" />
+            <element signature="e#3897#4307#0" />
+            <element signature="e#4350#5336#0" />
+            <element signature="e#5428#7913#0" />
+            <element signature="e#7985#8907#0" />
+            <element signature="e#8936#10182#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/setup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="833">
+          <caret line="51" column="32" lean-forward="true" selection-start-line="51" selection-start-column="32" selection-end-line="51" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/GAstro/fitsut.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="867">
@@ -664,19 +715,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/fit.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/prob.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/plot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="28" selection-start-line="28" selection-end-line="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/GAstro/mockery.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="112">
@@ -686,7 +724,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/GAstro/gaia.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
+        <state relative-caret-position="24">
           <caret line="1" column="33" selection-start-line="1" selection-start-column="33" selection-end-line="1" selection-end-column="33" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
@@ -696,7 +734,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/GAstro/fitsut.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="867">
+        <state relative-caret-position="1224">
           <caret line="151" column="49" selection-start-line="151" selection-start-column="49" selection-end-line="151" selection-end-column="61" />
           <folding>
             <element signature="e#135#153#0" expanded="true" />
@@ -718,7 +756,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/GAstro/coordinates.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
+        <state relative-caret-position="528">
           <caret line="162" column="88" selection-start-line="162" selection-start-column="88" selection-end-line="162" selection-end-column="88" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
@@ -739,15 +777,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/GAstro/rrl.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23018">
+        <state relative-caret-position="32112">
           <caret line="1354" column="69" selection-start-line="1354" selection-start-column="66" selection-end-line="1354" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAstro/transform.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" selection-start-line="25" selection-end-line="25" />
         </state>
       </provider>
     </entry>
@@ -763,7 +794,7 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="187">
+          <first_editor relative-caret-position="264">
             <caret line="11" column="9" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
           </first_editor>
           <second_editor />
@@ -772,8 +803,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/setup.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
-          <caret line="51" column="32" lean-forward="true" selection-start-line="51" selection-start-column="32" selection-end-line="51" selection-end-column="32" />
+        <state relative-caret-position="1176">
+          <caret line="51" column="32" selection-start-line="51" selection-start-column="32" selection-end-line="51" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GAstro/transform.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="482">
+          <caret line="229" column="26" selection-start-line="229" selection-start-column="4" selection-end-line="229" selection-end-column="26" />
+          <folding>
+            <element signature="e#598#622#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GAstro/plot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="221" column="50" lean-forward="true" selection-start-line="221" selection-start-column="50" selection-end-line="221" selection-end-column="50" />
         </state>
       </provider>
     </entry>
