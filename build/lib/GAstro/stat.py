@@ -11,6 +11,8 @@
 import numpy as np
 from scipy.interpolate import UnivariateSpline
 from sklearn.covariance import MinCovDet
+from scipy import integrate
+from scipy.stats import multivariate_normal
 
 
 def bootstrap(arr, fstatistic=np.nanmean, N=1000):
@@ -65,7 +67,6 @@ def calc_covariance(*args):
 
 	return Mean, Std, rho
 
-
 def recursive_mean(value, old_mean, N):
 	"""
 	Estimate the  mean value using the mean of a sample of len N and a new value.
@@ -78,8 +79,6 @@ def recursive_mean(value, old_mean, N):
 	new_mean = value/N + (N-1)/N * old_mean
 
 	return new_mean
-
-
 
 def recursive_std(value, old_std, N, dof=0):
 	"""
@@ -119,6 +118,25 @@ def recursive_cov(value, old_cov, old_mean, N, dof=1):
 	cov_b = B * np.outer(vec_diff, vec_diff)
 
 	return cov_a + cov_b
+
+
+def EIF(xerr: float, yerr: float, xycorr: float, Rlim: float) -> float:
+	"""
+	Estimate of the Error Integrate Fraction (EIF).
+	The EIF is the current fraction of a 2D multivariate normal centred in 0,0 pdf contained within
+	a circle with radius Rlim.
+	It could be used to compare the errors of measurements with 2D normal multivariate distribution
+	:param xerr [double,]: standard deviation on the x-axis
+	:param yerr [double,]: standard deviation on the y-axis
+	:param xycorr [float,]: correlation
+	:param Rlim [float,]: limit radius
+	:return float: The fraction of the pdf ofa 2D multivariate normal centred in 0,0  and with covariance matrix defined by the inputs contained within
+	a circle with radius Rlim.
+	"""
+	cov = np.array([[xerr * xerr, xycorr * xerr * yerr], [xycorr * xerr * yerr, yerr * yerr]])
+	rfv = multivariate_normal([0, 0], cov)
+	integrand = lambda theta, R: R * rfv.pdf(np.dstack([R * np.cos(theta), R * np.sin(theta)]))
+	return integrate.dblquad(integrand, 0, Rlim, lambda x: 0, lambda x: 2 * np.pi)[0]
 
 if __name__=='__main__':
 
