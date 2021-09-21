@@ -25,6 +25,8 @@ from . import utility as ut
 from . import transform as tr
 from . import constant as COST
 from . import gaia
+from .cutils import calc_m
+
 #from pycam.utils import xyz_to_m
 
 data_file_path= os.path.abspath(os.path.dirname(__file__)) + "/data/"
@@ -632,7 +634,6 @@ def estimate_Mg(fe, fe_err=None, Nsample=1000, flatten=False):
 	"""
 
 	M = sample_Mg(fe=fe, fe_err=fe_err, Nsample=Nsample)
-	print('M', M.shape)
 
 	ret_stat = {}
 	_M_tmp  = M.reshape(-1, Nsample)
@@ -869,7 +870,8 @@ def sample_obs_error_5D_rrl(property_list:_str_plist, Rsun:_str_kpc=8.2, Rsun_er
 
 	#TO BE SURE THAT EVERYTHING IS OK
 
-	try:
+	if True:
+	#try:
 		id, ra, dec, l, b, pmra, pmdec, pmra_err, pmdec_err, cov_pmra_pmdec, g, g_sos, bp_rp,ebv, period, period_1o, period_error,  phi31, phi31_error, type, distance, distance_error, internal_id = property_list
 		onesl   = np.ones(N) #list of ones
 		ral     = onesl*ra
@@ -910,10 +912,14 @@ def sample_obs_error_5D_rrl(property_list:_str_plist, Rsun:_str_kpc=8.2, Rsun_er
 									   period_error=period_error, phi31_error=phi31_error, bp_rp_error=None, kg=2.27, kg_error=0.3, type=type_input, default_trace="layden",
 									   sos_correction=sos_correction_input, return_all=True, Nsample=N)
 
+
+
 		#1b-
 		#Rsun
 		if Rsun_err is None: Rsunl = onesl*Rsun
 		else: Rsunl = np.random.normal(Rsun, Rsun_err, N)
+
+
 
 		# LHS COORD
 		xsl    =  Dsunl * np.cos(ll) * np.cos(bl)
@@ -925,6 +931,10 @@ def sample_obs_error_5D_rrl(property_list:_str_plist, Rsun:_str_kpc=8.2, Rsun_er
 		rl     =  np.sqrt( Rl*Rl + zl*zl )
 		thetal =  np.arcsin(zl/rl)
 		rel	   =  tr.xyz_to_m(xl, yl, zl, q=q, qinf=qinf, rq=rq, p=p, alpha=alpha, beta=beta, gamma=gamma, ax=ax)
+
+
+
+
 
 		#STOP HERE IF PMRA OR PMDEC ARE NONE
 		if pmra is None or np.isnan(pmra) or pmdec is None or np.isnan(pmdec):
@@ -1082,7 +1092,8 @@ def sample_obs_error_5D_rrl(property_list:_str_plist, Rsun:_str_kpc=8.2, Rsun_er
 
 		out_array=np.where(np.isfinite(out_array),out_array,np.nan)
 
-	except:
+	else:
+	#except:
 		out_array = np.zeros(76)
 		out_array[:] = np.nan
 
@@ -1165,7 +1176,6 @@ def sample_obs_error_5D_rrl_SOS(property_list:_str_plist, Rsun:_str_kpc=8.2, Rsu
 		bl = np.radians(bl)
 		type_input = type
 
-		print("WE")
 
 		#1-Distance stuff
 		#Check  if we have to use  distance (priority), Mg,  or gc and Mg

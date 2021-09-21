@@ -145,7 +145,7 @@ def make_fits(dict,outname=None,header_key={}):
 		else: tab.header[key]=item
 
 
-	if outname is not None: tab.writeto(outname,clobber=True)
+	if outname is not None: tab.writeto(outname,overwrite=True)
 
 	return tab
 
@@ -180,7 +180,7 @@ def addcol_fits(fitsfile,newcols=({},),idtable=1,outname=None):
 	new_cols=ft.ColDefs(col_list)
 	hdu = ft.BinTableHDU.from_columns(orig_cols + new_cols)
 
-	if outname is not None: hdu.writeto(outname,clobber=True)
+	if outname is not None: hdu.writeto(outname,overwrite=True)
 
 	return hdu
 

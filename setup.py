@@ -39,21 +39,25 @@ except:
 '''
 
 
-#from distutils.core import setup
-from setuptools import setup
+from distutils.core import  setup, Extension
+from Cython.Build import cythonize
 import os
 import sysconfig
 import sys
 
+cy=['GAstro/cutils.pyx']
+cy_ext=Extension('GAstro.cutils',sources=cy)
+
+ext_modules=cythonize(cy_ext)
 
 setup(
 		name='GAstro',
-		version='0.7.0dev0',
+		version='0.8.0.dev0',
 		author='Giuliano Iorio',
 		author_email='',
 		url='',
 		packages=['GAstro','GAstro/gaia_src'],
-        install_requires=['numpy>=1.9', 'scipy>=0.19', 'matplotlib','emcee','sklearn','galpy','astropy','pandas', 'xdgmm'],
 		include_package_data=True,
+		ext_modules=ext_modules,
 		zip_safe=False
 )

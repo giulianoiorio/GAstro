@@ -350,6 +350,7 @@ def xyz_to_m(x,y,z,q=1.0,qinf=1.0,rq=10.0,p=1.0,alpha=0,beta=0,gamma=0,ax='zyx')
 	y = np.asarray(y, dtype=np.float64)
 	z = np.asarray(z, dtype=np.float64)
 
+
 	i=np.abs(alpha)+np.abs(beta)+np.abs(gamma)
 	if i!=0:
 		cord=rs.rotate_frame(cord=np.array([x,y,z]).T, angles=(alpha,beta,gamma), axes=ax, reference='lh' )
@@ -363,7 +364,6 @@ def xyz_to_m(x,y,z,q=1.0,qinf=1.0,rq=10.0,p=1.0,alpha=0,beta=0,gamma=0,ax='zyx')
 		m=np.sqrt(x*x+y*y+z*z)
 	else:
 		m=np.array(calc_m(x,y,z, q, qinf, rq, p))
-
 
 	return m
 
