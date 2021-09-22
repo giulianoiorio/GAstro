@@ -4,6 +4,7 @@
 *_backup.py
 .project
 .pydevproject
+.idea
 /gh-pages
 herp
 build

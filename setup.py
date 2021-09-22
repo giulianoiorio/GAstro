@@ -18,7 +18,7 @@ ext_modules=cythonize(cy_ext)
 
 setup(
 		name='GAstro',
-		version='0.8.0.dev0',
+		version='0.8.1.dev0',
 		author='Giuliano Iorio',
 		author_email='',
 		url='',
