@@ -227,7 +227,7 @@ def ploth2(x=[],y=[],z=None, statistic='mean', H=None,edges=None,ax=None,bins=10
 
 		else:
 			if gamma==0: im=ax.imshow(H.T,origin='lower',extent=extent, aspect=aspect,cmap=cmap,norm=LogNorm(),interpolation=interpolation,vmax=vmaxM,vmin=vminM)
-			else: im=ax.imshow(H.T,origin='lower',extent=extent, aspect=aspect,cmap=cmap,norm=PowerNorm(gamma=gamma),interpolation=interpolation,vmax=vmaxM,vmin=vminM)
+			else: im=ax.imshow(H.T,origin= 'lower',extent=extent, aspect=aspect,cmap=cmap,norm=PowerNorm(gamma=gamma),interpolation=interpolation,vmax=vmaxM,vmin=vminM)
 
 
 
