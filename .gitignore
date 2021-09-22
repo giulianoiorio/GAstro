@@ -1,0 +1,13 @@
+*~
+*.swp
+*.pyc
+*_backup.py
+.project
+.pydevproject
+/gh-pages
+herp
+build
+dist
+Makefile
+test
+.DS_Store
